@@ -96,6 +96,20 @@
     ]
   },
   {
+    "id": "PRJ-05",
+    "slug": "absensi-digital-qr-event",
+    "judul": "Absensi Digital QR For Event",
+    "jenis": "APP",
+    "status": "live",
+    "label": [
+      "2026",
+      "Event & trip"
+    ],
+    "ringkasan": "Check-in peserta event dengan QR: e-ticket, scan oleh crew, self check-in, dan dashboard kehadiran real time.",
+    "gambar": "absensi.webp",
+    "ilustrasi": false
+  },
+  {
     "id": "PRJ-06",
     "slug": "server-remote-desktop",
     "judul": "Server Remote Desktop",
@@ -109,20 +123,6 @@
     "gambar": "remote.webp",
     "ilustrasi": true,
     "lebar": true
-  },
-  {
-    "id": "PRJ-05",
-    "slug": "absensi-digital-qr-event",
-    "judul": "Absensi Digital QR For Event",
-    "jenis": "APP",
-    "status": "live",
-    "label": [
-      "2026",
-      "Event & trip"
-    ],
-    "ringkasan": "Check-in peserta event dengan QR: e-ticket, scan oleh crew, self check-in, dan dashboard kehadiran real time.",
-    "gambar": "absensi.webp",
-    "ilustrasi": false
   },
   {
     "id": "PRJ-04",
