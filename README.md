@@ -41,7 +41,6 @@ Tambahkan satu blok di `src/_data/proyek.json`. Urutan di file = urutan tampil (
   "ringkasan": "Satu-dua kalimat yang tampil di kartu.",
   "gambar": "nama-gambar.webp",
   "ilustrasi": false,
-  "lebar": false,
   "teknologi": ["Proxmox VE", "Ubuntu"],
   "tautan": "https://contoh.com",
   "cerita": ["Paragraf pertama di halaman detail.", "Paragraf kedua."],
@@ -52,7 +51,7 @@ Tambahkan satu blok di `src/_data/proyek.json`. Urutan di file = urutan tampil (
 - `status`: `live` (Go Live), `prog` (Progress), atau `plan` (Rancangan).
 - `jenis`: label pendek di tag kabel, misalnya `APP`, `WEB`, `INFRA`.
 - `ilustrasi`: `true` kalau gambarnya bukan screenshot asli (muncul label "Ilustrasi").
-- `lebar`: `true` agar kartu tampil lebar (2 kolom). Pakai di proyek unggulan.
+- Kalau satu status punya 5 karya atau lebih, karya paling atas tampil besar sebagai unggulan, 6 berikutnya tampil sebagai kartu biasa, dan sisanya muncul setelah tombol "Lihat semua karya" diklik. Jadi taruh karya terbaik paling atas.
 - `teknologi`, `tautan`, `cerita`, `poin` boleh dihapus kalau belum ada. `cerita` dan `poin` mengisi halaman detail `/karya/<slug>/`.
 - Angka di bagian atas (go live, progress, rancangan) dan tab dihitung otomatis.
 

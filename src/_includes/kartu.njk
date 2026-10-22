@@ -1,5 +1,5 @@
-{%- macro kartu(p, status) -%}
-<a class="card{% if p.lebar %} feat{% endif %}" href="/karya/{{ p.slug }}/">
+{%- macro kartu(p, status, kelas = "", sembunyi = false) -%}
+<a class="card{% if kelas %} {{ kelas }}{% endif %}" href="/karya/{{ p.slug }}/"{% if sembunyi %} hidden data-extra{% endif %}>
   <div class="thumb img">
     <img src="/img/{{ p.gambar }}" alt="Tampilan {{ p.judul }}" loading="lazy" decoding="async" width="1040" height="650">
     <span class="tag">{{ p.id }} · {{ p.jenis }}</span><span class="st {{ status[p.status].kelas }}"><i></i>{{ status[p.status].nama }}</span>{% if p.ilustrasi %}<span class="ilus">Ilustrasi</span>{% endif %}

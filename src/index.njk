@@ -62,11 +62,17 @@ jsonld:
       {%- set daftar = proyek | byStatus(kode) %}
       <div class="group g-{{ kode }}" data-g="{{ kode }}"{% if not loop.first %} hidden{% endif %}>
         <div class="g-head"><span class="st {{ s.kelas }}"><i></i>{{ s.nama }}</span><span class="g-n mono">{{ daftar.length }} proyek</span><p>{{ s.ket }}</p></div>
+        {#- 5 karya atau lebih: karya teratas jadi unggulan, 6 berikutnya tampil, sisanya di balik tombol. -#}
+        {%- set pakaiUnggulan = daftar.length >= 5 %}
+        {%- set batas = 7 %}
         <div class="works{% if daftar.length == 2 %} two{% endif %}">
         {%- for p in daftar %}
-        {{ kartu(p, status) }}
+        {{ kartu(p, status, "feat" if (pakaiUnggulan and loop.first) else "", pakaiUnggulan and loop.index > batas) }}
         {%- endfor %}
         </div>
+        {%- if pakaiUnggulan and daftar.length > batas %}
+        <div class="all-works"><button class="btn" type="button" data-more aria-expanded="false">Lihat semua karya <span class="n mono">+{{ daftar.length - batas }}</span></button></div>
+        {%- endif %}
       </div>
       {%- endfor %}
     </div>
