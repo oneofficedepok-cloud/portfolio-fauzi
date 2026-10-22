@@ -118,7 +118,7 @@
         var p = x.p, img = pendingImg(p.gambar) || ('/img/' + p.gambar);
         html += '<div class="row" data-i="' + x.i + '">' +
           '<img class="thumb" src="' + esc(img) + '" alt="" loading="lazy">' +
-          '<div class="row-main"><b>' + esc(p.judul) + '</b><span class="muted mono">' + esc(p.id) + ' · ' + esc(p.jenis) + (p.lebar ? ' · lebar' : '') + '</span></div>' +
+          '<div class="row-main"><b>' + esc(p.judul) + '</b><span class="muted mono">' + esc(p.id) + ' · ' + esc(p.jenis) + '</span></div>' +
           '<select class="st-sel" aria-label="Status ' + esc(p.judul) + '">' +
             Object.keys(STATUS).map(function (k) { return '<option value="' + k + '"' + (k === p.status ? ' selected' : '') + '>' + STATUS[k] + '</option>'; }).join('') +
           '</select>' +
@@ -166,13 +166,13 @@
   }
   function openProj(i) {
     editIdx = i;
-    var f = $('#proj-form'), p = i >= 0 ? state.proyek[i] : { id: nextId(), status: 'live', jenis: 'INFRA', label: [], ilustrasi: false, lebar: false };
+    var f = $('#proj-form'), p = i >= 0 ? state.proyek[i] : { id: nextId(), status: 'live', jenis: 'INFRA', label: [], ilustrasi: false };
     f.reset();
     $('#proj-dlg-title').textContent = i >= 0 ? 'Ubah karya' : 'Tambah karya';
     $('#proj-del').hidden = i < 0;
     f.judul.value = p.judul || ''; f.status.value = p.status; f.jenis.value = p.jenis || ''; f.id.value = p.id;
     f.label1.value = (p.label || [])[0] || ''; f.label2.value = (p.label || [])[1] || '';
-    f.ringkasan.value = p.ringkasan || ''; f.ilustrasi.checked = !!p.ilustrasi; f.lebar.checked = !!p.lebar;
+    f.ringkasan.value = p.ringkasan || ''; f.ilustrasi.checked = !!p.ilustrasi;
     f.teknologi.value = (p.teknologi || []).join(', '); f.tautan.value = p.tautan || '';
     f.cerita.value = (p.cerita || []).join('\n\n'); f.poin.value = (p.poin || []).join('\n');
     var prev = $('#proj-img-prev');
@@ -206,7 +206,7 @@
     var p = Object.assign({}, old, {
       id: f.id.value.trim(), slug: slug, judul: f.judul.value.trim(), jenis: f.jenis.value.trim().toUpperCase(), status: f.status.value,
       label: [f.label1.value.trim(), f.label2.value.trim()].filter(Boolean), ringkasan: f.ringkasan.value.trim(),
-      ilustrasi: f.ilustrasi.checked, lebar: f.lebar.checked,
+      ilustrasi: f.ilustrasi.checked,
     });
     var opt = {
       teknologi: f.teknologi.value.split(',').map(function (s) { return s.trim(); }).filter(Boolean),

@@ -128,7 +128,7 @@ section.blk { padding-block: 72px; border-top: 1px solid var(--line); }
 .works { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .card { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px; display: grid; grid-template-rows: auto 1fr; gap: 16px; text-decoration: none; min-width: 0; transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .25s, box-shadow .35s; }
 .card:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--ink) 35%, var(--line)); box-shadow: 0 18px 40px -24px color-mix(in srgb, var(--ink) 45%, transparent); }
-.card.feat { grid-column: span 2; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); grid-template-rows: auto; align-items: stretch; }
+.card.feat { grid-column: 1 / -1; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); grid-template-rows: auto; align-items: stretch; }
 .card.in { animation: pop .45s cubic-bezier(.2,.8,.2,1) both; }
 @keyframes pop { from { opacity: 0; transform: translateY(10px) scale(.98); } }
 
@@ -187,15 +187,16 @@ section.blk { padding-block: 72px; border-top: 1px solid var(--line); }
 .card:hover .m-cctv i.hit { animation: flick 1s steps(2) infinite; }
 @keyframes flick { 50% { outline-color: transparent; } }
 
-.body { display: grid; gap: 10px; align-content: start; padding: 4px 6px 6px; min-width: 0; }
-.card.feat .body { padding: 18px 16px; align-content: center; }
+.body { display: flex; flex-direction: column; gap: 10px; padding: 4px 6px 6px; min-width: 0; }
+.card.feat .body { padding: 18px 16px; justify-content: center; }
 .meta { display: flex; flex-wrap: wrap; gap: 6px 12px; color: var(--muted); }
 .card h3 { font-size: 22px; font-weight: 700; color: var(--ink); }
 .card.feat h3 { font-size: clamp(26px, 3vw, 36px); font-weight: 800; }
-.card p { font-size: 14.5px; color: var(--muted); }
+.card p { font-size: 14.5px; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.card.feat p { -webkit-line-clamp: 5; }
 .out { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
 .out span { font-size: 12.5px; border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px; color: var(--ink); background: var(--bg); }
-.more { margin-top: 6px; font-weight: 700; font-size: 14px; color: var(--ink); display: inline-flex; gap: 8px; align-items: center; }
+.more { margin-top: auto; padding-top: 6px; font-weight: 700; font-size: 14px; color: var(--ink); display: inline-flex; gap: 8px; align-items: center; }
 .more .arr { transition: transform .25s; }
 .card:hover .more .arr { transform: translateX(5px); }
 /* garis kabel yang tergambar di bawah judul saat hover */
@@ -419,3 +420,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 
 .d-grid.solo { grid-template-columns: minmax(0, 420px); }
 .d-grid.solo .d-side { position: static; }
+
+/* Tombol "Lihat semua karya" */
+.all-works { display: flex; justify-content: center; margin-top: 4px; }
+.all-works .n { color: var(--muted); font-size: 12px; }
+.card.feat .more { margin-top: 8px; }
