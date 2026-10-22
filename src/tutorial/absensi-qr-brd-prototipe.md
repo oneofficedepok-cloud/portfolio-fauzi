@@ -4,7 +4,7 @@ kategori: "Aplikasi"
 menit: 4
 date: 2026-10-22
 deskripsi: "Behind the scenes bikin aplikasi absensi QR buat event: dari nulis BRD, nentuin alur, desain data, sampai prototipe yang bisa langsung dicoba klien."
-draft: true
+draft: false
 urutan: 5
 ---
 
