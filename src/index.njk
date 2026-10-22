@@ -1,0 +1,128 @@
+---
+layout: base.njk
+jsonld:
+  "@context": "https://schema.org"
+  "@type": "Person"
+  name: "Irfan Fauzi"
+  jobTitle: "IT Infrastructure & Support"
+  email: "mailto:rfn.fauzi@gmail.com"
+  knowsAbout: ["IT Infrastructure", "Proxmox", "Nextcloud", "Backup", "Jaringan", "Website", "Aplikasi"]
+---
+{%- from "kartu.njk" import kartu -%}
+{%- set nLive = (proyek | byStatus("live")).length -%}
+{%- set nProg = (proyek | byStatus("prog")).length -%}
+{%- set nPlan = (proyek | byStatus("plan")).length -%}
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow"><span class="led"></span>{{ site.bidang }}</span>
+      <h1>
+        <span class="ln"><span>Saya merapikan</span></span>
+        <span class="ln"><span>sistem IT yang</span></span>
+        <span class="ln"><span>dipakai <em>setiap hari.</em></span></span>
+      </h1>
+      <p class="lede">Dari jaringan kantor, server dan backup, sampai website dan aplikasi untuk sekolah, masjid, dan perusahaan. Di sini saya mendokumentasikan semuanya.</p>
+      <div class="hero-cta">
+        <a class="btn primary" href="#karya">Lihat karya <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn" href="#tutorial">Baca tutorial</a>
+      </div>
+      <div class="stats">
+        <div><b>{{ nLive }} go live</b><span>dari {{ proyek.length }} proyek terdokumentasi</span></div>
+        <div><b>Web · App · Infra</b><span>tiga bidang yang saya kerjakan</span></div>
+      </div>
+    </div>
+
+    <figure class="orbit" aria-label="Orbit sirkuit: chip IF dengan jalur sirkuit ke website, aplikasi, server, cloud, jaringan, dan CCTV">
+      <div class="orbit-stage" aria-hidden="true">
+        <svg class="traces" viewBox="0 0 400 400"><g class="dialg"><circle class="dial" cx="200" cy="200" r="186"/><circle class="dial2" cx="200" cy="200" r="176"/></g><path class="tr" d="M200 152 V100 L170 70 V27"/><path class="tr" d="M248 176 H300 L330 146 H360"/><path class="tr" d="M248 224 H290 L322 256 V300"/><path class="tr" d="M222 248 V300 L250 328 V372"/><path class="tr" d="M178 248 V290 L150 318 V372"/><path class="tr" d="M152 224 H108 L76 256 V296"/><path class="tr" d="M152 176 H96 L66 146 H40"/><path class="tr" d="M222 152 V112 L252 82 V30"/><path class="pulse" pathLength="1" d="M200 152 V100 L170 70 V27" style="--i:0"/><path class="pulse g" pathLength="1" d="M248 176 H300 L330 146 H360" style="--i:1"/><path class="pulse" pathLength="1" d="M248 224 H290 L322 256 V300" style="--i:2"/><path class="pulse" pathLength="1" d="M222 248 V300 L250 328 V372" style="--i:3"/><path class="pulse g" pathLength="1" d="M178 248 V290 L150 318 V372" style="--i:4"/><path class="pulse" pathLength="1" d="M152 224 H108 L76 256 V296" style="--i:5"/><path class="pulse" pathLength="1" d="M152 176 H96 L66 146 H40" style="--i:6"/><path class="pulse g" pathLength="1" d="M222 152 V112 L252 82 V30" style="--i:7"/><circle class="tr-end" cx="170" cy="27" r="3.5"/><circle class="tr-end" cx="360" cy="146" r="3.5"/><circle class="tr-end" cx="322" cy="300" r="3.5"/><circle class="tr-end" cx="250" cy="372" r="3.5"/><circle class="tr-end" cx="150" cy="372" r="3.5"/><circle class="tr-end" cx="76" cy="296" r="3.5"/><circle class="tr-end" cx="40" cy="146" r="3.5"/><circle class="tr-end" cx="252" cy="30" r="3.5"/></svg>
+        <div class="ring"><div class="arm" style="--a:30deg"><div class="sat" style="--c:var(--accent)"><span><b>Website</b></span></div></div><div class="arm" style="--a:95deg"><div class="sat" style="--c:var(--led)"><span><b>Aplikasi</b></span></div></div><div class="arm" style="--a:160deg"><div class="sat" style="--c:var(--amber)"><span><b>Server</b></span></div></div><div class="arm" style="--a:215deg"><div class="sat" style="--c:var(--led)"><span><b>Cloud</b></span></div></div><div class="arm" style="--a:275deg"><div class="sat" style="--c:var(--accent)"><span><b>Jaringan</b></span></div></div><div class="arm" style="--a:330deg"><div class="sat" style="--c:var(--amber)"><span><b>CCTV</b></span></div></div></div>
+        <div class="pins"></div>
+        <div class="cpu"><b>IF</b><small>CORE</small></div>
+      </div>
+      <figcaption class="orbit-cap mono"><span><span class="led"></span>{{ nLive }} go live</span><span>{{ nProg }} progress</span><span>{{ nPlan }} rancangan</span></figcaption>
+    </figure>
+  </div>
+</header>
+
+<main id="isi">
+  <section class="blk" id="karya">
+    <div class="wrap">
+      <div class="blk-head">
+        <div><span class="eyebrow">Karya</span><h2>Yang sudah saya kerjakan</h2></div>
+        <p>Pilih tab statusnya: sudah go live, masih dikerjakan, atau masih rancangan. Tiap proyek diberi label seperti kabel di rak server.</p>
+      </div>
+
+      <div class="filters" role="group" aria-label="Saring karya berdasarkan status">
+        {%- for kode, s in status %}
+        <button class="chip" type="button" data-f="{{ kode }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"><span class="dot-s {{ s.kelas }}"></span>{{ s.nama }} <span class="n">{{ (proyek | byStatus(kode)).length }}</span></button>
+        {%- endfor %}
+      </div>
+
+      {%- for kode, s in status %}
+      {%- set daftar = proyek | byStatus(kode) %}
+      <div class="group g-{{ kode }}" data-g="{{ kode }}"{% if not loop.first %} hidden{% endif %}>
+        <div class="g-head"><span class="st {{ s.kelas }}"><i></i>{{ s.nama }}</span><span class="g-n mono">{{ daftar.length }} proyek</span><p>{{ s.ket }}</p></div>
+        <div class="works{% if daftar.length == 2 %} two{% endif %}">
+        {%- for p in daftar %}
+        {{ kartu(p, status) }}
+        {%- endfor %}
+        </div>
+      </div>
+      {%- endfor %}
+    </div>
+  </section>
+
+  <section class="blk" id="tutorial">
+    <div class="wrap">
+      <div class="blk-head">
+        <div><span class="eyebrow">Tutorial</span><h2>Catatan yang bisa diikuti</h2></div>
+        <p>Langkah yang saya pakai di lapangan, ditulis ulang supaya bisa dipraktikkan siapa saja.</p>
+      </div>
+      <ul class="tuts">
+        {%- for t in collections.tutorial | head(6) %}
+        <li><a href="{{ t.url }}"><span class="cat">{{ t.data.kategori }}</span><h3>{{ t.data.title }}</h3><span class="rt">{{ t.data.menit }} menit</span><span class="go" aria-hidden="true">→</span></a></li>
+        {%- endfor %}
+        {%- for t in collections.tutorialSegera %}
+        <li><div class="soon"><span class="cat">{{ t.data.kategori }}</span><h3>{{ t.data.title }}</h3><span class="rt">Segera</span><span class="go" aria-hidden="true">…</span></div></li>
+        {%- endfor %}
+      </ul>
+      {%- if collections.tutorial.length > 6 %}
+      <p class="all"><a class="btn" href="/tutorial/">Semua tutorial <span class="arr" aria-hidden="true">→</span></a></p>
+      {%- endif %}
+    </div>
+  </section>
+
+  <section class="blk" id="catatan">
+    <div class="wrap logwrap">
+      <div class="blk-head">
+        <div><span class="eyebrow">Catatan kerja</span><h2>Log pekerjaan</h2></div>
+        <p>Setiap pekerjaan saya catat seperti log perangkat: kapan, apa, dan hasilnya. Transparan untuk klien, berguna untuk saya.</p>
+      </div>
+      <div class="log" role="region" aria-label="Log pekerjaan terbaru">
+        <div class="log-top"><span>~/catatan-kerja.log</span><span>terbaru di atas</span></div>
+        <ol>
+          {%- for l in log | head(10) %}
+          {%- set pr = proyek | byId(l.proyek) if l.proyek %}
+          <li><time datetime="{{ l.tanggal }}">{{ l.tanggal }}</time><span class="dot{% if l.status == 'wip' %} w{% endif %}"></span><span class="msg">{{ l.pesan }}{% if pr %} <a href="/karya/{{ pr.slug }}/"><em>{{ l.proyek }}</em></a>{% elif l.proyek %} <em>{{ l.proyek }}</em>{% endif %}</span></li>
+          {%- endfor %}
+        </ol>
+        <div class="cursor">$ tail -f</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="kontak">
+    <div class="wrap contact-box">
+      <div>
+        <span class="eyebrow"><span class="led"></span>Kontak</span>
+        <h2>Punya sistem yang perlu <em>dirapikan?</em></h2>
+        <p class="lede">Ceritakan kondisinya. Saya biasanya mulai dengan audit singkat sebelum menawarkan solusi.</p>
+      </div>
+      <div class="lines">
+        <div class="cline"><div><span class="mono">Email</span><strong><a href="mailto:{{ site.email }}">{{ site.email }}</a></strong></div><button type="button" data-copy="{{ site.email }}">Salin</button></div>
+        <div class="cline"><div><span class="mono">WhatsApp</span><strong><a href="https://wa.me/{{ site.wa }}?text={{ site.waPesan | urlencode }}" target="_blank" rel="noopener">{{ site.waTampil }}</a></strong></div><button type="button" data-copy="{{ site.waTampil | replace('-', '') }}">Salin</button></div>
+        <div class="cline"><div><span class="mono">Cara kerja</span><strong>{{ site.caraKerja }}</strong></div></div>
+      </div>
+    </div>
+  </section>
+</main>

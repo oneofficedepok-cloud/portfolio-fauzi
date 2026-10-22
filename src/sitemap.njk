@@ -1,0 +1,17 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- for item in collections.all %}
+{%- if item.url and not item.url.endsWith(".xml") and not item.url.endsWith(".txt") %}
+  <url><loc>{{ item.url | absUrl(site.url) }}</loc><lastmod>{{ item.date | isoDate }}</lastmod></url>
+{%- endif %}
+{%- endfor %}
+{%- for p in proyek %}
+{%- if not loop.first %}
+  <url><loc>{{ ("/karya/" + p.slug + "/") | absUrl(site.url) }}</loc></url>
+{%- endif %}
+{%- endfor %}
+</urlset>

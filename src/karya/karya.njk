@@ -1,0 +1,60 @@
+---
+layout: base.njk
+pagination:
+  data: proyek
+  size: 1
+  alias: p
+permalink: "/karya/{{ p.slug }}/"
+eleventyComputed:
+  title: "{{ p.judul }}"
+  deskripsi: "{{ p.ringkasan }}"
+  gambar: "{{ p.gambar }}"
+  ogType: article
+---
+{%- set s = status[p.status] %}
+{%- set sebelum = pagination.page.previous %}
+{%- set sesudah = pagination.page.next %}
+<main id="isi" class="detail">
+  <div class="wrap">
+    <nav class="crumb mono" aria-label="Lokasi"><a href="/">Beranda</a><span aria-hidden="true">/</span><a href="/#karya">Karya</a><span aria-hidden="true">/</span><span>{{ p.id }}</span></nav>
+
+    <header class="d-head">
+      <div class="d-tags"><span class="tag">{{ p.id }} · {{ p.jenis }}</span><span class="st {{ s.kelas }}"><i></i>{{ s.nama }}</span></div>
+      <h1>{{ p.judul }}</h1>
+      <p class="lede">{{ p.ringkasan }}</p>
+      <div class="meta mono">{% for l in p.label %}<span>{{ l }}</span>{% endfor %}</div>
+    </header>
+
+    <figure class="d-shot{% if p.status == 'plan' %} is-plan{% endif %}">
+      <img src="/img/{{ p.gambar }}" alt="Tampilan {{ p.judul }}" width="1040" height="650">
+      {%- if p.ilustrasi %}<figcaption class="mono">Gambar ilustrasi, bukan tangkapan layar asli.</figcaption>{% endif %}
+    </figure>
+
+    {%- set adaCerita = p.cerita or p.poin %}
+    <div class="d-grid{% if not adaCerita %} solo{% endif %}">
+      {%- if adaCerita %}
+      <article class="prose">
+        {%- for para in p.cerita %}<p>{{ para }}</p>{% endfor %}
+        {%- if p.poin %}
+        <h2>Yang saya kerjakan</h2>
+        <ul>{% for x in p.poin %}<li>{{ x }}</li>{% endfor %}</ul>
+        {%- endif %}
+      </article>
+      {%- endif %}
+      <aside class="d-side">
+        <dl>
+          <div><dt class="mono">Status</dt><dd>{{ s.nama }}</dd></div>
+          <div><dt class="mono">Jenis</dt><dd>{{ p.jenis }}</dd></div>
+          {%- if p.teknologi %}<div><dt class="mono">Teknologi</dt><dd>{{ p.teknologi | join(", ") }}</dd></div>{% endif %}
+          {%- if p.tautan %}<div><dt class="mono">Tautan</dt><dd><a href="{{ p.tautan }}" target="_blank" rel="noopener">{{ p.tautan | replace("https://", "") }} ↗</a></dd></div>{% endif %}
+        </dl>
+        <a class="btn primary" href="https://wa.me/{{ site.wa }}?text={{ ('Halo Irfan, saya lihat proyek ' + p.judul + ' di portfolio Anda dan ingin diskusi.') | urlencode }}" target="_blank" rel="noopener">Diskusikan proyek serupa <span class="arr" aria-hidden="true">→</span></a>
+      </aside>
+    </div>
+
+    <nav class="d-pager" aria-label="Proyek lain">
+      {%- if sebelum %}<a href="/karya/{{ sebelum.slug }}/"><span class="mono">← Sebelumnya</span><b>{{ sebelum.judul }}</b></a>{% else %}<span></span>{% endif %}
+      {%- if sesudah %}<a class="nx" href="/karya/{{ sesudah.slug }}/"><span class="mono">Berikutnya →</span><b>{{ sesudah.judul }}</b></a>{% endif %}
+    </nav>
+  </div>
+</main>

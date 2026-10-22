@@ -1,0 +1,21 @@
+---
+layout: base.njk
+---
+<main id="isi" class="detail">
+  <div class="wrap narrow">
+    <nav class="crumb mono" aria-label="Lokasi"><a href="/">Beranda</a><span aria-hidden="true">/</span><a href="/tutorial/">Tutorial</a><span aria-hidden="true">/</span><span>{{ kategori }}</span></nav>
+    <header class="d-head">
+      <span class="eyebrow">{{ kategori }} · {{ menit }} menit baca</span>
+      <h1>{{ title }}</h1>
+      {%- if deskripsi %}<p class="lede">{{ deskripsi }}</p>{% endif %}
+      <p class="meta mono"><time datetime="{{ page.date | isoDate }}">{{ page.date | tanggalID }}</time><span>{{ site.nama }}</span></p>
+    </header>
+    <article class="prose">
+      {{ content | safe }}
+    </article>
+    <aside class="t-cta">
+      <p>Butuh bantuan menerapkan ini di kantor Anda?</p>
+      <a class="btn primary" href="https://wa.me/{{ site.wa }}?text={{ ('Halo Irfan, saya baca tutorial ' + title + ' dan butuh bantuan.') | urlencode }}" target="_blank" rel="noopener">Chat WhatsApp <span class="arr" aria-hidden="true">→</span></a>
+    </aside>
+  </div>
+</main>

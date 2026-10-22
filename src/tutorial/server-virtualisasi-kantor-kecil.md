@@ -1,0 +1,21 @@
+---
+title: "Membangun server virtualisasi untuk kantor kecil"
+kategori: Server
+menit: 12
+date: 2026-10-22
+deskripsi: ""
+draft: true
+urutan: 1
+---
+
+<!-- Ubah draft: true menjadi draft: false saat tutorial ini siap terbit. -->
+
+## Masalah yang diselesaikan
+
+## Yang dibutuhkan
+
+## Langkah-langkah
+
+1. 
+
+## Hasil akhir
