@@ -1,10 +1,10 @@
 ErrorDocument 404 /404.html
 Options -Indexes
 
-# Aktifkan blok ini setelah SSL (AutoSSL) untuk irfanfauzi.web.id aktif di cPanel.
-# RewriteEngine On
-# RewriteCond %{HTTPS} off
-# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# Semua akses http dialihkan ke https (SSL AutoSSL sudah aktif).
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 <IfModule mod_expires.c>
   ExpiresActive On

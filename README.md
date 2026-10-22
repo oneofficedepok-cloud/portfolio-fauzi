@@ -101,4 +101,3 @@ Alurnya: **edit di GitHub → otomatis di-build → Pull di cPanel**.
 4. Tab **Pull or Deploy** → **Deploy HEAD Commit**.
 
 Kalau document root `irfanfauzi.web.id` bukan `public_html` (cek di cPanel → Domains), ubah `DEPLOYPATH` di `src/.cpanel.yml`.
-Setelah SSL aktif, buka komentar blok redirect HTTPS di `src/.htaccess`.
