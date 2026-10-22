@@ -1,6 +1,7 @@
-// Konfigurasi Eleventy: data di src/_data, tutorial Markdown di src/tutorial, hasil build di _site.
+// Konfigurasi Eleventy: data di src/_data, tutorial Markdown di src/tutorial, hasil build di _site
+// (dikirim ke branch "hosting" lalu di-pull oleh cPanel).
 export default function (eleventyConfig) {
-  eleventyConfig.addPassthroughCopy({ "src/img": "img", "src/assets": "assets", "src/favicon.svg": "favicon.svg", "src/og.png": "og.png", "src/CNAME": "CNAME" });
+  eleventyConfig.addPassthroughCopy({ "src/img": "img", "src/assets": "assets", "src/favicon.svg": "favicon.svg", "src/og.png": "og.png", "src/.cpanel.yml": ".cpanel.yml", "src/.htaccess": ".htaccess" });
   eleventyConfig.addGlobalData("tahun", new Date().getFullYear());
 
   const bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
