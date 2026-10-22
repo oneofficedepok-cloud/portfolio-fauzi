@@ -5,12 +5,18 @@
     "judul": "Founder Imarah Digital",
     "jenis": "APP",
     "status": "live",
-    "label": ["Founder", "Aplikasi masjid"],
+    "label": [
+      "Founder",
+      "Aplikasi masjid"
+    ],
     "ringkasan": "Aplikasi administrasi DKM dan jadwal sholat yang tampil langsung di layar TV masjid. Saya membangun produknya dari awal sebagai founder.",
     "gambar": "imarah.webp",
     "ilustrasi": false,
     "lebar": true,
-    "teknologi": ["Aplikasi web", "Layar TV masjid"],
+    "teknologi": [
+      "Aplikasi web",
+      "Layar TV masjid"
+    ],
     "tautan": "https://imarah.my.id"
   },
   {
@@ -19,7 +25,10 @@
     "judul": "Perawatan ERP",
     "jenis": "APP",
     "status": "live",
-    "label": ["Berjalan", "Aplikasi ERP"],
+    "label": [
+      "Berjalan",
+      "Aplikasi ERP"
+    ],
     "ringkasan": "Backup database rutin, perbaikan bug, dan pembaruan menu aplikasi ERP kantor.",
     "gambar": "erp.webp",
     "ilustrasi": true
@@ -30,7 +39,10 @@
     "judul": "Aplikasi Website Sekolah",
     "jenis": "WEB",
     "status": "live",
-    "label": ["2026", "Website sekolah"],
+    "label": [
+      "2026",
+      "Website sekolah"
+    ],
     "ringkasan": "Website sekolah dengan profil, berita, PPDB online, e-learning, dan ujian CBT.",
     "gambar": "sekolah.webp",
     "ilustrasi": false
@@ -41,11 +53,16 @@
     "judul": "Server Virtualisasi",
     "jenis": "INFRA",
     "status": "live",
-    "label": ["Proxmox", "Server"],
+    "label": [
+      "Proxmox",
+      "Server"
+    ],
     "ringkasan": "Membangun server virtualisasi dengan Proxmox yang open source dan powerful.",
     "gambar": "virt.webp",
     "ilustrasi": true,
-    "teknologi": ["Proxmox VE"]
+    "teknologi": [
+      "Proxmox VE"
+    ]
   },
   {
     "id": "PRJ-08",
@@ -53,7 +70,10 @@
     "judul": "Server Backup Automation",
     "jenis": "INFRA",
     "status": "live",
-    "label": ["Otomatis", "Backup"],
+    "label": [
+      "Otomatis",
+      "Backup"
+    ],
     "ringkasan": "Merancang dan membangun server backup data otomatis untuk seluruh cabang dan kantor pusat.",
     "gambar": "backup.webp",
     "ilustrasi": true
@@ -64,11 +84,16 @@
     "judul": "Cloud Storage",
     "jenis": "INFRA",
     "status": "live",
-    "label": ["Nextcloud", "Kolaborasi"],
+    "label": [
+      "Nextcloud",
+      "Kolaborasi"
+    ],
     "ringkasan": "Membangun server cloud storage dengan Nextcloud untuk menghidupkan kerja kolaborasi antar tim dan lintas divisi.",
     "gambar": "cloud.webp",
     "ilustrasi": true,
-    "teknologi": ["Nextcloud"]
+    "teknologi": [
+      "Nextcloud"
+    ]
   },
   {
     "id": "PRJ-06",
@@ -76,7 +101,10 @@
     "judul": "Server Remote Desktop",
     "jenis": "INFRA",
     "status": "live",
-    "label": ["Remote", "IT Helpdesk"],
+    "label": [
+      "Remote",
+      "IT Helpdesk"
+    ],
     "ringkasan": "Membangun server remote PC dan laptop untuk memudahkan admin atau IT Helpdesk menangani masalah pengguna dari jarak jauh.",
     "gambar": "remote.webp",
     "ilustrasi": true,
@@ -87,8 +115,11 @@
     "slug": "absensi-digital-qr-event",
     "judul": "Absensi Digital QR For Event",
     "jenis": "APP",
-    "status": "prog",
-    "label": ["2026", "Event & trip"],
+    "status": "live",
+    "label": [
+      "2026",
+      "Event & trip"
+    ],
     "ringkasan": "Check-in peserta event dengan QR: e-ticket, scan oleh crew, self check-in, dan dashboard kehadiran real time.",
     "gambar": "absensi.webp",
     "ilustrasi": false
@@ -99,7 +130,10 @@
     "judul": "Website Company Profile",
     "jenis": "WEB",
     "status": "prog",
-    "label": ["2026", "Company profile"],
+    "label": [
+      "2026",
+      "Company profile"
+    ],
     "ringkasan": "Website profil perusahaan manufaktur dengan galeri, layanan, dan formulir minta penawaran.",
     "gambar": "compro.webp",
     "ilustrasi": false
@@ -110,7 +144,10 @@
     "judul": "APP Monitoring CCTV Server Side",
     "jenis": "APP",
     "status": "plan",
-    "label": ["Rancangan", "CCTV"],
+    "label": [
+      "Rancangan",
+      "CCTV"
+    ],
     "ringkasan": "Pemantauan CCTV banyak lokasi dari satu server pusat, lengkap dengan deteksi gerakan dan arsip rekaman.",
     "gambar": "cctv.webp",
     "ilustrasi": true
@@ -121,7 +158,10 @@
     "judul": "Aplikasi MoM",
     "jenis": "APP",
     "status": "plan",
-    "label": ["Rancangan", "Aplikasi rapat"],
+    "label": [
+      "Rancangan",
+      "Aplikasi rapat"
+    ],
     "ringkasan": "Notulen rapat otomatis dari rekaman: ringkasan, keputusan, dan action item per agenda.",
     "gambar": "mom.webp",
     "ilustrasi": false
@@ -132,7 +172,10 @@
     "judul": "App Manajemen Sekolah",
     "jenis": "APP",
     "status": "plan",
-    "label": ["Rancangan", "Sistem sekolah"],
+    "label": [
+      "Rancangan",
+      "Sistem sekolah"
+    ],
     "ringkasan": "Data siswa, jadwal, presensi, nilai, dan SPP dalam satu aplikasi untuk sekolah.",
     "gambar": "sekolahapp.webp",
     "ilustrasi": true
