@@ -79,6 +79,20 @@
     "ilustrasi": true
   },
   {
+    "id": "PRJ-05",
+    "slug": "absensi-digital-qr-event",
+    "judul": "Absensi Digital QR For Event",
+    "jenis": "APP",
+    "status": "live",
+    "label": [
+      "2026",
+      "Event & trip"
+    ],
+    "ringkasan": "Check-in peserta event dengan QR: e-ticket, scan oleh crew, self check-in, dan dashboard kehadiran real time.",
+    "gambar": "absensi.webp",
+    "ilustrasi": false
+  },
+  {
     "id": "PRJ-07",
     "slug": "cloud-storage",
     "judul": "Cloud Storage",
@@ -94,20 +108,6 @@
     "teknologi": [
       "Nextcloud"
     ]
-  },
-  {
-    "id": "PRJ-05",
-    "slug": "absensi-digital-qr-event",
-    "judul": "Absensi Digital QR For Event",
-    "jenis": "APP",
-    "status": "live",
-    "label": [
-      "2026",
-      "Event & trip"
-    ],
-    "ringkasan": "Check-in peserta event dengan QR: e-ticket, scan oleh crew, self check-in, dan dashboard kehadiran real time.",
-    "gambar": "absensi.webp",
-    "ilustrasi": false
   },
   {
     "id": "PRJ-06",
