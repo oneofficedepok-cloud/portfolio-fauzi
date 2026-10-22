@@ -6,7 +6,15 @@ Website: **https://irfanfauzi.web.id**
 Situs statis (HTML + CSS murni, tanpa framework di browser) yang dibangun dengan [Eleventy](https://www.11ty.dev/).
 Setiap kali ada perubahan di branch `main`, GitHub Actions otomatis membangun ulang dan menerbitkan situs.
 
-## Cara memperbarui isi
+## Dashboard admin
+
+Buka **https://irfanfauzi.web.id/admin/** untuk mengelola karya (tambah, ubah, ganti status, urutan, gambar), log pekerjaan, dan tutorial tanpa mengedit file.
+
+- Login memakai GitHub fine-grained token (repo `portfolio-fauzi`, izin **Contents: Read and write** dan **Actions: Read-only**). Token hanya disimpan di browser yang dipakai; klik **Keluar** di komputer umum.
+- Setiap **Simpan ke website** membuat commit ke `main`. Setelah status build hijau, klik **Deploy** di cPanel → Git Deploy Manager.
+- Halaman admin tidak diindeks Google (`noindex` dan `robots.txt`).
+
+## Cara memperbarui isi (manual)
 
 Semua isi bisa diubah langsung dari GitHub (buka file → ikon pensil → **Commit changes**). Situs akan diperbarui sekitar 1 menit kemudian.
 
