@@ -73,9 +73,24 @@ npm run build    # hasil di folder _site/
 
 Folder `_site/` juga bisa di-upload langsung ke hosting biasa (cPanel / public_html) kalau suatu saat pindah hosting.
 
-## Hosting
+## Hosting (cPanel DomaiNesia)
 
-- GitHub Pages lewat `.github/workflows/deploy.yml` (Settings → Pages → Source: **GitHub Actions**).
-- Domain `irfanfauzi.web.id` diatur lewat file `src/CNAME` dan DNS di DomaiNesia:
-  - `A` record `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-  - `CNAME` record `www` → `oneofficedepok-cloud.github.io`
+Alurnya: **edit di GitHub → otomatis di-build → Pull di cPanel**.
+
+1. Setiap push ke `main`, GitHub Actions (`.github/workflows/build-hosting.yml`) membangun website dan menyimpan hasil jadinya di branch **`hosting`**.
+2. Di cPanel → **Git™ Version Control**, repo ini di-clone dari branch `hosting`.
+3. Untuk menayangkan perubahan: **Manage → Pull or Deploy → Update from Remote**, lalu **Deploy HEAD Commit**.
+   File `.cpanel.yml` menyalin website ke `public_html` (folder lain di sana tidak dihapus).
+
+### Setup pertama di cPanel
+
+1. cPanel → **Git™ Version Control** → **Create**.
+2. Aktifkan *Clone a Repository*, isi:
+   - Clone URL: `https://github.com/oneofficedepok-cloud/portfolio-fauzi.git`
+   - Repository Path: `repositories/portfolio-fauzi`
+   - Repository Name: `portfolio-fauzi`
+3. Setelah ter-clone: **Manage** → di *Checked-Out Branch* pilih **`hosting`** → **Update**.
+4. Tab **Pull or Deploy** → **Deploy HEAD Commit**.
+
+Kalau document root `irfanfauzi.web.id` bukan `public_html` (cek di cPanel → Domains), ubah `DEPLOYPATH` di `src/.cpanel.yml`.
+Setelah SSL aktif, buka komentar blok redirect HTTPS di `src/.htaccess`.
