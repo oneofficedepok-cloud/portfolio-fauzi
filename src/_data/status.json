@@ -1,0 +1,5 @@
+{
+  "live": { "nama": "Go Live", "kelas": "st-live", "ket": "Sudah dipakai setiap hari oleh pengguna." },
+  "prog": { "nama": "Progress", "kelas": "st-prog", "ket": "Sedang saya kerjakan bersama klien." },
+  "plan": { "nama": "Rancangan", "kelas": "st-plan", "ket": "Konsep, PRD, dan desain yang siap dibangun." }
+}

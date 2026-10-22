@@ -1,0 +1,23 @@
+---
+layout: base.njk
+title: Tutorial
+deskripsi: Tutorial IT infrastruktur, server, backup, jaringan, dan aplikasi dari pengalaman lapangan Irfan Fauzi.
+permalink: /tutorial/
+---
+<main id="isi" class="detail">
+  <div class="wrap">
+    <nav class="crumb mono" aria-label="Lokasi"><a href="/">Beranda</a><span aria-hidden="true">/</span><span>Tutorial</span></nav>
+    <div class="blk-head">
+      <div><span class="eyebrow">Tutorial</span><h1 class="h-page">Catatan yang bisa diikuti</h1></div>
+      <p>Langkah yang saya pakai di lapangan, ditulis ulang supaya bisa dipraktikkan siapa saja.</p>
+    </div>
+    <ul class="tuts">
+      {%- for t in collections.tutorial %}
+      <li><a href="{{ t.url }}"><span class="cat">{{ t.data.kategori }}</span><h2 class="h3">{{ t.data.title }}</h2><span class="rt">{{ t.data.menit }} menit</span><span class="go" aria-hidden="true">→</span></a></li>
+      {%- endfor %}
+      {%- for t in collections.tutorialSegera %}
+      <li><div class="soon"><span class="cat">{{ t.data.kategori }}</span><h2 class="h3">{{ t.data.title }}</h2><span class="rt">Segera</span><span class="go" aria-hidden="true">…</span></div></li>
+      {%- endfor %}
+    </ul>
+  </div>
+</main>

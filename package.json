@@ -1,0 +1,14 @@
+{
+  "name": "portfolio-fauzi",
+  "version": "1.0.0",
+  "description": "Website portfolio Irfan Fauzi",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.7"
+  },
+  "private": true,
+  "type": "module"
+}

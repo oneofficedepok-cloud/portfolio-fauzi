@@ -1,0 +1,140 @@
+[
+  {
+    "id": "PRJ-12",
+    "slug": "founder-imarah-digital",
+    "judul": "Founder Imarah Digital",
+    "jenis": "APP",
+    "status": "live",
+    "label": ["Founder", "Aplikasi masjid"],
+    "ringkasan": "Aplikasi administrasi DKM dan jadwal sholat yang tampil langsung di layar TV masjid. Saya membangun produknya dari awal sebagai founder.",
+    "gambar": "imarah.webp",
+    "ilustrasi": false,
+    "lebar": true,
+    "teknologi": ["Aplikasi web", "Layar TV masjid"],
+    "tautan": "https://imarah.my.id"
+  },
+  {
+    "id": "PRJ-11",
+    "slug": "perawatan-erp",
+    "judul": "Perawatan ERP",
+    "jenis": "APP",
+    "status": "live",
+    "label": ["Berjalan", "Aplikasi ERP"],
+    "ringkasan": "Backup database rutin, perbaikan bug, dan pembaruan menu aplikasi ERP kantor.",
+    "gambar": "erp.webp",
+    "ilustrasi": true
+  },
+  {
+    "id": "PRJ-10",
+    "slug": "aplikasi-website-sekolah",
+    "judul": "Aplikasi Website Sekolah",
+    "jenis": "WEB",
+    "status": "live",
+    "label": ["2026", "Website sekolah"],
+    "ringkasan": "Website sekolah dengan profil, berita, PPDB online, e-learning, dan ujian CBT.",
+    "gambar": "sekolah.webp",
+    "ilustrasi": false
+  },
+  {
+    "id": "PRJ-09",
+    "slug": "server-virtualisasi",
+    "judul": "Server Virtualisasi",
+    "jenis": "INFRA",
+    "status": "live",
+    "label": ["Proxmox", "Server"],
+    "ringkasan": "Membangun server virtualisasi dengan Proxmox yang open source dan powerful.",
+    "gambar": "virt.webp",
+    "ilustrasi": true,
+    "teknologi": ["Proxmox VE"]
+  },
+  {
+    "id": "PRJ-08",
+    "slug": "server-backup-automation",
+    "judul": "Server Backup Automation",
+    "jenis": "INFRA",
+    "status": "live",
+    "label": ["Otomatis", "Backup"],
+    "ringkasan": "Merancang dan membangun server backup data otomatis untuk seluruh cabang dan kantor pusat.",
+    "gambar": "backup.webp",
+    "ilustrasi": true
+  },
+  {
+    "id": "PRJ-07",
+    "slug": "cloud-storage",
+    "judul": "Cloud Storage",
+    "jenis": "INFRA",
+    "status": "live",
+    "label": ["Nextcloud", "Kolaborasi"],
+    "ringkasan": "Membangun server cloud storage dengan Nextcloud untuk menghidupkan kerja kolaborasi antar tim dan lintas divisi.",
+    "gambar": "cloud.webp",
+    "ilustrasi": true,
+    "teknologi": ["Nextcloud"]
+  },
+  {
+    "id": "PRJ-06",
+    "slug": "server-remote-desktop",
+    "judul": "Server Remote Desktop",
+    "jenis": "INFRA",
+    "status": "live",
+    "label": ["Remote", "IT Helpdesk"],
+    "ringkasan": "Membangun server remote PC dan laptop untuk memudahkan admin atau IT Helpdesk menangani masalah pengguna dari jarak jauh.",
+    "gambar": "remote.webp",
+    "ilustrasi": true,
+    "lebar": true
+  },
+  {
+    "id": "PRJ-05",
+    "slug": "absensi-digital-qr-event",
+    "judul": "Absensi Digital QR For Event",
+    "jenis": "APP",
+    "status": "prog",
+    "label": ["2026", "Event & trip"],
+    "ringkasan": "Check-in peserta event dengan QR: e-ticket, scan oleh crew, self check-in, dan dashboard kehadiran real time.",
+    "gambar": "absensi.webp",
+    "ilustrasi": false
+  },
+  {
+    "id": "PRJ-04",
+    "slug": "website-company-profile",
+    "judul": "Website Company Profile",
+    "jenis": "WEB",
+    "status": "prog",
+    "label": ["2026", "Company profile"],
+    "ringkasan": "Website profil perusahaan manufaktur dengan galeri, layanan, dan formulir minta penawaran.",
+    "gambar": "compro.webp",
+    "ilustrasi": false
+  },
+  {
+    "id": "PRJ-03",
+    "slug": "app-monitoring-cctv",
+    "judul": "APP Monitoring CCTV Server Side",
+    "jenis": "APP",
+    "status": "plan",
+    "label": ["Rancangan", "CCTV"],
+    "ringkasan": "Pemantauan CCTV banyak lokasi dari satu server pusat, lengkap dengan deteksi gerakan dan arsip rekaman.",
+    "gambar": "cctv.webp",
+    "ilustrasi": true
+  },
+  {
+    "id": "PRJ-02",
+    "slug": "aplikasi-mom",
+    "judul": "Aplikasi MoM",
+    "jenis": "APP",
+    "status": "plan",
+    "label": ["Rancangan", "Aplikasi rapat"],
+    "ringkasan": "Notulen rapat otomatis dari rekaman: ringkasan, keputusan, dan action item per agenda.",
+    "gambar": "mom.webp",
+    "ilustrasi": false
+  },
+  {
+    "id": "PRJ-01",
+    "slug": "app-manajemen-sekolah",
+    "judul": "App Manajemen Sekolah",
+    "jenis": "APP",
+    "status": "plan",
+    "label": ["Rancangan", "Sistem sekolah"],
+    "ringkasan": "Data siswa, jadwal, presensi, nilai, dan SPP dalam satu aplikasi untuk sekolah.",
+    "gambar": "sekolahapp.webp",
+    "ilustrasi": true
+  }
+]

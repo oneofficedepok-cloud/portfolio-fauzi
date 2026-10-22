@@ -1,0 +1,14 @@
+{%- macro kartu(p, status) -%}
+<a class="card{% if p.lebar %} feat{% endif %}" href="/karya/{{ p.slug }}/">
+  <div class="thumb img">
+    <img src="/img/{{ p.gambar }}" alt="Tampilan {{ p.judul }}" loading="lazy" decoding="async" width="1040" height="650">
+    <span class="tag">{{ p.id }} · {{ p.jenis }}</span><span class="st {{ status[p.status].kelas }}"><i></i>{{ status[p.status].nama }}</span>{% if p.ilustrasi %}<span class="ilus">Ilustrasi</span>{% endif %}
+  </div>
+  <div class="body">
+    <div class="meta mono">{% for l in p.label %}<span>{{ l }}</span>{% endfor %}</div>
+    <h3>{{ p.judul }}</h3>
+    <p>{{ p.ringkasan }}</p>
+    <span class="more">Lihat detail <span class="arr" aria-hidden="true">→</span></span>
+  </div>
+</a>
+{%- endmacro %}

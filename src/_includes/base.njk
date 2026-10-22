@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="{{ site.bahasa }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+{%- set judulHalaman = (title + " · " + site.nama) if title else site.judul %}
+{%- set desk = deskripsi or site.deskripsi %}
+{%- set kanonik = page.url | absUrl(site.url) %}
+{%- set gambarShare = ("/img/" + gambar) if gambar else "/og.png" %}
+<title>{{ judulHalaman }}</title>
+<meta name="description" content="{{ desk }}">
+<link rel="canonical" href="{{ kanonik }}">
+<meta name="author" content="{{ site.nama }}">
+<meta name="theme-color" content="#eef1ed" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1412" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="{{ ogType or 'website' }}">
+<meta property="og:locale" content="id_ID">
+<meta property="og:site_name" content="{{ site.nama }}">
+<meta property="og:title" content="{{ judulHalaman }}">
+<meta property="og:description" content="{{ desk }}">
+<meta property="og:url" content="{{ kanonik }}">
+<meta property="og:image" content="{{ gambarShare | absUrl(site.url) }}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="/assets/css/style.css">
+{%- if jsonld %}
+<script type="application/ld+json">{{ jsonld | json | safe }}</script>
+{%- endif %}
+</head>
+<body>
+<a class="skip" href="#isi">Langsung ke isi</a>
+<nav class="nav" aria-label="Utama">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="mark" aria-hidden="true">{{ site.inisial }}</span><span>{{ site.nama }}</span></a>
+    <ul>
+      <li><a href="/#karya">Karya</a></li>
+      <li><a href="/#tutorial">Tutorial</a></li>
+      <li><a href="/#catatan">Catatan Kerja</a></li>
+      <li><a href="/#kontak">Kontak</a></li>
+    </ul>
+    <a class="avail" href="https://wa.me/{{ site.wa }}?text={{ site.waPesan | urlencode }}" target="_blank" rel="noopener" aria-label="Chat WhatsApp: terbuka untuk proyek"><span class="led"></span><span class="txt">Terbuka untuk proyek</span><span class="go" aria-hidden="true">↗</span></a>
+  </div>
+</nav>
+
+{{ content | safe }}
+
+<footer>
+  <div class="wrap mono"><span>© {{ tahun }} {{ site.nama }}</span><span>{{ site.footer }}</span></div>
+</footer>
+<script src="/assets/js/main.js" defer></script>
+</body>
+</html>
