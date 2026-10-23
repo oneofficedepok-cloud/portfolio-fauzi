@@ -20,7 +20,7 @@ layout: base.njk
         <b>{{ site.nama }}</b>
         <span class="t-role mono">{{ penulis.peran }}</span>
         <p>{{ penulis.bio }}</p>
-        <p class="t-joke mono"><span aria-hidden="true">// </span>{{ penulis.candaan | pilihTetap(page.fileSlug) }}</p>
+        <p class="t-joke mono"><span aria-hidden="true">// </span>{{ candaan or (penulis.candaan | pilihTetap(page.fileSlug)) }}</p>
       </div>
     </aside>
     <aside class="t-cta">

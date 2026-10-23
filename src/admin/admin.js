@@ -8,10 +8,11 @@
   var P_LOG = 'src/_data/log.json';
   var D_TUT = 'src/tutorial';
   var D_IMG = 'src/img';
+  var P_PENULIS = 'src/_data/penulis.json';
   var STATUS = { live: 'Go Live', prog: 'Progress', plan: 'Rancangan' };
 
   var token = '';
-  var state = { proyek: [], proyekSha: '', log: [], logSha: '', tut: [], dirty: { proyek: false, log: false }, uploads: [] };
+  var state = { proyek: [], proyekSha: '', log: [], logSha: '', tut: [], penulis: { candaan: {} }, penulisSha: '', dirty: { proyek: false, log: false }, uploads: [] };
   var $ = function (s, el) { return (el || document).querySelector(s); };
 
   // ---------- util ----------
@@ -82,13 +83,15 @@
       'deskripsi: ' + JSON.stringify(d.deskripsi || ''),
       'draft: ' + (d.draft ? 'true' : 'false')];
     if (d.urutan) lines.push('urutan: ' + d.urutan);
+    if (d.candaan) lines.push('candaan: ' + JSON.stringify(d.candaan));
     lines.push('---', '', body.replace(/\s+$/, ''), '');
     return lines.join('\n');
   }
 
   // ---------- load ----------
   function loadAll() {
-    return Promise.all([getFile(P_PROYEK), getFile(P_LOG), gh('/contents/' + D_TUT + '?ref=' + BRANCH)]).then(function (r) {
+    return Promise.all([getFile(P_PROYEK), getFile(P_LOG), gh('/contents/' + D_TUT + '?ref=' + BRANCH), getFile(P_PENULIS).catch(function () { return null; })]).then(function (r) {
+      if (r[3]) { state.penulis = JSON.parse(b64dec(r[3].content)); state.penulisSha = r[3].sha; }
       state.proyek = JSON.parse(b64dec(r[0].content)); state.proyekSha = r[0].sha;
       state.log = JSON.parse(b64dec(r[1].content)); state.logSha = r[1].sha;
       var mds = r[2].filter(function (f) { return /\.md$/.test(f.name); });
@@ -316,8 +319,33 @@
     f.title.value = t.data.title || ''; f.kategori.value = t.data.kategori || ''; f.menit.value = t.data.menit || 5;
     f.date.value = t.data.date || today(); f.deskripsi.value = t.data.deskripsi || ''; f.slug.value = t.slug;
     f.slug.readOnly = i >= 0; f.body.value = t.body; f.terbit.checked = !t.data.draft;
+    fillJokes(t.data.candaan || '');
     $('#tut-del').hidden = i < 0;
     $('#tut-dlg').showModal();
+  }
+  // Koleksi joke dari src/_data/penulis.json, dikelompokkan per tema.
+  function jokeGroups() { var c = state.penulis.candaan || {}; return Array.isArray(c) ? { Lainnya: c } : c; }
+  function jokeKnown(txt) { var g = jokeGroups(); return Object.keys(g).some(function (k) { return g[k].indexOf(txt) >= 0; }); }
+  function fillJokes(current) {
+    var g = jokeGroups(), sel = $('#joke-pilih'), f = $('#tut-form');
+    sel.innerHTML = '<option value="">Otomatis (dipilihkan sistem)</option>' + Object.keys(g).map(function (k) {
+      return '<optgroup label="' + esc(k) + '">' + g[k].map(function (j) { return '<option' + (j === current ? ' selected' : '') + '>' + esc(j) + '</option>'; }).join('') + '</optgroup>';
+    }).join('');
+    f.candaan.value = current; f.jokeSimpan.checked = false; syncJokeSave();
+  }
+  function syncJokeSave() { var v = $('#tut-form').candaan.value.trim(); $('#joke-simpan-row').hidden = !v || jokeKnown(v); }
+  $('#joke-pilih').addEventListener('change', function (e) { $('#tut-form').candaan.value = e.target.value; syncJokeSave(); });
+  $('#tut-form').candaan.addEventListener('input', function (e) {
+    var v = e.target.value.trim(); $('#joke-pilih').value = jokeKnown(v) ? v : '';
+    if (!v) $('#joke-pilih').value = '';
+    syncJokeSave();
+  });
+  function saveJoke(txt) {
+    var p = JSON.parse(JSON.stringify(state.penulis)), g = Array.isArray(p.candaan) ? { Lainnya: p.candaan } : (p.candaan || {});
+    (g.Lainnya = g.Lainnya || []).push(txt); p.candaan = g;
+    return putFile(P_PENULIS, b64enc(JSON.stringify(p, null, 2) + '\n'), state.penulisSha, 'Admin: tambah joke ke koleksi').then(function (r) {
+      state.penulis = p; state.penulisSha = r.content.sha;
+    });
   }
   $('#tut-form').title.addEventListener('input', function (e) { var f = $('#tut-form'); if (!f.slug.readOnly) f.slug.value = slugify(e.target.value); });
   $('#tut-form').addEventListener('submit', function (e) {
@@ -326,11 +354,14 @@
     var f = $('#tut-form'), old = tutIdx >= 0 ? state.tut[tutIdx] : null;
     var slug = f.slug.value, path = D_TUT + '/' + slug + '.md';
     if (!old && state.tut.some(function (t) { return t.slug === slug; })) return toast('Alamat halaman itu sudah dipakai tutorial lain.', true);
-    var data = { title: f.title.value.trim(), kategori: f.kategori.value.trim(), menit: f.menit.value, date: f.date.value, deskripsi: f.deskripsi.value.trim(), draft: !f.terbit.checked, urutan: old && old.data.urutan };
+    var data = { title: f.title.value.trim(), kategori: f.kategori.value.trim(), menit: f.menit.value, date: f.date.value, deskripsi: f.deskripsi.value.trim(), draft: !f.terbit.checked, urutan: old && old.data.urutan, candaan: f.candaan.value.trim() };
+    var tambahJoke = f.jokeSimpan.checked && data.candaan && !jokeKnown(data.candaan);
     var btn = e.submitter; btn.disabled = true; btn.textContent = 'Menyimpan…';
     putFile(path, b64enc(buildMd(data, f.body.value)), old && old.sha, 'Admin: ' + (old ? 'ubah' : 'tulis') + ' tutorial ' + slug).then(function (r) {
       var t = { path: path, sha: r.content.sha, slug: slug, data: data, body: f.body.value };
       if (old) state.tut[tutIdx] = t; else state.tut.unshift(t);
+      return tambahJoke ? saveJoke(data.candaan) : null;
+    }).then(function () {
       $('#tut-dlg').close(); renderTut(); toast('Tutorial tersimpan. Website sedang di-build…'); watchBuild();
     }, function (err) { toast(errMsg(err), true); }).then(function () { btn.disabled = false; btn.textContent = 'Simpan ke website'; });
   });

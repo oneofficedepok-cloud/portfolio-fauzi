@@ -17,8 +17,10 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("absUrl", (path, base) => new URL(path, base).href);
   eleventyConfig.addFilter("head", (arr, n) => (arr || []).slice(0, n));
   eleventyConfig.addFilter("json", (v) => JSON.stringify(v));
-  // Pilih satu item dari daftar secara tetap berdasarkan teks (tiap tutorial dapat candaan yang sama setiap build).
-  eleventyConfig.addFilter("pilihTetap", (list, kunci) => {
+  // Pilih satu item dari daftar (atau dari semua kelompok sebuah objek) secara tetap berdasarkan teks,
+  // dipakai sebagai candaan cadangan untuk tutorial yang belum memilih candaan di admin.
+  eleventyConfig.addFilter("pilihTetap", (daftar, kunci) => {
+    const list = Array.isArray(daftar) ? daftar : Object.values(daftar).flat();
     let h = 0;
     for (const c of String(kunci)) h = (h * 31 + c.charCodeAt(0)) >>> 0;
     return list[h % list.length];

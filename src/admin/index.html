@@ -160,6 +160,16 @@
     <label>Isi (Markdown: ## Judul bagian, - poin, 1. langkah, `kode`, ```blok kode```)
       <textarea name="body" rows="16" class="mono-area"></textarea>
     </label>
+    <fieldset class="joke-box">
+      <legend>Joke di bawah signature</legend>
+      <label>Pilih dari koleksi
+        <select name="jokePilih" id="joke-pilih"><option value="">Otomatis (dipilihkan sistem)</option></select>
+      </label>
+      <label>Kalimat joke (boleh diedit atau tulis sendiri)
+        <textarea name="candaan" rows="2" maxlength="220" placeholder="Kosongkan agar dipilihkan otomatis"></textarea>
+      </label>
+      <label class="chk" id="joke-simpan-row" hidden><input type="checkbox" name="jokeSimpan"> Simpan juga ke koleksi joke (kelompok <span id="joke-kel">Lainnya</span>)</label>
+    </fieldset>
     <label class="chk"><input type="checkbox" name="terbit"> Terbitkan (kalau tidak dicentang, tetap Draft)</label>
     <div class="dlg-actions">
       <button class="btn danger" type="button" id="tut-del">Hapus</button>
