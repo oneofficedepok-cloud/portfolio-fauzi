@@ -1,7 +1,7 @@
 ---
 title: "Capek kena limit TeamViewer, aku bangun server remote desktop sendiri"
 kategori: "Server"
-menit: 11
+menit: 9
 date: 2026-10-23
 deskripsi: "Dari drama remote PC cabang yang selalu kena limit, riset cari solusi, sampai bangun server MeshCentral sendiri di LXC Proxmox. Lengkap dengan cara uji dan panduan pasangnya."
 draft: false
