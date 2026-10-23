@@ -17,6 +17,12 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("absUrl", (path, base) => new URL(path, base).href);
   eleventyConfig.addFilter("head", (arr, n) => (arr || []).slice(0, n));
   eleventyConfig.addFilter("json", (v) => JSON.stringify(v));
+  // Pilih satu item dari daftar secara tetap berdasarkan teks (tiap tutorial dapat candaan yang sama setiap build).
+  eleventyConfig.addFilter("pilihTetap", (list, kunci) => {
+    let h = 0;
+    for (const c of String(kunci)) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+    return list[h % list.length];
+  });
 
   // Tutorial terbit = draft bukan true; draft tetap tampil di beranda sebagai "Segera".
   const semuaTutorial = (api) => api.getFilteredByGlob("src/tutorial/*.md");

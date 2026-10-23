@@ -100,3 +100,7 @@ Alurnya: **edit di GitHub → otomatis di-build → Pull di cPanel**.
 4. Tab **Pull or Deploy** → **Deploy HEAD Commit**.
 
 Kalau document root `irfanfauzi.web.id` bukan `public_html` (cek di cPanel → Domains), ubah `DEPLOYPATH` di `src/.cpanel.yml`.
+
+### Signature penulis di tutorial
+
+Di bawah setiap tutorial tampil kotak "Ditulis oleh" beserta satu candaan anak IT. Peran, bio singkat, dan daftar candaan diatur di `src/_data/penulis.json`. Tiap tutorial otomatis dapat satu candaan yang tetap (dipilih dari nama filenya), jadi tinggal tambah atau ubah kalimat di daftar itu.

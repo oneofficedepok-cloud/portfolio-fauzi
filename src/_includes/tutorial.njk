@@ -13,6 +13,16 @@ layout: base.njk
     <article class="prose">
       {{ content | safe }}
     </article>
+    <aside class="t-sign" aria-label="Penulis">
+      <span class="t-ava" aria-hidden="true">{{ site.inisial }}</span>
+      <div class="t-who">
+        <span class="eyebrow">Ditulis oleh</span>
+        <b>{{ site.nama }}</b>
+        <span class="t-role mono">{{ penulis.peran }}</span>
+        <p>{{ penulis.bio }}</p>
+        <p class="t-joke mono"><span aria-hidden="true">// </span>{{ penulis.candaan | pilihTetap(page.fileSlug) }}</p>
+      </div>
+    </aside>
     <aside class="t-cta">
       <p>Butuh bantuan menerapkan ini di kantor Anda?</p>
       <a class="btn primary" href="https://wa.me/{{ site.wa }}?text={{ ('Halo Irfan, saya baca tutorial ' + title + ' dan butuh bantuan.') | urlencode }}" target="_blank" rel="noopener">Chat WhatsApp <span class="arr" aria-hidden="true">→</span></a>
