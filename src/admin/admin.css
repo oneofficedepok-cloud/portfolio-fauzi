@@ -127,3 +127,5 @@ dialog summary { cursor: pointer; font-weight: 700; }
   .savebar { left: 16px; right: 16px; transform: none; border-radius: 16px; flex-wrap: wrap; }
   .savebar span { width: 100%; }
 }
+.joke-box { margin-top: 16px; border: 1px dashed var(--line); border-radius: 12px; padding: 4px 14px 14px; }
+.joke-box legend { font-size: 13px; font-weight: 700; color: var(--ink); padding: 0 6px; }

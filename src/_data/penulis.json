@@ -1,0 +1,74 @@
+{
+  "peran": "IT Infrastructure, Web & Aplikasi",
+  "bio": "Ngurus jaringan, server, backup, dan cloud storage, plus bikin website dan aplikasi buat kantor, sekolah, dan masjid. Kalau bukan lagi nyolok kabel, ya lagi nulis kode.",
+  "candaan": {
+    "Server": [
+      "Server itu kayak gebetan: kelihatan tenang, tapi sekalinya down semua orang panik.",
+      "Uptime 99,9% itu artinya 0,1%-nya pas bos lagi demo ke klien.",
+      "Server di ruang ber-AC, anak IT-nya di pojokan kepanasan. Prioritas yang jelas.",
+      "Jangan pernah update server hari Jumat sore. Itu bukan saran, itu trauma.",
+      "Server aku nggak pernah tidur. Aku juga, gara-gara server.",
+      "Kalau server bunyi bip panjang, itu bukan nyanyi. Itu minta tolong.",
+      "Snapshot dulu, update kemudian. Nyesel belakangan itu mahal di jam lembur."
+    ],
+    "Jaringan": [
+      "Kalau jaringan lancar, nggak ada yang ingat anak IT. Kalau putus, semua mendadak hafal nomor WA aku.",
+      "It's always DNS. Kalau bukan DNS, ya DNS juga ujung-ujungnya.",
+      "Wi-Fi kantor lemot? Coba cek dulu, siapa yang lagi nonton bola full HD.",
+      "Kabel LAN itu kayak hubungan: kelihatan nyambung, belum tentu ada koneksinya.",
+      "Ping 1 ms itu bukan angka, itu kebahagiaan.",
+      "Rak jaringan rapi itu mitos. Yang ada cuma rak jaringan yang belum dibuka.",
+      "VLAN itu kayak grup WA: dipisah biar nggak saling ganggu."
+    ],
+    "Programmer": [
+      "It works on my machine. Sayangnya, klien nggak pakai machine aku.",
+      "Ngopi dulu, baru ngoding. Kalau error, ngopi lagi.",
+      "Ada 10 jenis orang di dunia: yang paham biner dan yang nggak.",
+      "Kode aku nggak ada bug, cuma fitur yang belum didokumentasikan.",
+      "Bug fix satu, muncul tiga. Ini bukan ngoding, ini ngelawan hydra.",
+      "Commit message terakhir aku: 'fix'. Sebelumnya: 'fix lagi'. Sebelumnya lagi: 'semoga kali ini'.",
+      "Deadline itu motivasi terbaik. Dan sumber kantong mata terbaik juga."
+    ],
+    "Klien": [
+      "Klien: 'Revisi dikit aja kok.' Aku: *bongkar ulang database*.",
+      "'Bisa dibikin kayak Gojek, tapi budget-nya kayak beli gorengan?' Bisa, versi gorengan.",
+      "Logonya tolong digedein. Iya, yang udah segede gaban itu.",
+      "Klien minta warna 'biru tapi agak merah'. Aku kasih ungu, katanya bukan itu.",
+      "'Ini cuma tambah satu tombol kan?' Satu tombol, tiga tabel, dua minggu.",
+      "Kerja sama klien itu seru: briefing-nya 5 menit, revisinya 5 bulan."
+    ],
+    "User": [
+      "Udah coba dimatiin terus dinyalain lagi? Kalau belum, jangan chat aku dulu ya.",
+      "User: 'Aku nggak ngapa-ngapain kok, tiba-tiba error.' Tiba-tiba, katanya.",
+      "Password 'admin123' itu bukan password, itu undangan.",
+      "Masalah paling sering di komputer kantor ada di antara kursi dan keyboard.",
+      "'Internetnya mati, Mas.' Ternyata Wi-Fi-nya di-off sendiri.",
+      "User nggak baca pesan error. Pesan error-nya yang dibaca anak IT, lewat foto miring dari HP.",
+      "Nggak ada sistem yang benar-benar aman, yang ada cuma sistem yang belum dicoba user."
+    ],
+    "Troubleshooting PC & Laptop": [
+      "Restart itu bukan solusi. Tapi anehnya, sering berhasil.",
+      "Kerjaan anak IT: 5 menit benerin, 2 jam nyari kabel siapa yang nyabut.",
+      "Laptop lemot? Coba tutup dulu 47 tab Chrome-nya.",
+      "Blue screen itu cara Windows bilang 'aku capek, kamu juga kan?'",
+      "Kipas laptop bunyi kayak mau take off? Itu bukan fitur turbo, itu debu setahun.",
+      "Disk 99% penuh, isinya folder 'New Folder (27)'.",
+      "Komputer nggak nyala? Cek dulu colokannya. Serius, cek dulu."
+    ],
+    "Printer": [
+      "Printer itu bisa ngerasain kalau kamu lagi buru-buru. Makanya langsung macet.",
+      "Paper jam lagi. Printer kantor kayaknya punya dendam pribadi.",
+      "Tinta habis padahal baru ganti kemarin. Printer, kamu boros atau aku yang ditipu?",
+      "Printer offline, padahal kabelnya nyolok, nyala, dan aku udah doa.",
+      "Driver printer di-install, uninstall, install lagi. Ritual wajib anak IT.",
+      "Kalau printer bisa ngomong, kalimat pertamanya pasti 'PC LOAD LETTER'."
+    ],
+    "Backup & Keamanan": [
+      "Backup itu kayak mantan: baru kerasa penting pas udah hilang.",
+      "Ada dua jenis orang: yang udah backup, dan yang belum pernah kehilangan data.",
+      "Backup yang belum pernah dites restore itu cuma harapan, bukan backup.",
+      "Klik link 'Selamat, Anda menang iPhone!' adalah awal dari lembur anak IT.",
+      "2FA itu ribet sebentar. Kena hack itu ribet selamanya."
+    ]
+  }
+}

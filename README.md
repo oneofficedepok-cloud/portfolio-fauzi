@@ -100,3 +100,9 @@ Alurnya: **edit di GitHub → otomatis di-build → Pull di cPanel**.
 4. Tab **Pull or Deploy** → **Deploy HEAD Commit**.
 
 Kalau document root `irfanfauzi.web.id` bukan `public_html` (cek di cPanel → Domains), ubah `DEPLOYPATH` di `src/.cpanel.yml`.
+
+### Signature penulis di tutorial
+
+Di bawah setiap tutorial tampil kotak "Ditulis oleh" beserta satu joke anak IT. Di admin, form tutorial punya bagian **Joke di bawah signature**: pilih dari koleksi (dikelompokkan: Server, Jaringan, Programmer, Klien, User, Troubleshooting PC & Laptop, Printer, Backup & Keamanan), lalu boleh diedit atau ditulis sendiri. Joke tersimpan di front matter tutorial sebagai `candaan`. Kalau dikosongkan, sistem memilihkan satu joke yang tetap untuk tutorial itu.
+
+Peran, bio singkat, dan koleksi joke ada di `src/_data/penulis.json`. Joke buatan sendiri bisa ditambahkan ke koleksi (kelompok "Lainnya") dengan mencentang **Simpan juga ke koleksi joke** saat menyimpan tutorial.

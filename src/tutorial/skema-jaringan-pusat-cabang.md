@@ -8,7 +8,6 @@ draft: false
 urutan: 4
 ---
 
-
 Kalau kantor cuma satu, jaringan berantakan masih bisa diakalin. Tapi begitu cabangnya nambah jadi tiga, lima, sepuluh, dan tiap cabang di-setup orang yang beda, hasilnya chaos: IP tabrakan, password router beda-beda (atau malah masih default), dan nggak ada yang tahu kabel mana nyambung ke mana. Di tutorial ini aku spill **standar** yang aku pakai supaya semua cabang punya pola yang **sama persis**.
 
 ## Masalah yang diselesaikan

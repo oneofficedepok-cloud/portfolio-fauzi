@@ -8,10 +8,6 @@ draft: false
 urutan: 5
 ---
 
----
-
----
-
 Absensi event pakai kertas dan pulpen itu vibes-nya tahun 2010: antrean panjang di meja registrasi, tulisan nggak kebaca, dan panitia baru tahu jumlah peserta yang datang pas acara udah kelar. Di tutorial ini aku spill proses aku merancang **Absensi Digital QR For Event**, mulai dari **BRD**, alur pengguna, desain data, sampai **prototipe** yang bisa langsung dicoba klien sebelum ngoding beneran.
 
 ## Masalah yang diselesaikan
