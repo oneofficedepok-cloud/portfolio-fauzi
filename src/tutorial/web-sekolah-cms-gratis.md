@@ -5,7 +5,6 @@ menit: 10
 date: 2026-10-23
 deskripsi: "Cerita keresahan lihat website SMP sendiri yang kayak nggak ada yang ngurus, sampai akhirnya aku bikin website sekolah berbasis CMS lengkap dengan panel admin. Source code-nya gratis, panduan pasangnya ada di sini."
 draft: false
-candaan: "Berita terakhir di web sekolahku: 'Selamat datang siswa baru 2016'. Siswa barunya sekarang udah pada nikah."
 ---
 
 Jadi gini. Suatu malam, habis beres ngoprek server klien, aku iseng buka website SMP tempat aku dulu sekolah. Niatnya cuma nostalgia, pengen lihat foto guru-guru, siapa tahu ada foto angkatanku yang lagi upacara sambil nahan ngantuk.
@@ -27,9 +26,9 @@ Begitu halaman kebuka (setelah loading 14 detik, aku hitung), ini yang aku temui
 - Menu **"Galeri"** isinya error. Menu **"Download"** isinya file Word bernama `Dokumen1 (2) FINAL revisi.doc`.
 - Footer-nya: **"Copyright 2015"**. Waktu di website itu berhenti, kayak jam dinding di film horor.
 
-Terus aku kepo, tanya ke grup alumni: "Ini web sekolah siapa yang pegang ya?"
+Terus aku kepo, tanya ke temen yang kebetulan ngajar disana: "Ini webnya koq gini amat ya, siapa yang pegang ya?"
 
-Jawabannya bikin aku paham semuanya: *"Dulu yang bikin kakak kelas, magang. Habis lulus nggak ada yang tahu password admin-nya."*
+Jawabannya bikin aku paham semuanya: *"Urusan di pegang sama si Fulan, kayanya di bikin pakai Ai Google dah, cuma kaya gak serius gtuh bikinnya"*
 
 Nah. Itu dia akar masalahnya.
 
