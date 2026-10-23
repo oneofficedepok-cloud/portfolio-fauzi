@@ -6,6 +6,7 @@ date: 2026-10-20
 deskripsi: "Data kantor itu aset. Ini cara aku bikin backup yang jalan sendiri tiap malam ke NAS dan ke cloud, lengkap dengan cara ngecek kalau backup-nya beneran bisa dipulihkan."
 draft: false
 urutan: 2
+candaan: "Ditanya 'backup terakhir kapan?', ruangan langsung hening. Lebih hening dari server yang baru kena ransomware."
 ---
 
 Pertanyaan paling horor di dunia IT: *"Backup terakhir kapan?"* terus semua orang diem. Kebanyakan kantor sebenarnya "punya backup", tapi isinya copy manual ke harddisk eksternal yang terakhir dilakukan tiga bulan lalu. Di tutorial ini aku spill cara bikin backup yang **jalan sendiri tiap malam**, ke **NAS di kantor** dan ke **cloud**, dan yang paling penting: **beneran bisa dipulihkan**.
