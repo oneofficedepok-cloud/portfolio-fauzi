@@ -47,16 +47,27 @@
   {
     "id": "PRJ-10",
     "slug": "aplikasi-website-sekolah",
-    "judul": "Aplikasi Website Sekolah",
+    "judul": "CMS Website Sekolah",
     "jenis": "WEB",
     "status": "live",
     "label": [
-      "2026",
       "Website sekolah"
     ],
     "ringkasan": "Website sekolah dengan profil, berita, PPDB online, e-learning, dan ujian CBT.",
     "gambar": "sekolah.webp",
-    "ilustrasi": false
+    "ilustrasi": false,
+    "teknologi": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "PHP",
+      "SQLite",
+      "Nginx",
+      "Linux"
+    ],
+    "cerita": [
+      "platform digital resmi yang digunakan oleh lembaga pendidikan sebagai pusat informasi, alat komunikasi, dan media pelayanan operasional sekolah secara daring (online)"
+    ]
   },
   {
     "id": "PRJ-09",
