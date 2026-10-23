@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Standar skema jaringan untuk kantor pusat dan cabang · Irfan Fauzi</title>
+<meta name="description" content="Biar jaringan cabang nggak jadi hutan kabel dan IP acak, ini standar yang aku pakai: pola IP, VLAN, penamaan perangkat, VPN ke pusat, sampai dokumentasinya.">
+<link rel="canonical" href="https://irfanfauzi.web.id/tutorial/skema-jaringan-pusat-cabang/">
+<meta name="author" content="Irfan Fauzi">
+<meta name="theme-color" content="#eef1ed" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1412" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="id_ID">
+<meta property="og:site_name" content="Irfan Fauzi">
+<meta property="og:title" content="Standar skema jaringan untuk kantor pusat dan cabang · Irfan Fauzi">
+<meta property="og:description" content="Biar jaringan cabang nggak jadi hutan kabel dan IP acak, ini standar yang aku pakai: pola IP, VLAN, penamaan perangkat, VPN ke pusat, sampai dokumentasinya.">
+<meta property="og:url" content="https://irfanfauzi.web.id/tutorial/skema-jaringan-pusat-cabang/">
+<meta property="og:image" content="https://irfanfauzi.web.id/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="/assets/css/style.css?v=mvkno0xe">
+</head>
+<body>
+<a class="skip" href="#isi">Langsung ke isi</a>
+<nav class="nav" aria-label="Utama">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="mark" aria-hidden="true">IF</span><span>Irfan Fauzi</span></a>
+    <ul>
+      <li><a href="/#karya">Karya</a></li>
+      <li><a href="/#tutorial">Tutorial</a></li>
+      <li><a href="/#catatan">Catatan Kerja</a></li>
+      <li><a href="/#kontak">Kontak</a></li>
+    </ul>
+    <a class="avail" href="https://wa.me/6282124038826?text=Halo%20Irfan%2C%20saya%20lihat%20portfolio%20Anda%20dan%20ingin%20diskusi%20proyek." target="_blank" rel="noopener" aria-label="Chat WhatsApp: terbuka untuk proyek"><span class="led"></span><span class="txt">Terbuka untuk proyek</span><span class="go" aria-hidden="true">↗</span></a>
+  </div>
+</nav>
+
+<main id="isi" class="detail">
+  <div class="wrap narrow">
+    <nav class="crumb mono" aria-label="Lokasi"><a href="/">Beranda</a><span aria-hidden="true">/</span><a href="/tutorial/">Tutorial</a><span aria-hidden="true">/</span><span>Jaringan</span></nav>
+    <header class="d-head">
+      <span class="eyebrow">Jaringan · 5 menit baca</span>
+      <h1>Standar skema jaringan untuk kantor pusat dan cabang</h1><p class="lede">Biar jaringan cabang nggak jadi hutan kabel dan IP acak, ini standar yang aku pakai: pola IP, VLAN, penamaan perangkat, VPN ke pusat, sampai dokumentasinya.</p>
+      <p class="meta mono"><time datetime="2026-10-16">16 Oktober 2026</time><span>Irfan Fauzi</span></p>
+    </header>
+    <article class="prose">
+      <p>Kalau kantor cuma satu, jaringan berantakan masih bisa diakalin. Tapi begitu cabangnya nambah jadi tiga, lima, sepuluh, dan tiap cabang di-setup orang yang beda, hasilnya chaos: IP tabrakan, password router beda-beda (atau malah masih default), dan nggak ada yang tahu kabel mana nyambung ke mana. Di tutorial ini aku spill <strong>standar</strong> yang aku pakai supaya semua cabang punya pola yang <strong>sama persis</strong>.</p>
+<h2>Masalah yang diselesaikan</h2>
+<ul>
+<li><strong>IP tabrakan antar cabang.</strong> Semua cabang pakai <code>192.168.1.0/24</code> bawaan router, jadi pas mau disambung VPN ke pusat, nggak bisa.</li>
+<li><strong>Setup beda-beda tiap cabang.</strong> Troubleshoot jadi lama karena tiap lokasi harus &quot;dipelajari ulang&quot;.</li>
+<li><strong>Tamu dan CCTV satu jaringan dengan PC kantor.</strong> Ini rawan banget dari sisi keamanan.</li>
+<li><strong>Nggak ada dokumentasi.</strong> Teknisi yang setup resign, ilmunya ikut pergi.</li>
+<li><strong>Cabang nggak bisa akses server pusat</strong> (ERP, file server, backup) dengan aman.</li>
+</ul>
+<h2>Yang dibutuhkan</h2>
+<ul>
+<li><strong>Router</strong> di tiap lokasi yang support VLAN dan VPN, misalnya MikroTik (RouterOS v7) atau sejenisnya.</li>
+<li><strong>Switch managed</strong> (bisa VLAN) di tiap lokasi.</li>
+<li><strong>Access point</strong> yang bisa pancarkan beberapa SSID dengan VLAN berbeda.</li>
+<li><strong>Koneksi internet</strong> di pusat dengan IP publik (atau layanan VPN/cloud sebagai titik temu).</li>
+<li><strong>Spreadsheet dokumentasi</strong> yang disimpan di satu tempat yang bisa diakses tim IT.</li>
+</ul>
+<h2>Langkah-langkah</h2>
+<h3>1. Bikin pola IP yang konsisten</h3>
+<p>Ini fondasi semuanya. Aku pakai pola <strong><code>10.&lt;kode cabang&gt;.&lt;VLAN&gt;.0/24</code></strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Lokasi</th>
+<th>Kode</th>
+<th>Contoh IP kantor (VLAN 10)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pusat</td>
+<td>10</td>
+<td><code>10.10.10.0/24</code></td>
+</tr>
+<tr>
+<td>Cabang 1</td>
+<td>11</td>
+<td><code>10.11.10.0/24</code></td>
+</tr>
+<tr>
+<td>Cabang 2</td>
+<td>12</td>
+<td><code>10.12.10.0/24</code></td>
+</tr>
+</tbody>
+</table>
+<p>Jadi cukup lihat IP <code>10.12.30.15</code>, langsung ketahuan: ini di <strong>Cabang 2</strong>, <strong>VLAN 30</strong>. Nggak perlu buka catatan.</p>
+<p>Di dalam tiap subnet juga ada aturan:</p>
+<ul>
+<li><code>.1</code> = gateway (router)</li>
+<li><code>.2 – .19</code> = switch, access point, perangkat jaringan</li>
+<li><code>.20 – .49</code> = server, printer, perangkat dengan IP statis</li>
+<li><code>.50 – .250</code> = DHCP untuk PC dan HP</li>
+</ul>
+<h3>2. Pisahkan jaringan pakai VLAN</h3>
+<p>Standar VLAN yang sama di semua lokasi:</p>
+<table>
+<thead>
+<tr>
+<th>VLAN</th>
+<th>Nama</th>
+<th>Isinya</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>KANTOR</td>
+<td>PC dan laptop karyawan</td>
+</tr>
+<tr>
+<td>20</td>
+<td>SERVER</td>
+<td>Server dan NAS (biasanya cuma di pusat)</td>
+</tr>
+<tr>
+<td>30</td>
+<td>CCTV</td>
+<td>NVR dan kamera</td>
+</tr>
+<tr>
+<td>40</td>
+<td>TAMU</td>
+<td>Wi-Fi tamu, cuma boleh internet</td>
+</tr>
+<tr>
+<td>99</td>
+<td>MGMT</td>
+<td>Akses ke router, switch, AP</td>
+</tr>
+</tbody>
+</table>
+<p>Aturan firewall-nya simpel: <strong>TAMU</strong> cuma boleh ke internet, <strong>CCTV</strong> nggak boleh ke internet kecuali yang perlu, dan <strong>MGMT</strong> cuma boleh diakses dari IP admin.</p>
+<h3>3. Standar penamaan perangkat</h3>
+<p>Format: <strong><code>&lt;jenis&gt;-&lt;lokasi&gt;-&lt;nomor&gt;</code></strong>. Contoh:</p>
+<ul>
+<li><code>RTR-PST-01</code> = router pusat</li>
+<li><code>SW-CB1-01</code> = switch cabang 1</li>
+<li><code>AP-CB2-02</code> = access point kedua di cabang 2</li>
+</ul>
+<p>Tempel label dengan nama yang sama di perangkat fisiknya. Kabel juga dilabel di dua ujungnya, misalnya <code>SW-CB1-01/P05</code>. Kelihatannya sepele, tapi ini yang bikin troubleshoot dari 2 jam jadi 10 menit.</p>
+<h3>4. Sambungkan cabang ke pusat pakai VPN site-to-site</h3>
+<p>Supaya cabang bisa akses server pusat seolah-olah satu gedung, pakai <strong>VPN site-to-site</strong>. Di RouterOS v7, WireGuard jadi pilihan favorit aku karena ringan dan stabil. Contoh di <strong>router cabang 1</strong>:</p>
+<pre><code>/interface wireguard add name=wg-pusat listen-port=13231
+/interface wireguard peers add interface=wg-pusat \
+    public-key=&quot;&lt;public key router pusat&gt;&quot; \
+    endpoint-address=&lt;IP publik pusat&gt; endpoint-port=13231 \
+    allowed-address=10.10.0.0/16,172.16.0.0/30 persistent-keepalive=25s
+/ip address add address=172.16.0.2/30 interface=wg-pusat
+/ip route add dst-address=10.10.0.0/16 gateway=wg-pusat
+</code></pre>
+<p>Di <strong>router pusat</strong>, bikin peer kebalikannya dengan <code>allowed-address=10.11.0.0/16</code> buat cabang 1, dan route <code>10.11.0.0/16</code> lewat interface WireGuard. Karena pola IP-nya rapi, routing tiap cabang cukup satu baris: <code>10.&lt;kode&gt;.0.0/16</code>.</p>
+<p>Jangan lupa buka port UDP WireGuard di firewall pusat, dan <strong>cuma</strong> dari interface internet.</p>
+<h3>5. Bikin template konfigurasi</h3>
+<p>Setelah cabang pertama jalan, export konfigurasinya jadi <strong>template</strong>. Untuk cabang baru tinggal ganti:</p>
+<ul>
+<li>kode cabang (<code>11</code> jadi <code>13</code>, dst),</li>
+<li>key WireGuard,</li>
+<li>nama perangkat.</li>
+</ul>
+<p>Setup cabang baru yang tadinya seharian bisa jadi kurang dari sejam. Konsisten, minim typo.</p>
+<h3>6. Hardening dasar di semua perangkat</h3>
+<p>Checklist wajib sebelum perangkat dinyatakan &quot;selesai&quot;:</p>
+<ul>
+<li>Ganti user dan password default, pakai password unik per lokasi.</li>
+<li>Matikan service yang nggak dipakai (telnet, ftp, api kalau nggak perlu).</li>
+<li>Akses winbox/SSH cuma dari VLAN MGMT atau IP pusat.</li>
+<li>Update firmware ke versi stabil.</li>
+<li>Aktifkan backup konfigurasi otomatis dan simpan ke server pusat.</li>
+</ul>
+<h3>7. Dokumentasikan semuanya</h3>
+<p>Satu spreadsheet, satu sheet per lokasi, isinya:</p>
+<ul>
+<li>Daftar subnet dan VLAN,</li>
+<li>Daftar perangkat (nama, IP, lokasi fisik, nomor seri),</li>
+<li>Peta port switch (port berapa ke mana),</li>
+<li>Info ISP (nomor pelanggan, kontak support),</li>
+<li>Tanggal perubahan terakhir dan siapa yang ubah.</li>
+</ul>
+<p>Simpan password <strong>di password manager</strong>, bukan di spreadsheet.</p>
+<h2>Hasil akhir</h2>
+<ul>
+<li><strong>Semua cabang punya pola yang sama</strong>: IP, VLAN, nama perangkat, dan konfigurasi.</li>
+<li><strong>Cabang terhubung ke pusat lewat VPN</strong>, jadi bisa akses ERP, file server, dan ikut backup ke pusat.</li>
+<li><strong>Jaringan tamu dan CCTV terpisah</strong> dari jaringan kantor, jauh lebih aman.</li>
+<li><strong>Cabang baru bisa di-setup cepat</strong> pakai template.</li>
+<li><strong>Troubleshoot lebih cepat</strong>, karena siapapun di tim IT bisa baca jaringannya dari dokumentasi dan label.</li>
+</ul>
+<p>Standar itu kedengarannya kaku, tapi justru itu yang bikin kerja IT jadi santai. Sekali rapi, selanjutnya tinggal copy pola.</p>
+
+    </article>
+    <aside class="t-sign" aria-label="Penulis">
+      <div class="t-sign-top">
+        <span class="t-ava" aria-hidden="true">IF<span class="led"></span></span>
+        <div class="t-who">
+          <span class="eyebrow">Ditulis oleh</span>
+          <b>Irfan Fauzi</b>
+          <span class="t-role">IT Infrastructure, Web &amp; Aplikasi</span>
+        </div>
+        <a class="t-more" href="/#karya">Lihat karya <span aria-hidden="true">→</span></a>
+      </div>
+      <p class="t-bio">Ngurus jaringan, server, backup, dan cloud storage, plus bikin website dan aplikasi buat kantor, sekolah, dan masjid. Kalau bukan lagi nyolok kabel, ya lagi nulis kode.</p>
+      <figure class="t-joke">
+        <figcaption class="mono"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>~/catatan-kaki.txt</figcaption>
+        <blockquote><span class="pr" aria-hidden="true">$</span> Semua cabang pakai IP 192.168.1.1. Kompak banget sih, cuma VPN-nya yang nggak bisa diajak kompak.<span class="cur" aria-hidden="true"></span></blockquote>
+      </figure>
+    </aside>
+    <aside class="t-cta">
+      <p>Butuh bantuan menerapkan ini di kantor Anda?</p>
+      <a class="btn primary" href="https://wa.me/6282124038826?text=Halo%20Irfan%2C%20saya%20baca%20tutorial%20Standar%20skema%20jaringan%20untuk%20kantor%20pusat%20dan%20cabang%20dan%20butuh%20bantuan." target="_blank" rel="noopener">Chat WhatsApp <span class="arr" aria-hidden="true">→</span></a>
+    </aside>
+  </div>
+</main>
+
+
+<footer>
+  <div class="wrap mono"><span>© 2026 Irfan Fauzi</span><span>Dibangun dengan bantuan doa istri di rumah</span></div>
+</footer>
+<script src="/assets/js/main.js?v=mvkno0xe" defer></script>
+</body>
+</html>

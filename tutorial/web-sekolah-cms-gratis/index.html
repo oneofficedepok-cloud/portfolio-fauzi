@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Web sekolahku dulu kayak rumah kosong, jadi aku bikinin CMS gratis · Irfan Fauzi</title>
+<meta name="description" content="Cerita keresahan lihat website SMP sendiri yang kayak nggak ada yang ngurus, sampai akhirnya aku bikin website sekolah berbasis CMS lengkap dengan panel admin. Source code-nya gratis, panduan pasangnya ada di sini.">
+<link rel="canonical" href="https://irfanfauzi.web.id/tutorial/web-sekolah-cms-gratis/">
+<meta name="author" content="Irfan Fauzi">
+<meta name="theme-color" content="#eef1ed" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1412" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="id_ID">
+<meta property="og:site_name" content="Irfan Fauzi">
+<meta property="og:title" content="Web sekolahku dulu kayak rumah kosong, jadi aku bikinin CMS gratis · Irfan Fauzi">
+<meta property="og:description" content="Cerita keresahan lihat website SMP sendiri yang kayak nggak ada yang ngurus, sampai akhirnya aku bikin website sekolah berbasis CMS lengkap dengan panel admin. Source code-nya gratis, panduan pasangnya ada di sini.">
+<meta property="og:url" content="https://irfanfauzi.web.id/tutorial/web-sekolah-cms-gratis/">
+<meta property="og:image" content="https://irfanfauzi.web.id/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="/assets/css/style.css?v=mvkno0xe">
+</head>
+<body>
+<a class="skip" href="#isi">Langsung ke isi</a>
+<nav class="nav" aria-label="Utama">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="mark" aria-hidden="true">IF</span><span>Irfan Fauzi</span></a>
+    <ul>
+      <li><a href="/#karya">Karya</a></li>
+      <li><a href="/#tutorial">Tutorial</a></li>
+      <li><a href="/#catatan">Catatan Kerja</a></li>
+      <li><a href="/#kontak">Kontak</a></li>
+    </ul>
+    <a class="avail" href="https://wa.me/6282124038826?text=Halo%20Irfan%2C%20saya%20lihat%20portfolio%20Anda%20dan%20ingin%20diskusi%20proyek." target="_blank" rel="noopener" aria-label="Chat WhatsApp: terbuka untuk proyek"><span class="led"></span><span class="txt">Terbuka untuk proyek</span><span class="go" aria-hidden="true">↗</span></a>
+  </div>
+</nav>
+
+<main id="isi" class="detail">
+  <div class="wrap narrow">
+    <nav class="crumb mono" aria-label="Lokasi"><a href="/">Beranda</a><span aria-hidden="true">/</span><a href="/tutorial/">Tutorial</a><span aria-hidden="true">/</span><span>Website</span></nav>
+    <header class="d-head">
+      <span class="eyebrow">Website · 10 menit baca</span>
+      <h1>Web sekolahku dulu kayak rumah kosong, jadi aku bikinin CMS gratis</h1><p class="lede">Cerita keresahan lihat website SMP sendiri yang kayak nggak ada yang ngurus, sampai akhirnya aku bikin website sekolah berbasis CMS lengkap dengan panel admin. Source code-nya gratis, panduan pasangnya ada di sini.</p>
+      <p class="meta mono"><time datetime="2026-10-23">23 Oktober 2026</time><span>Irfan Fauzi</span></p>
+    </header>
+    <article class="prose">
+      <p>Jadi gini. Suatu malam, habis beres ngoprek server klien, aku iseng buka website SMP tempat aku dulu sekolah. Niatnya cuma nostalgia, pengen lihat foto guru-guru, siapa tahu ada foto angkatanku yang lagi upacara sambil nahan ngantuk.</p>
+<p>Yang muncul? Jujurly, aku langsung pengen nutup laptop terus wudhu.</p>
+<p>Di artikel ini aku spill semuanya: <strong>keresahan</strong> lihat web sekolah yang kayak rumah kosong, <strong>kenapa</strong> aku akhirnya bikin website sekolah berbasis CMS sendiri, dan yang paling penting buat kamu: <strong>source code-nya aku kasih gratis</strong>, lengkap dengan <strong>panduan pasangnya</strong> dari nol sampai online. Siapin kopi, ini agak panjang, tapi worth it.</p>
+<h2>Masalah yang diselesaikan</h2>
+<h3>Episode 1: Mengunjungi rumah kosong</h3>
+<p>Begitu halaman kebuka (setelah loading 14 detik, aku hitung), ini yang aku temuin:</p>
+<ul>
+<li><strong>Slider banner</strong> yang gambarnya udah nggak ada. Jadi isinya kotak abu-abu bertuliskan &quot;image not found&quot;, geser kanan, kotak abu-abu lagi. Konsisten sih, aku hargai.</li>
+<li><strong>Berita terbaru</strong> judulnya &quot;Selamat Datang Siswa Baru Tahun Ajaran 2016/2017&quot;. Terbaru, ya. Mungkin maksudnya terbaru di zamannya.</li>
+<li>Ada <strong>visitor counter</strong> di pojok kanan bawah, angkanya 004.317. Aku curiga setengahnya itu operator sekolah yang lagi nyari tombol login.</li>
+<li><strong>Teks berjalan</strong> warna kuning di atas background merah. Mata aku sampai butuh cuti.</li>
+<li>Menu <strong>&quot;Galeri&quot;</strong> isinya error. Menu <strong>&quot;Download&quot;</strong> isinya file Word bernama <code>Dokumen1 (2) FINAL revisi.doc</code>.</li>
+<li>Footer-nya: <strong>&quot;Copyright 2015&quot;</strong>. Waktu di website itu berhenti, kayak jam dinding di film horor.</li>
+</ul>
+<p>Terus aku kepo, tanya ke temen yang kebetulan ngajar disana: &quot;Ini webnya koq gini amat ya, siapa yang pegang ya?&quot;</p>
+<p>Jawabannya bikin aku paham semuanya: <em>&quot;Urusan di pegang sama si Fulan, kayanya di bikin pakai Ai Google dah, cuma kaya gak serius gtuh bikinnya&quot;</em></p>
+<p>Nah. Itu dia akar masalahnya.</p>
+<h3>Episode 2: Kenapa web sekolah banyak yang begini?</h3>
+<p>Setelah ngobrol sama beberapa guru dan operator dari sekolah lain, ternyata pola ceritanya sama semua:</p>
+<ol>
+<li><strong>Dibikin sekali, ditinggal selamanya.</strong> Website dianggap kayak papan nama: pasang, terus dilupain.</li>
+<li><strong>Yang bikin pergi, ilmunya ikut pergi.</strong> Nggak ada dokumentasi, nggak ada serah terima. Password admin cuma ada di kepala satu orang (dan kepala itu sekarang kerja di kota lain).</li>
+<li><strong>Ganti isi harus ngoding.</strong> Mau ganti foto kepala sekolah aja harus buka file HTML. Operator sekolah yang kerjaannya udah segunung, ya mana sempat.</li>
+<li><strong>Tampilannya bikin malu.</strong> Padahal website itu &quot;etalase&quot; sekolah. Orang tua calon siswa biasanya lihat web dulu sebelum datang. Kalau webnya kayak rumah kosong, kesan pertamanya juga ikut kosong.</li>
+</ol>
+<p>Jadi masalahnya bukan cuma &quot;webnya jelek&quot;. Masalah intinya: <strong>sekolah nggak punya alat yang gampang buat ngurus websitenya sendiri.</strong></p>
+<h3>Episode 3: Oke, aku bikinin aja</h3>
+<p>Sebagai orang IT yang tiap hari ngurus server dan aplikasi, rasanya kok nggak enak kalau cuma ngeluh di grup alumni. Jadi aku putuskan bikin <strong>website sekolah berbasis CMS</strong> dengan tiga prinsip:</p>
+<ul>
+<li><strong>Tampilannya harus kece</strong>, biar sekolah bangga ngebagiin link-nya.</li>
+<li><strong>Semua isi bisa diubah dari panel admin</strong>, tanpa nyentuh kode sama sekali. Kalau bisa ngetik di WhatsApp, harusnya bisa ngurus web ini.</li>
+<li><strong>Gampang dipasang di hosting murah</strong>, karena budget IT sekolah biasanya cuma cukup buat beli tinta printer (dan itu pun sering kurang).</li>
+</ul>
+<p>Hasilnya kayak gini:</p>
+<p><img src="/img/sekolah.webp" alt="Tampilan beranda website sekolah berbasis CMS"></p>
+<p>Dan karena niat awalnya buat bantu sekolah, <strong>source code-nya aku bagikan gratis</strong> buat siapa aja yang baca artikel ini. Mau dipakai buat sekolahmu, sekolah adikmu, atau madrasah di dekat rumah, gaskeun.</p>
+<h3>Fitur yang ada di dalamnya</h3>
+<p>Biar kebayang, ini yang bisa diatur dari panel admin:</p>
+<table>
+<thead>
+<tr>
+<th>Menu admin</th>
+<th>Buat apa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Halaman</td>
+<td>Bikin halaman dari template (profil, galeri, kontak, PPDB, FAQ, dll). Isinya disusun dari blok yang bisa ditambah, diurutkan, disembunyikan, atau dihapus.</td>
+</tr>
+<tr>
+<td>Menu</td>
+<td>Atur menu utama, menu atas, dan footer. Bisa pakai submenu.</td>
+</tr>
+<tr>
+<td>Berita</td>
+<td>Tulis berita lengkap dengan foto sampul, kategori, dan draf.</td>
+</tr>
+<tr>
+<td>Galeri foto</td>
+<td>Bikin album dan upload banyak foto sekaligus.</td>
+</tr>
+<tr>
+<td>Video, Agenda, Guru &amp; staf, Unduhan</td>
+<td>Data yang otomatis tampil di halaman terkait.</td>
+</tr>
+<tr>
+<td>Media</td>
+<td>Pustaka gambar. Foto otomatis diperkecil biar web tetap ringan.</td>
+</tr>
+<tr>
+<td>Pesan masuk</td>
+<td>Pesan dari formulir kontak, ada tombol balas via WhatsApp.</td>
+</tr>
+<tr>
+<td>Pendaftar PPDB</td>
+<td>Data pendaftar online, ubah statusnya, dan unduh ke Excel.</td>
+</tr>
+<tr>
+<td>Pengaturan</td>
+<td>Nama sekolah, logo, alamat, kontak, media sosial, peta, sampai warna.</td>
+</tr>
+<tr>
+<td>Pengguna</td>
+<td>Tambah admin atau editor (editor nggak bisa ubah pengaturan).</td>
+</tr>
+</tbody>
+</table>
+<p>Blok yang bisa dipakai juga banyak: banner utama, statistik, visi misi, struktur organisasi, linimasa sejarah, testimoni alumni, tanya jawab, formulir PPDB, cek status PPDB, sampai hitung mundur kuota pendaftaran. Pokoknya operator tinggal susun kayak main lego.</p>
+<p>Soal keamanan juga nggak aku skip: password disimpan terenkripsi, login dibatasi 8 percobaan per 15 menit, semua formulir dilindungi token CSRF, dan file yang diupload dicek jenisnya. Jadi bukan web yang bisa dibobol cuma pakai <code>admin</code> / <code>admin</code>.</p>
+<h2>Yang dibutuhkan</h2>
+<p>Kabar baiknya, kebutuhannya simpel banget:</p>
+<ul>
+<li><strong>Hosting dengan cPanel</strong> (hosting murah juga bisa), PHP versi <strong>8.1 atau lebih baru</strong>. Hampir semua hosting sekarang sudah memenuhi.</li>
+<li><strong>Domain</strong>, misalnya <code>namasekolah.sch.id</code> atau subdomain dulu buat coba-coba.</li>
+<li><strong>Source code gratisnya</strong>: <a href="https://github.com/oneofficedepok-cloud/web_sekolah">github.com/oneofficedepok-cloud/web_sekolah</a></li>
+<li><strong>Database</strong>: nggak wajib setup apa-apa. Bawaannya pakai <strong>SQLite</strong> yang otomatis jadi. Kalau mau pakai MySQL juga bisa (dibahas di bawah).</li>
+<li><strong>Foto-foto asli sekolah</strong>: kepala sekolah, gedung, kegiatan siswa. Ini yang bikin web terasa hidup.</li>
+<li>Waktu sekitar <strong>30 menit</strong> dan niat yang tulus.</li>
+</ul>
+<h2>Langkah-langkah</h2>
+<h3>1. Download source code-nya</h3>
+<p>Buka <a href="https://github.com/oneofficedepok-cloud/web_sekolah">repo web_sekolah di GitHub</a>, klik tombol hijau <strong>Code</strong>, lalu pilih <strong>Download ZIP</strong>. Nggak perlu akun GitHub, nggak perlu install apa-apa. Simpan file ZIP-nya, jangan diekstrak dulu.</p>
+<h3>2. Upload ke hosting</h3>
+<ol>
+<li>Login ke <strong>cPanel</strong> hosting kamu, buka <strong>File Manager</strong>.</li>
+<li>Masuk ke folder <code>public_html</code> (atau bikin subfolder dulu, misalnya <code>public_html/web-baru</code>, kalau mau coba tanpa ganggu web lama).</li>
+<li>Klik <strong>Upload</strong>, pilih file ZIP tadi.</li>
+<li>Setelah selesai, klik kanan file ZIP, pilih <strong>Extract</strong>.</li>
+<li>Hasil ekstrak biasanya masuk ke folder bernama <code>web_sekolah-main</code>. <strong>Pindahkan semua isinya</strong> ke folder tujuan (misalnya <code>public_html</code>), lalu hapus folder kosong dan file ZIP-nya.</li>
+</ol>
+<h3>3. Cek file tersembunyi (ini sering kelewat!)</h3>
+<p>Di dalam source code ada file bernama <code>.htaccess</code>. Titik di depan namanya bikin file ini <strong>tersembunyi</strong>, dan tanpa file ini web kamu bakal error 404 di banyak halaman (dan beberapa folder penting malah bisa dibuka orang).</p>
+<p>Di File Manager, klik <strong>Settings</strong> di pojok kanan atas, centang <strong>Show Hidden Files (dotfiles)</strong>, lalu save. Pastikan file <code>.htaccess</code> ada di:</p>
+<ul>
+<li>folder utama website,</li>
+<li>folder <code>app/</code>,</li>
+<li>folder <code>storage/</code>,</li>
+<li>folder <code>uploads/</code>.</li>
+</ul>
+<p>Kalau semuanya ada, aman. Kalau nggak ada, ulangi proses ekstrak ZIP-nya.</p>
+<h3>4. Atur izin folder</h3>
+<p>Website perlu menyimpan database dan foto, jadi dua folder ini harus bisa ditulis:</p>
+<ul>
+<li><code>storage/</code></li>
+<li><code>uploads/</code></li>
+</ul>
+<p>Klik kanan masing-masing folder, pilih <strong>Change Permissions</strong>, isi <strong>755</strong> (kalau nanti gagal upload foto, coba <strong>775</strong>). Jangan pernah pakai 777 ya, itu sama aja kayak ninggalin pintu rumah kebuka sambil pasang spanduk &quot;silakan masuk&quot;.</p>
+<h3>5. Buka website, ikuti halaman Pemasangan</h3>
+<p>Sekarang buka alamat website kamu di browser. Kalau semua langkah tadi benar, yang muncul pertama kali adalah halaman <strong>Pemasangan</strong>. Isi:</p>
+<ul>
+<li><strong>Nama</strong> kamu,</li>
+<li><strong>Nama pengguna</strong> admin (huruf kecil, minimal 3 karakter),</li>
+<li><strong>Kata sandi</strong> minimal 8 karakter, lalu ulangi sekali lagi,</li>
+<li>Biarkan centang <strong>&quot;Isi dengan konten contoh&quot;</strong> supaya web langsung terisi lengkap sesuai desain.</li>
+</ul>
+<p>Klik <strong>Pasang dan masuk</strong>, dan... boom. Website sekolah kamu langsung jadi, lengkap dengan halaman beranda, profil, akademik, kesiswaan, berita, galeri, PPDB, dan kontak.</p>
+<p>Panel admin ada di:</p>
+<pre><code>https://alamat-website-kamu/admin
+</code></pre>
+<p>Simpan username dan password-nya di password manager, <strong>bukan</strong> di kertas yang ditempel di monitor ruang TU. Kita nggak mau mengulang sejarah kakak kelas magang tadi.</p>
+<h3>6. (Opsional) Pakai MySQL</h3>
+<p>SQLite bawaan sudah cukup buat kebanyakan sekolah. Tapi kalau kamu lebih nyaman pakai MySQL:</p>
+<ol>
+<li>Di cPanel, buka <strong>MySQL Databases</strong>. Bikin database, bikin user, lalu tambahkan user ke database dengan <strong>All Privileges</strong>.</li>
+<li>Di File Manager, salin file <code>config.sample.php</code> menjadi <code>config.php</code>.</li>
+<li>Edit <code>config.php</code>, ubah bagian ini:</li>
+</ol>
+<pre><code class="language-php">'db_driver' =&gt; 'mysql',
+'mysql_host' =&gt; 'localhost',
+'mysql_database' =&gt; 'namauser_sekolah',
+'mysql_user' =&gt; 'namauser_admin',
+'mysql_password' =&gt; 'password-database-kamu',
+</code></pre>
+<ol start="4">
+<li>Simpan, lalu buka websitenya. Tabel dibuat otomatis dan halaman Pemasangan muncul seperti langkah 5.</li>
+</ol>
+<h3>7. Ganti konten contoh jadi punya sekolahmu</h3>
+<p>Konten contoh itu ibarat rumah yang udah ada perabotnya, tinggal kamu ganti fotonya. Urutan yang aku sarankan:</p>
+<ol>
+<li><strong>Pengaturan</strong> dulu: nama sekolah, logo, alamat, nomor WhatsApp, email, media sosial, peta, NPSN, dan warna utama.</li>
+<li><strong>Cari teks dalam kurung siku</strong>, misalnya <code>[Nama Kepala Sekolah]</code> atau <code>[000]</code>. Itu semua tempat isian yang harus diganti dengan data asli.</li>
+<li><strong>Ganti foto contoh</strong> dengan foto asli sekolah lewat menu <strong>Media</strong> atau langsung di tiap blok. Foto stok itu cakep, tapi orang tua pengen lihat sekolah aslinya.</li>
+<li><strong>Tulis berita pertama</strong>. Nggak usah muluk-muluk, kegiatan upacara Senin kemarin juga cukup. Yang penting web kelihatan hidup.</li>
+<li><strong>Atur PPDB</strong>: kuota, alur pendaftaran, dan formulir online. Pendaftar yang masuk bisa langsung dicek di menu <strong>Pendaftar PPDB</strong> dan diunduh ke Excel.</li>
+</ol>
+<h3>8. Bagi tugas biar nggak terulang</h3>
+<p>Ingat akar masalahnya tadi? Website mati karena cuma satu orang yang pegang. Jadi:</p>
+<ul>
+<li>Bikin minimal <strong>dua akun admin</strong> (misalnya operator dan wakil kepala sekolah).</li>
+<li>Kasih akun <strong>editor</strong> buat guru yang rajin nulis berita. Editor bisa nulis tapi nggak bisa ngacak-ngacak pengaturan.</li>
+<li>Tulis di satu dokumen: alamat admin, siapa saja yang pegang akun, dan info login hosting. Simpan di tempat yang aman dan bisa diakses pihak sekolah.</li>
+</ul>
+<h3>9. Jangan lupa backup</h3>
+<p>Semua data penting ada di dua folder:</p>
+<ul>
+<li><code>storage/</code> (database SQLite),</li>
+<li><code>uploads/</code> (foto dan file yang diupload).</li>
+</ul>
+<p>Seminggu sekali, compress dua folder itu lewat File Manager lalu download, atau pakai fitur backup otomatis dari hosting kamu. Kalau mau lebih serius, baca juga tutorial aku soal <em>Backup otomatis harian ke NAS dan cloud</em>.</p>
+<h3>10. Coba di laptop dulu (buat yang penasaran)</h3>
+<p>Kalau kamu developer atau sekadar pengen nyoba sebelum upload ke hosting, cukup install PHP di laptop, masuk ke folder source code, lalu jalankan:</p>
+<pre><code class="language-bash">php -S localhost:8000 router.php
+</code></pre>
+<p>Buka <code>http://localhost:8000</code> di browser, dan halaman Pemasangan akan muncul. Cocok buat ngoprek tampilan tanpa takut ngerusak web yang sudah online.</p>
+<h2>Hasil akhir</h2>
+<p>Setelah semua langkah di atas, sekolah kamu punya:</p>
+<ul>
+<li><strong>Website yang tampilannya modern</strong> dan nyaman dibuka di HP, bukan lagi rumah kosong dengan slider abu-abu.</li>
+<li><strong>Panel admin</strong> untuk mengubah semua isi: halaman, menu, berita, galeri, guru, unduhan, sampai PPDB, <strong>tanpa ngoding</strong>.</li>
+<li><strong>PPDB online</strong> dengan data pendaftar yang bisa diunduh ke Excel.</li>
+<li><strong>Pengelolaan bersama</strong>, karena akun admin dan editor bisa dibagi, jadi web nggak mati cuma karena satu orang lulus atau pindah kerja.</li>
+<li><strong>Keamanan dasar yang beres</strong>: password terenkripsi, batas percobaan login, formulir anti-bot, dan folder penting yang terkunci.</li>
+</ul>
+<p>Kalau nanti kamu pakai source code ini buat sekolahmu, kabarin aku ya. Aku pengen lihat web sekolah di Indonesia satu per satu bangkit dari kubur. Dan kalau ada yang bingung waktu pasang, tinggal klik tombol WhatsApp di bawah, insyaAllah aku bantu.</p>
+<p>Sekarang, aku mau balik ke grup alumni. Mau nanya lagi siapa yang pegang password hosting sekolah. Doain ya.</p>
+
+    </article>
+    <aside class="t-sign" aria-label="Penulis">
+      <div class="t-sign-top">
+        <span class="t-ava" aria-hidden="true">IF<span class="led"></span></span>
+        <div class="t-who">
+          <span class="eyebrow">Ditulis oleh</span>
+          <b>Irfan Fauzi</b>
+          <span class="t-role">IT Infrastructure, Web &amp; Aplikasi</span>
+        </div>
+        <a class="t-more" href="/#karya">Lihat karya <span aria-hidden="true">→</span></a>
+      </div>
+      <p class="t-bio">Ngurus jaringan, server, backup, dan cloud storage, plus bikin website dan aplikasi buat kantor, sekolah, dan masjid. Kalau bukan lagi nyolok kabel, ya lagi nulis kode.</p>
+      <figure class="t-joke">
+        <figcaption class="mono"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>~/catatan-kaki.txt</figcaption>
+        <blockquote><span class="pr" aria-hidden="true">$</span> Kalau server bunyi bip panjang, itu bukan nyanyi. Itu minta tolong.<span class="cur" aria-hidden="true"></span></blockquote>
+      </figure>
+    </aside>
+    <aside class="t-cta">
+      <p>Butuh bantuan menerapkan ini di kantor Anda?</p>
+      <a class="btn primary" href="https://wa.me/6282124038826?text=Halo%20Irfan%2C%20saya%20baca%20tutorial%20Web%20sekolahku%20dulu%20kayak%20rumah%20kosong%2C%20jadi%20aku%20bikinin%20CMS%20gratis%20dan%20butuh%20bantuan." target="_blank" rel="noopener">Chat WhatsApp <span class="arr" aria-hidden="true">→</span></a>
+    </aside>
+  </div>
+</main>
+
+
+<footer>
+  <div class="wrap mono"><span>© 2026 Irfan Fauzi</span><span>Dibangun dengan bantuan doa istri di rumah</span></div>
+</footer>
+<script src="/assets/js/main.js?v=mvkno0xe" defer></script>
+</body>
+</html>

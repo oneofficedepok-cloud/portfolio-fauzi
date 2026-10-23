@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Capek kena limit TeamViewer, aku bangun server remote desktop sendiri · Irfan Fauzi</title>
+<meta name="description" content="Dari drama remote PC cabang yang selalu kena limit, riset cari solusi, sampai bangun server MeshCentral sendiri di LXC Proxmox. Lengkap dengan cara uji dan panduan pasangnya.">
+<link rel="canonical" href="https://irfanfauzi.web.id/tutorial/server-remote-desktop-meshcentral/">
+<meta name="author" content="Irfan Fauzi">
+<meta name="theme-color" content="#eef1ed" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1412" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="id_ID">
+<meta property="og:site_name" content="Irfan Fauzi">
+<meta property="og:title" content="Capek kena limit TeamViewer, aku bangun server remote desktop sendiri · Irfan Fauzi">
+<meta property="og:description" content="Dari drama remote PC cabang yang selalu kena limit, riset cari solusi, sampai bangun server MeshCentral sendiri di LXC Proxmox. Lengkap dengan cara uji dan panduan pasangnya.">
+<meta property="og:url" content="https://irfanfauzi.web.id/tutorial/server-remote-desktop-meshcentral/">
+<meta property="og:image" content="https://irfanfauzi.web.id/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="/assets/css/style.css?v=mvkno0xe">
+</head>
+<body>
+<a class="skip" href="#isi">Langsung ke isi</a>
+<nav class="nav" aria-label="Utama">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="mark" aria-hidden="true">IF</span><span>Irfan Fauzi</span></a>
+    <ul>
+      <li><a href="/#karya">Karya</a></li>
+      <li><a href="/#tutorial">Tutorial</a></li>
+      <li><a href="/#catatan">Catatan Kerja</a></li>
+      <li><a href="/#kontak">Kontak</a></li>
+    </ul>
+    <a class="avail" href="https://wa.me/6282124038826?text=Halo%20Irfan%2C%20saya%20lihat%20portfolio%20Anda%20dan%20ingin%20diskusi%20proyek." target="_blank" rel="noopener" aria-label="Chat WhatsApp: terbuka untuk proyek"><span class="led"></span><span class="txt">Terbuka untuk proyek</span><span class="go" aria-hidden="true">↗</span></a>
+  </div>
+</nav>
+
+<main id="isi" class="detail">
+  <div class="wrap narrow">
+    <nav class="crumb mono" aria-label="Lokasi"><a href="/">Beranda</a><span aria-hidden="true">/</span><a href="/tutorial/">Tutorial</a><span aria-hidden="true">/</span><span>Server</span></nav>
+    <header class="d-head">
+      <span class="eyebrow">Server · 9 menit baca</span>
+      <h1>Capek kena limit TeamViewer, aku bangun server remote desktop sendiri</h1><p class="lede">Dari drama remote PC cabang yang selalu kena limit, riset cari solusi, sampai bangun server MeshCentral sendiri di LXC Proxmox. Lengkap dengan cara uji dan panduan pasangnya.</p>
+      <p class="meta mono"><time datetime="2026-10-23">23 Oktober 2026</time><span>Irfan Fauzi</span></p>
+    </header>
+    <article class="prose">
+      <p>Kalau kamu anak IT yang pegang banyak cabang, pasti pernah ngalamin ini: lagi asyik makan siang, HP bunyi, isinya chat dari cabang. <em>&quot;Mas, printer nggak bisa ngeprint.&quot;</em> Lima menit kemudian: <em>&quot;Mas, Excel-nya hilang.&quot;</em> Sepuluh menit kemudian: <em>&quot;Mas, ini kenapa layarnya biru?&quot;</em></p>
+<p>Dan karena cabangnya jauh, satu-satunya penyelamat adalah aplikasi remote. Masalahnya, penyelamat ini sering banget <strong>ngambek di tengah jalan</strong>.</p>
+<p>Di artikel ini aku spill perjalanan aku dari korban limit aplikasi remote gratisan, riset nyari solusi, sampai akhirnya <strong>bangun server remote desktop sendiri pakai MeshCentral</strong>. Sekarang semua PC cabang bisa aku remote dari satu dashboard, tanpa limit, tanpa drama. Gaskeun.</p>
+<h2>Masalah yang diselesaikan</h2>
+<h3>Babak 1: Drama &quot;sesi Anda telah berakhir&quot;</h3>
+<p>Awalnya semua aman. Pakai TeamViewer, AnyDesk, dan kawan-kawan versi gratis. Minta user cabang buka aplikasinya, kirim ID dan password lewat WhatsApp, terus aku masuk. Simpel.</p>
+<p>Sampai suatu hari, lagi benerin printer cabang, tiba-tiba muncul notifikasi yang intinya: <em>&quot;Kami mendeteksi penggunaan komersial.&quot;</em> Lalu sesinya diputus. Coba lagi, diputus lagi. Coba pakai aplikasi lain, lancar dua hari, habis itu kena juga.</p>
+<p>Wajar sih, versi gratis memang buat pemakaian pribadi. Tapi coba bayangin posisinya:</p>
+<ul>
+<li><strong>Sesi keputus pas lagi install driver.</strong> Driver setengah jadi, printer makin ngambek, user makin panik.</li>
+<li><strong>User harus kirim ID dan password tiap kali.</strong> Dan ID-nya sering salah ketik. Satu angka beda, aku nyasar ke PC orang lain. (Bercanda. Semoga.)</li>
+<li><strong>PC tanpa orang di depannya nggak bisa diremote.</strong> Mau update Windows malam-malam pas cabang tutup? Nggak bisa, karena nggak ada yang buka aplikasinya.</li>
+<li><strong>Lisensi berbayar untuk puluhan PC itu lumayan.</strong> Budget IT kantor biasanya lebih kecil dari budget snack rapat.</li>
+</ul>
+<p>Jadi masalahnya bukan cuma &quot;aplikasinya ngelimit&quot;. Intinya: <strong>kantor butuh alat remote yang bisa dipakai tiap hari ke semua PC cabang, tanpa nunggu user, dan nggak bikin budget menangis.</strong></p>
+<h3>Babak 2: Riset, alias membandingkan pilihan sambil ngopi</h3>
+<p>Sebelum bangun apa-apa, aku bikin daftar dulu. Ini hasil riset aku, versi jujur:</p>
+<table>
+<thead>
+<tr>
+<th>Opsi</th>
+<th>Kelebihan</th>
+<th>Kenapa belum cocok</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TeamViewer / AnyDesk berbayar</td>
+<td>Gampang, stabil</td>
+<td>Biaya lisensi per tahun, makin banyak PC makin mahal</td>
+</tr>
+<tr>
+<td>Chrome Remote Desktop</td>
+<td>Gratis</td>
+<td>Terikat akun Google per PC, ribet dikelola banyak cabang</td>
+</tr>
+<tr>
+<td>RDP + VPN</td>
+<td>Bawaan Windows</td>
+<td>Butuh VPN rapi ke semua cabang, Windows edisi Home nggak bisa jadi host RDP</td>
+</tr>
+<tr>
+<td>RustDesk self-hosted</td>
+<td>Open source, bisa server sendiri</td>
+<td>Bagus, tapi aku butuh dashboard web buat kelola banyak PC sekaligus</td>
+</tr>
+<tr>
+<td><strong>MeshCentral</strong></td>
+<td>Open source, gratis, <strong>dashboard web</strong>, agen jalan di background, bisa remote layar + terminal + file</td>
+<td>Perlu server sendiri (dan itu justru yang aku mau)</td>
+</tr>
+</tbody>
+</table>
+<p>Yang bikin aku jatuh hati sama <strong>MeshCentral</strong>:</p>
+<ul>
+<li><strong>Semua lewat browser.</strong> Aku nggak perlu install aplikasi khusus di laptop sendiri. Buka web, login, klik PC, langsung remote.</li>
+<li><strong>Agen jalan terus di PC cabang</strong> sebagai service Windows. Jadi PC bisa diremote walaupun nggak ada orang di depannya.</li>
+<li><strong>Agen yang nyambung ke server</strong>, bukan sebaliknya. Artinya, PC cabang <strong>nggak perlu IP publik atau buka port</strong>, cukup ada internet.</li>
+<li><strong>Fiturnya lengkap</strong>: remote desktop, terminal, transfer file, lihat proses, restart, bahkan Wake-on-LAN.</li>
+<li><strong>Gratis dan open source.</strong> Budget aman, bos senang, anak IT bisa tidur siang (sebentar).</li>
+</ul>
+<p>Keputusan final: bangun server MeshCentral sendiri.</p>
+<h2>Yang dibutuhkan</h2>
+<p>Spesifikasi yang aku pakai dan sekarang sudah menampung <strong>semua PC cabang</strong>:</p>
+<ul>
+<li><strong>Proxmox VE</strong> sebagai tempat bikin container. Belum punya? Baca dulu <a href="/tutorial/server-virtualisasi-kantor-kecil/">Membangun server virtualisasi untuk kantor kecil</a>.</li>
+<li><strong>1 container LXC</strong> dengan:
+<ul>
+<li>OS <strong>Ubuntu 22.04</strong></li>
+<li><strong>2 core</strong> CPU</li>
+<li><strong>8 GB</strong> RAM (jujur ini lega banget, MeshCentral sebenarnya irit)</li>
+<li>Disk 32 GB sudah cukup</li>
+</ul>
+</li>
+<li><strong>IP publik atau domain</strong> yang mengarah ke kantor, misalnya <code>remote.domainkamu.com</code>, supaya agen dari cabang bisa nyambung.</li>
+<li><strong>Akses ke router kantor</strong> buat port forwarding port <strong>443</strong> (dan <strong>80</strong> untuk sertifikat SSL) ke container.</li>
+<li>Kopi. Banyak.</li>
+</ul>
+<h2>Langkah-langkah</h2>
+<h3>1. Bikin container LXC di Proxmox</h3>
+<ol>
+<li>Di Proxmox, buka storage <code>local</code> &gt; <strong>CT Templates</strong> &gt; <strong>Templates</strong>, download <strong>ubuntu-22.04-standard</strong>.</li>
+<li>Klik <strong>Create CT</strong> di pojok kanan atas:
+<ul>
+<li><strong>Hostname</strong>: <code>meshcentral</code></li>
+<li>Centang <strong>Unprivileged container</strong> (lebih aman).</li>
+<li><strong>Template</strong>: ubuntu-22.04-standard.</li>
+<li><strong>Disk</strong>: 32 GB.</li>
+<li><strong>CPU</strong>: 2 cores. <strong>Memory</strong>: 8192 MB.</li>
+<li><strong>Network</strong>: IP statis, misalnya <code>192.168.10.30/24</code>, gateway router kantor.</li>
+</ul>
+</li>
+<li>Setelah jadi, buka <strong>Options</strong> &gt; <strong>Start at boot</strong> jadikan <em>Yes</em>. Server remote yang ikut mati pas Proxmox restart itu namanya bukan server, tapi drama.</li>
+</ol>
+<p>Masuk ke console container, lalu update dulu:</p>
+<pre><code class="language-bash">apt update &amp;&amp; apt upgrade -y
+apt install -y curl
+</code></pre>
+<h3>2. Install Node.js</h3>
+<p>MeshCentral jalan di atas Node.js. Pakai versi LTS dari NodeSource:</p>
+<pre><code class="language-bash">curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+apt install -y nodejs
+node -v
+</code></pre>
+<p>Kalau keluar angka versi, berarti aman. Kalau keluar error, tarik napas, baca lagi pelan-pelan.</p>
+<h3>3. Install MeshCentral</h3>
+<p>Bikin user khusus biar MeshCentral nggak jalan sebagai root:</p>
+<pre><code class="language-bash">useradd -r -m -d /opt/meshcentral -s /usr/sbin/nologin meshcentral
+cd /opt/meshcentral
+sudo -u meshcentral npm install meshcentral
+</code></pre>
+<p>Karena MeshCentral perlu pakai port 443 dan 80 (port &quot;istimewa&quot; di Linux), kasih izin ke Node.js:</p>
+<pre><code class="language-bash">setcap 'cap_net_bind_service=+ep' &quot;$(readlink -f &quot;$(which node)&quot;)&quot;
+</code></pre>
+<p>Jalankan sekali untuk membuat folder data dan file konfigurasi awal, lalu tekan <strong>Ctrl+C</strong> setelah muncul tulisan server sudah jalan:</p>
+<pre><code class="language-bash">sudo -u meshcentral node node_modules/meshcentral
+</code></pre>
+<h3>4. Atur konfigurasi</h3>
+<p>Edit file <code>/opt/meshcentral/meshcentral-data/config.json</code>. Ini versi ringkas yang aku pakai (ganti domain dan email dengan punya kamu):</p>
+<pre><code class="language-json">{
+  &quot;settings&quot;: {
+    &quot;cert&quot;: &quot;remote.domainkamu.com&quot;,
+    &quot;WANonly&quot;: true,
+    &quot;port&quot;: 443,
+    &quot;redirPort&quot;: 80
+  },
+  &quot;domains&quot;: {
+    &quot;&quot;: {
+      &quot;title&quot;: &quot;Remote IT Kantor&quot;,
+      &quot;newAccounts&quot;: false
+    }
+  },
+  &quot;letsencrypt&quot;: {
+    &quot;email&quot;: &quot;it@domainkamu.com&quot;,
+    &quot;names&quot;: &quot;remote.domainkamu.com&quot;,
+    &quot;production&quot;: true
+  }
+}
+</code></pre>
+<p>Penjelasan singkatnya:</p>
+<ul>
+<li><strong>cert</strong>: nama domain server. Ini penting, karena agen di cabang akan nyambung ke alamat ini.</li>
+<li><strong>WANonly</strong>: agen nyambung lewat internet, cocok buat banyak cabang.</li>
+<li><strong>newAccounts: false</strong>: orang lain nggak bisa daftar akun sendiri. Server remote yang bisa didaftari siapa saja itu bukan server, tapi undangan terbuka buat maling.</li>
+<li><strong>letsencrypt</strong>: sertifikat SSL gratis dan otomatis, jadi dashboard pakai HTTPS beneran.</li>
+</ul>
+<blockquote>
+<p>Catatan: buat sementara, set <strong>newAccounts</strong> ke <code>true</code> dulu, karena kita perlu bikin akun admin pertama. Setelah akun admin jadi, balikin ke <code>false</code>.</p>
+</blockquote>
+<h3>5. Arahkan domain dan buka port</h3>
+<ol>
+<li>Di pengelola DNS domain kamu, bikin <strong>A record</strong> <code>remote</code> yang mengarah ke <strong>IP publik kantor</strong>.</li>
+<li>Di router kantor, bikin <strong>port forwarding</strong>:
+<ul>
+<li>TCP <strong>443</strong> ke <code>192.168.10.30:443</code></li>
+<li>TCP <strong>80</strong> ke <code>192.168.10.30:80</code> (dipakai Let's Encrypt buat verifikasi sertifikat)</li>
+</ul>
+</li>
+</ol>
+<p>Cuma itu port yang dibuka. PC cabang <strong>nggak perlu</strong> setting apa-apa di router mereka.</p>
+<h3>6. Jadikan service biar jalan otomatis</h3>
+<p>Bikin file <code>/etc/systemd/system/meshcentral.service</code>:</p>
+<pre><code class="language-ini">[Unit]
+Description=MeshCentral Server
+After=network.target
+
+[Service]
+Type=simple
+User=meshcentral
+WorkingDirectory=/opt/meshcentral
+ExecStart=/usr/bin/node /opt/meshcentral/node_modules/meshcentral
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<p>Lalu aktifkan:</p>
+<pre><code class="language-bash">systemctl daemon-reload
+systemctl enable --now meshcentral
+systemctl status meshcentral
+</code></pre>
+<p>Kalau statusnya <strong>active (running)</strong> warna hijau, selamat. Kamu resmi punya server remote sendiri. Boleh joget dikit.</p>
+<h3>7. Bikin akun admin dan grup perangkat</h3>
+<ol>
+<li>Buka <code>https://remote.domainkamu.com</code> di browser.</li>
+<li>Klik <strong>Create Account</strong>. <strong>Akun pertama yang dibuat otomatis jadi admin server</strong>, jadi pastikan itu kamu, bukan anak magang yang lagi iseng.</li>
+<li>Setelah login, balikin <code>newAccounts</code> jadi <code>false</code> di config, lalu <code>systemctl restart meshcentral</code>.</li>
+<li>Aktifkan <strong>login 2 langkah (2FA)</strong> di menu akun. Server yang bisa mengendalikan semua PC kantor wajib dikunci dobel.</li>
+<li>Klik <strong>Add Device Group</strong>, bikin grup per cabang, misalnya <code>Cabang 1</code>, <code>Cabang 2</code>, <code>Kantor Pusat</code>. Biar rapi dan gampang dicari.</li>
+</ol>
+<h3>8. Pasang agen di PC cabang</h3>
+<ol>
+<li>Buka grup perangkat, klik <strong>Add Agent</strong>.</li>
+<li>Pilih <strong>Windows</strong>, lalu download installer-nya. Installer ini sudah &quot;tahu&quot; alamat server dan grupnya.</li>
+<li>Jalankan installer di PC cabang (sekali saja, bisa minta tolong user cabang atau lewat remote terakhir pakai aplikasi lama), klik <strong>Install</strong>.</li>
+<li>Dalam beberapa detik, PC itu muncul di dashboard dengan status <strong>online</strong>.</li>
+</ol>
+<p>Ulangi untuk semua PC. Ini satu-satunya momen kamu masih butuh bantuan user cabang. Setelah itu, mereka bebas dari kewajiban kirim-kirim ID dan password lagi.</p>
+<p><strong>Etika remote:</strong> di pengaturan grup, kamu bisa mengaktifkan <strong>notifikasi atau minta izin user</strong> sebelum sesi remote dimulai. Aku sarankan aktifkan, apalagi di jam kerja. Remote tanpa permisi itu nggak sopan, sama kayak masuk rumah orang tanpa salam.</p>
+<h2>Uji server</h2>
+<p>Sebelum diumumkan ke semua cabang, aku uji dulu biar nggak malu:</p>
+<ol>
+<li><strong>Remote desktop</strong>: buka satu PC, klik <strong>Desktop</strong> &gt; <strong>Connect</strong>. Cek gerakan mouse dan keyboard lancar.</li>
+<li><strong>Terminal dan file</strong>: coba buka <strong>Terminal</strong> dan <strong>Files</strong>, upload satu file kecil ke PC cabang.</li>
+<li><strong>Dari luar kantor</strong>: matikan Wi-Fi laptop, pakai hotspot HP, lalu buka dashboard. Kalau bisa remote dari sini, berarti port forwarding dan domain sudah benar.</li>
+<li><strong>Uji restart PC cabang</strong>: restart PC dari dashboard, tunggu sampai online lagi. Agen harus nyambung otomatis tanpa ada yang login.</li>
+<li><strong>Uji restart server</strong>: restart container di Proxmox. Pastikan MeshCentral hidup lagi sendiri dan semua PC kembali online.</li>
+<li><strong>Pantau resource</strong>: cek CPU dan RAM container di Proxmox setelah semua PC cabang terpasang. Di tempat aku, 2 core dan 8 GB RAM masih santai banget.</li>
+</ol>
+<p>Kalau enam tes ini lolos, server siap dipakai produksi.</p>
+<h3>Kalau ada yang error</h3>
+<ul>
+<li><strong>Agen nggak muncul di dashboard</strong>: cek domain di <code>cert</code> sudah benar dan port 443 sudah diteruskan. Coba buka domainnya dari jaringan cabang.</li>
+<li><strong>Sertifikat SSL gagal</strong>: pastikan port 80 juga sudah diteruskan dan DNS sudah mengarah ke IP yang benar (kadang butuh waktu untuk propagasi).</li>
+<li><strong>Service gagal jalan di port 443</strong>: ulangi perintah <code>setcap</code> di langkah 3, terutama setelah Node.js di-update.</li>
+<li><strong>Remote patah-patah</strong>: cek upload internet di kantor pusat. Server remote secepat apa pun kalah sama internet yang lemot.</li>
+</ul>
+<h3>Jangan lupa backup</h3>
+<p>Semua data penting MeshCentral (akun, grup, daftar perangkat, sertifikat) ada di folder <code>/opt/meshcentral/meshcentral-data</code>. Paling gampang: masukkan container ini ke jadwal <strong>backup Proxmox</strong> harian. Kalau mau lebih serius, baca juga <a href="/tutorial/backup-otomatis-nas-cloud/">Backup otomatis harian ke NAS dan cloud</a>.</p>
+<h2>Hasil akhir</h2>
+<p>Setelah server ini jalan, hidup aku sebagai anak IT berubah drastis:</p>
+<ul>
+<li><strong>Semua PC cabang tampil di satu dashboard</strong>, dikelompokkan per cabang, lengkap dengan status online atau offline.</li>
+<li><strong>Remote tanpa limit dan tanpa lisensi</strong>, karena servernya punya sendiri.</li>
+<li><strong>Nggak perlu minta ID dan password ke user lagi.</strong> Tinggal klik PC-nya, langsung masuk.</li>
+<li><strong>Bisa remote PC yang nggak ada orangnya</strong>, jadi update dan perawatan bisa dilakukan di luar jam kerja.</li>
+<li><strong>Lebih aman</strong>: HTTPS, akun admin dengan 2FA, pendaftaran akun ditutup, dan notifikasi ke user saat diremote.</li>
+<li><strong>Hemat resource</strong>: cuma butuh satu container kecil di Proxmox.</li>
+</ul>
+<p>Dan yang paling penting: makan siang aku sekarang lebih tenang. Chat dari cabang masih tetap ada sih, tapi sekarang aku cukup balas, <em>&quot;Oke, aku cek dari sini ya.&quot;</em> Lalu buka browser, klik, beres. Sambil ngunyah.</p>
+
+    </article>
+    <aside class="t-sign" aria-label="Penulis">
+      <div class="t-sign-top">
+        <span class="t-ava" aria-hidden="true">IF<span class="led"></span></span>
+        <div class="t-who">
+          <span class="eyebrow">Ditulis oleh</span>
+          <b>Irfan Fauzi</b>
+          <span class="t-role">IT Infrastructure, Web &amp; Aplikasi</span>
+        </div>
+        <a class="t-more" href="/#karya">Lihat karya <span aria-hidden="true">→</span></a>
+      </div>
+      <p class="t-bio">Ngurus jaringan, server, backup, dan cloud storage, plus bikin website dan aplikasi buat kantor, sekolah, dan masjid. Kalau bukan lagi nyolok kabel, ya lagi nulis kode.</p>
+      <figure class="t-joke">
+        <figcaption class="mono"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>~/catatan-kaki.txt</figcaption>
+        <blockquote><span class="pr" aria-hidden="true">$</span> Pakai TeamViewer gratis buat remote 40 PC cabang itu kayak numpang Wi-Fi tetangga buat nonton bola: lancar lima menit, habis itu dicurigai.<span class="cur" aria-hidden="true"></span></blockquote>
+      </figure>
+    </aside>
+    <aside class="t-cta">
+      <p>Butuh bantuan menerapkan ini di kantor Anda?</p>
+      <a class="btn primary" href="https://wa.me/6282124038826?text=Halo%20Irfan%2C%20saya%20baca%20tutorial%20Capek%20kena%20limit%20TeamViewer%2C%20aku%20bangun%20server%20remote%20desktop%20sendiri%20dan%20butuh%20bantuan." target="_blank" rel="noopener">Chat WhatsApp <span class="arr" aria-hidden="true">→</span></a>
+    </aside>
+  </div>
+</main>
+
+
+<footer>
+  <div class="wrap mono"><span>© 2026 Irfan Fauzi</span><span>Dibangun dengan bantuan doa istri di rumah</span></div>
+</footer>
+<script src="/assets/js/main.js?v=mvkno0xe" defer></script>
+</body>
+</html>

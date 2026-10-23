@@ -1,0 +1,9 @@
+# Dipakai cPanel Git Version Control: "Deploy HEAD Commit" menyalin website ke folder domain.
+# Ganti DEPLOYPATH kalau document root irfanfauzi.web.id bukan public_html (cek di cPanel > Domains).
+# Hanya menyalin dan menimpa; folder lain di public_html tidak dihapus.
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=$HOME/public_html/
+    - /bin/cp -R ./* $DEPLOYPATH
+    - /bin/cp .htaccess $DEPLOYPATH

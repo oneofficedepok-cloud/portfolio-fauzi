@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Backup otomatis harian ke NAS dan cloud · Irfan Fauzi</title>
+<meta name="description" content="Data kantor itu aset. Ini cara aku bikin backup yang jalan sendiri tiap malam ke NAS dan ke cloud, lengkap dengan cara ngecek kalau backup-nya beneran bisa dipulihkan.">
+<link rel="canonical" href="https://irfanfauzi.web.id/tutorial/backup-otomatis-nas-cloud/">
+<meta name="author" content="Irfan Fauzi">
+<meta name="theme-color" content="#eef1ed" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1412" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="id_ID">
+<meta property="og:site_name" content="Irfan Fauzi">
+<meta property="og:title" content="Backup otomatis harian ke NAS dan cloud · Irfan Fauzi">
+<meta property="og:description" content="Data kantor itu aset. Ini cara aku bikin backup yang jalan sendiri tiap malam ke NAS dan ke cloud, lengkap dengan cara ngecek kalau backup-nya beneran bisa dipulihkan.">
+<meta property="og:url" content="https://irfanfauzi.web.id/tutorial/backup-otomatis-nas-cloud/">
+<meta property="og:image" content="https://irfanfauzi.web.id/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="/assets/css/style.css?v=mvkno0xe">
+</head>
+<body>
+<a class="skip" href="#isi">Langsung ke isi</a>
+<nav class="nav" aria-label="Utama">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="mark" aria-hidden="true">IF</span><span>Irfan Fauzi</span></a>
+    <ul>
+      <li><a href="/#karya">Karya</a></li>
+      <li><a href="/#tutorial">Tutorial</a></li>
+      <li><a href="/#catatan">Catatan Kerja</a></li>
+      <li><a href="/#kontak">Kontak</a></li>
+    </ul>
+    <a class="avail" href="https://wa.me/6282124038826?text=Halo%20Irfan%2C%20saya%20lihat%20portfolio%20Anda%20dan%20ingin%20diskusi%20proyek." target="_blank" rel="noopener" aria-label="Chat WhatsApp: terbuka untuk proyek"><span class="led"></span><span class="txt">Terbuka untuk proyek</span><span class="go" aria-hidden="true">↗</span></a>
+  </div>
+</nav>
+
+<main id="isi" class="detail">
+  <div class="wrap narrow">
+    <nav class="crumb mono" aria-label="Lokasi"><a href="/">Beranda</a><span aria-hidden="true">/</span><a href="/tutorial/">Tutorial</a><span aria-hidden="true">/</span><span>Backup</span></nav>
+    <header class="d-head">
+      <span class="eyebrow">Backup · 8 menit baca</span>
+      <h1>Backup otomatis harian ke NAS dan cloud</h1><p class="lede">Data kantor itu aset. Ini cara aku bikin backup yang jalan sendiri tiap malam ke NAS dan ke cloud, lengkap dengan cara ngecek kalau backup-nya beneran bisa dipulihkan.</p>
+      <p class="meta mono"><time datetime="2026-10-20">20 Oktober 2026</time><span>Irfan Fauzi</span></p>
+    </header>
+    <article class="prose">
+      <p>Pertanyaan paling horor di dunia IT: <em>&quot;Backup terakhir kapan?&quot;</em> terus semua orang diem. Kebanyakan kantor sebenarnya &quot;punya backup&quot;, tapi isinya copy manual ke harddisk eksternal yang terakhir dilakukan tiga bulan lalu. Di tutorial ini aku spill cara bikin backup yang <strong>jalan sendiri tiap malam</strong>, ke <strong>NAS di kantor</strong> dan ke <strong>cloud</strong>, dan yang paling penting: <strong>beneran bisa dipulihkan</strong>.</p>
+<h2>Masalah yang diselesaikan</h2>
+<ul>
+<li><strong>Backup manual = backup yang lupa.</strong> Kalau ngandelin orang buat copy file, cepat atau lambat pasti kelewat.</li>
+<li><strong>Backup satu tempat aja nggak cukup.</strong> Harddisk eksternal yang ditaruh di samping server ikut hilang kalau ada kebakaran, banjir, atau pencurian.</li>
+<li><strong>Ransomware.</strong> Kalau folder backup bisa diakses langsung dari PC user, ransomware bisa ikut ngenkripsi backup-nya. Game over.</li>
+<li><strong>Data cabang tercecer.</strong> Tiap cabang nyimpen data sendiri-sendiri tanpa salinan di pusat.</li>
+</ul>
+<h2>Yang dibutuhkan</h2>
+<ul>
+<li><strong>Aturan 3-2-1</strong> sebagai pegangan: <strong>3</strong> salinan data, di <strong>2</strong> media berbeda, <strong>1</strong> di luar kantor.</li>
+<li><strong>NAS</strong> (Synology, TrueNAS, atau server Linux dengan disk besar) sebagai tujuan backup lokal. Pakai RAID 1 minimal.</li>
+<li><strong>Akun cloud storage</strong> yang support S3 atau sejenisnya (misalnya Backblaze B2, Wasabi, Google Drive, atau object storage lokal).</li>
+<li><strong>Server Linux kecil</strong> (bisa VM/container di Proxmox) buat jalanin script, dengan <code>rsync</code> dan <code>rclone</code> terpasang.</li>
+<li><strong>Akun notifikasi</strong>, misalnya bot Telegram atau email, buat lapor tiap backup selesai atau gagal.</li>
+</ul>
+<h2>Langkah-langkah</h2>
+<h3>1. Petakan data mana yang wajib dibackup</h3>
+<p>Jangan langsung &quot;backup semua&quot;. Bikin daftar dulu:</p>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Lokasi</th>
+<th>Seberapa penting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Folder share kantor</td>
+<td>File server</td>
+<td>Wajib</td>
+</tr>
+<tr>
+<td>Database aplikasi (ERP, dll)</td>
+<td>Server database</td>
+<td>Wajib</td>
+</tr>
+<tr>
+<td>VM dan container</td>
+<td>Proxmox</td>
+<td>Wajib</td>
+</tr>
+<tr>
+<td>Email</td>
+<td>Hosting / cloud</td>
+<td>Cek apakah provider sudah backup</td>
+</tr>
+<tr>
+<td>File di laptop user</td>
+<td>Laptop</td>
+<td>Arahkan ke folder share / cloud sync</td>
+</tr>
+</tbody>
+</table>
+<p>Dari tabel ini kelihatan mana yang harus masuk jadwal malam dan mana yang cukup mingguan.</p>
+<h3>2. Siapkan NAS dan user khusus backup</h3>
+<p>Di NAS, bikin <strong>share khusus backup</strong> dan <strong>user khusus backup</strong> (misalnya <code>svc-backup</code>). User biasa kantor <strong>nggak boleh</strong> punya akses ke share ini. Ini benteng pertama dari ransomware.</p>
+<p>Kalau NAS-nya support, aktifkan <strong>snapshot</strong> di share backup (di Synology namanya Snapshot Replication, di TrueNAS ada Periodic Snapshot). Snapshot ini <em>read-only</em>, jadi walaupun file backup dihapus atau dienkripsi, versi lamanya masih bisa diambil.</p>
+<h3>3. Backup database dulu jadi file</h3>
+<p>Database jangan di-copy file mentahnya waktu lagi jalan. Dump dulu jadi file, contoh untuk MySQL/MariaDB:</p>
+<pre><code class="language-bash">mysqldump --single-transaction --all-databases | gzip &gt; /backup/db/db-$(date +%F).sql.gz
+</code></pre>
+<p>Untuk PostgreSQL pakai <code>pg_dump</code>, untuk SQL Server pakai fitur <em>Backup Database</em> bawaannya lalu arahkan hasilnya ke folder yang ikut di-sync.</p>
+<h3>4. Kirim ke NAS pakai rsync</h3>
+<p>Contoh script sederhana <code>/opt/backup/harian.sh</code>:</p>
+<pre><code class="language-bash">#!/bin/bash
+set -e
+TGL=$(date +%F)
+
+# 1. Dump database
+mysqldump --single-transaction --all-databases | gzip &gt; /backup/db/db-$TGL.sql.gz
+
+# 2. Sinkron folder share ke NAS
+rsync -a --delete /data/share/ svc-backup@192.168.10.20:/volume1/backup/share/
+
+# 3. Kirim hasil dump database
+rsync -a /backup/db/ svc-backup@192.168.10.20:/volume1/backup/db/
+
+# 4. Hapus dump lokal yang lebih dari 14 hari
+find /backup/db -name &quot;*.sql.gz&quot; -mtime +14 -delete
+</code></pre>
+<p>Pakai <strong>SSH key</strong> buat login ke NAS biar nggak perlu password di script. <code>--delete</code> bikin isi NAS sama persis dengan sumber, makanya snapshot di langkah 2 itu penting: kalau ada file kehapus di sumber, versi lamanya masih ada di snapshot.</p>
+<h3>5. Kirim salinan ke cloud pakai rclone</h3>
+<p>Setup sekali pakai <code>rclone config</code>. Saran aku: bikin remote <strong>crypt</strong> di atas remote cloud-nya, jadi data dienkripsi <strong>sebelum</strong> keluar dari kantor. Provider cloud pun nggak bisa baca isinya.</p>
+<p>Tambahin di akhir script:</p>
+<pre><code class="language-bash"># 5. Salinan terenkripsi ke cloud
+rclone sync /backup/ cloud-crypt:kantor --transfers 4 --log-file /var/log/rclone.log
+</code></pre>
+<p>Kalau di cloud-nya ada fitur <strong>versioning</strong> atau <strong>object lock</strong>, aktifin juga. Ini lapisan perlindungan terakhir kalau semuanya kena.</p>
+<h3>6. Jadwalkan pakai cron</h3>
+<p>Buka <code>crontab -e</code> lalu tambahkan:</p>
+<pre><code>0 23 * * * /opt/backup/harian.sh &amp;&amp; /opt/backup/lapor.sh OK || /opt/backup/lapor.sh GAGAL
+</code></pre>
+<p>Artinya: tiap jam 23:00 backup jalan, lalu kirim laporan sukses atau gagal. Script <code>lapor.sh</code> isinya cukup satu <code>curl</code> ke API bot Telegram. Jadi tiap pagi kamu tinggal lihat HP: ada centang atau ada alarm.</p>
+<h3>7. Backup dari cabang</h3>
+<p>Untuk cabang, prinsipnya sama: server atau PC kecil di cabang jalanin script yang kirim data ke NAS pusat lewat <strong>VPN site-to-site</strong>. Jadwalnya geser-geser per cabang (cabang A jam 21:00, cabang B jam 22:00) biar bandwidth pusat nggak penuh barengan.</p>
+<h3>8. Tes restore, jangan cuma percaya</h3>
+<p>Backup yang belum pernah dites restore itu cuma harapan. Bikin jadwal <strong>sebulan sekali</strong>:</p>
+<ol>
+<li>Ambil satu file random dari NAS, buka, cek isinya.</li>
+<li>Restore satu dump database ke server tes, pastikan aplikasinya bisa baca.</li>
+<li>Tiga bulan sekali, coba restore dari <strong>cloud</strong>, bukan cuma dari NAS.</li>
+</ol>
+<p>Catat hasilnya di log. Kalau suatu hari ada audit atau insiden, kamu punya bukti backup-nya sehat.</p>
+<h2>Hasil akhir</h2>
+<ul>
+<li><strong>Backup jalan sendiri tiap malam</strong>, tanpa ada yang perlu ingat.</li>
+<li><strong>3 salinan data</strong>: di server asli, di NAS kantor (dengan snapshot), dan di cloud (terenkripsi).</li>
+<li><strong>Notifikasi tiap pagi</strong>, jadi kalau backup gagal ketahuan di hari yang sama, bukan pas udah butuh.</li>
+<li><strong>Tahan ransomware</strong> karena share backup terpisah dari user dan punya snapshot read-only.</li>
+<li><strong>Teruji</strong>: restore dicoba rutin, bukan cuma diasumsikan.</li>
+</ul>
+<p>Intinya: backup yang bagus itu yang membosankan. Jalan tiap hari, nggak pernah drama, dan pas dibutuhin, langsung bisa dipakai.</p>
+
+    </article>
+    <aside class="t-sign" aria-label="Penulis">
+      <div class="t-sign-top">
+        <span class="t-ava" aria-hidden="true">IF<span class="led"></span></span>
+        <div class="t-who">
+          <span class="eyebrow">Ditulis oleh</span>
+          <b>Irfan Fauzi</b>
+          <span class="t-role">IT Infrastructure, Web &amp; Aplikasi</span>
+        </div>
+        <a class="t-more" href="/#karya">Lihat karya <span aria-hidden="true">→</span></a>
+      </div>
+      <p class="t-bio">Ngurus jaringan, server, backup, dan cloud storage, plus bikin website dan aplikasi buat kantor, sekolah, dan masjid. Kalau bukan lagi nyolok kabel, ya lagi nulis kode.</p>
+      <figure class="t-joke">
+        <figcaption class="mono"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>~/catatan-kaki.txt</figcaption>
+        <blockquote><span class="pr" aria-hidden="true">$</span> Ditanya &#39;backup terakhir kapan?&#39;, ruangan langsung hening. Lebih hening dari server yang baru kena ransomware.<span class="cur" aria-hidden="true"></span></blockquote>
+      </figure>
+    </aside>
+    <aside class="t-cta">
+      <p>Butuh bantuan menerapkan ini di kantor Anda?</p>
+      <a class="btn primary" href="https://wa.me/6282124038826?text=Halo%20Irfan%2C%20saya%20baca%20tutorial%20Backup%20otomatis%20harian%20ke%20NAS%20dan%20cloud%20dan%20butuh%20bantuan." target="_blank" rel="noopener">Chat WhatsApp <span class="arr" aria-hidden="true">→</span></a>
+    </aside>
+  </div>
+</main>
+
+
+<footer>
+  <div class="wrap mono"><span>© 2026 Irfan Fauzi</span><span>Dibangun dengan bantuan doa istri di rumah</span></div>
+</footer>
+<script src="/assets/js/main.js?v=mvkno0xe" defer></script>
+</body>
+</html>

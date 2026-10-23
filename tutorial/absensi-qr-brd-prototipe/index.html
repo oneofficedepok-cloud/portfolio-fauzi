@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Merancang absensi QR dari BRD sampai prototipe · Irfan Fauzi</title>
+<meta name="description" content="Behind the scenes bikin aplikasi absensi QR buat event: dari nulis BRD, nentuin alur, desain data, sampai prototipe yang bisa langsung dicoba klien.">
+<link rel="canonical" href="https://irfanfauzi.web.id/tutorial/absensi-qr-brd-prototipe/">
+<meta name="author" content="Irfan Fauzi">
+<meta name="theme-color" content="#eef1ed" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1412" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="id_ID">
+<meta property="og:site_name" content="Irfan Fauzi">
+<meta property="og:title" content="Merancang absensi QR dari BRD sampai prototipe · Irfan Fauzi">
+<meta property="og:description" content="Behind the scenes bikin aplikasi absensi QR buat event: dari nulis BRD, nentuin alur, desain data, sampai prototipe yang bisa langsung dicoba klien.">
+<meta property="og:url" content="https://irfanfauzi.web.id/tutorial/absensi-qr-brd-prototipe/">
+<meta property="og:image" content="https://irfanfauzi.web.id/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="/assets/css/style.css?v=mvkno0xe">
+</head>
+<body>
+<a class="skip" href="#isi">Langsung ke isi</a>
+<nav class="nav" aria-label="Utama">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="mark" aria-hidden="true">IF</span><span>Irfan Fauzi</span></a>
+    <ul>
+      <li><a href="/#karya">Karya</a></li>
+      <li><a href="/#tutorial">Tutorial</a></li>
+      <li><a href="/#catatan">Catatan Kerja</a></li>
+      <li><a href="/#kontak">Kontak</a></li>
+    </ul>
+    <a class="avail" href="https://wa.me/6282124038826?text=Halo%20Irfan%2C%20saya%20lihat%20portfolio%20Anda%20dan%20ingin%20diskusi%20proyek." target="_blank" rel="noopener" aria-label="Chat WhatsApp: terbuka untuk proyek"><span class="led"></span><span class="txt">Terbuka untuk proyek</span><span class="go" aria-hidden="true">↗</span></a>
+  </div>
+</nav>
+
+<main id="isi" class="detail">
+  <div class="wrap narrow">
+    <nav class="crumb mono" aria-label="Lokasi"><a href="/">Beranda</a><span aria-hidden="true">/</span><a href="/tutorial/">Tutorial</a><span aria-hidden="true">/</span><span>Aplikasi</span></nav>
+    <header class="d-head">
+      <span class="eyebrow">Aplikasi · 4 menit baca</span>
+      <h1>Merancang absensi QR dari BRD sampai prototipe</h1><p class="lede">Behind the scenes bikin aplikasi absensi QR buat event: dari nulis BRD, nentuin alur, desain data, sampai prototipe yang bisa langsung dicoba klien.</p>
+      <p class="meta mono"><time datetime="2026-10-22">22 Oktober 2026</time><span>Irfan Fauzi</span></p>
+    </header>
+    <article class="prose">
+      <p>Absensi event pakai kertas dan pulpen itu vibes-nya tahun 2010: antrean panjang di meja registrasi, tulisan nggak kebaca, dan panitia baru tahu jumlah peserta yang datang pas acara udah kelar. Di tutorial ini aku spill proses aku merancang <strong>Absensi Digital QR For Event</strong>, mulai dari <strong>BRD</strong>, alur pengguna, desain data, sampai <strong>prototipe</strong> yang bisa langsung dicoba klien sebelum ngoding beneran.</p>
+<h2>Masalah yang diselesaikan</h2>
+<ul>
+<li><strong>Antrean registrasi lama.</strong> Satu peserta bisa 1–2 menit cuma buat cari nama di daftar dan tanda tangan.</li>
+<li><strong>Data kehadiran telat.</strong> Panitia baru bisa rekap setelah acara, padahal butuh angka real time (misalnya buat konsumsi atau bus).</li>
+<li><strong>Gampang dicurangi.</strong> Titip absen, tanda tangan dobel, atau nama yang nggak terdaftar ikut masuk.</li>
+<li><strong>Event bertahap</strong> (trip, rundown multi-sesi) butuh absen di beberapa titik, bukan cuma di pintu masuk.</li>
+</ul>
+<h2>Yang dibutuhkan</h2>
+<ul>
+<li><strong>Ngobrol dulu sama klien.</strong> Ini input terpenting, bukan tools.</li>
+<li><strong>Dokumen BRD</strong> (Business Requirement Document), cukup pakai Google Docs atau Notion.</li>
+<li><strong>Tools desain/prototipe</strong>, misalnya Figma, atau langsung prototipe HTML yang bisa dibuka di HP.</li>
+<li><strong>HP Android/iPhone</strong> buat ngetes scan QR beneran.</li>
+<li><strong>Data peserta contoh</strong> (nama, email/WA, kategori) buat simulasi.</li>
+</ul>
+<h2>Langkah-langkah</h2>
+<h3>1. Gali kebutuhan, bukan langsung fitur</h3>
+<p>Pertanyaan yang aku tanyain ke klien di awal:</p>
+<ul>
+<li>Eventnya kayak apa? Sekali datang, atau trip berhari-hari dengan banyak titik kumpul?</li>
+<li>Berapa peserta dan berapa crew yang jaga?</li>
+<li>Peserta daftar di mana dan datanya bentuknya apa?</li>
+<li>Angka apa yang paling mereka butuhin saat acara berlangsung?</li>
+<li>Sinyal di lokasi gimana? (Ini sering dilupain dan bisa jadi plot twist.)</li>
+</ul>
+<p>Dari jawaban ini baru kelihatan fitur apa yang beneran perlu.</p>
+<h3>2. Tulis BRD singkat tapi jelas</h3>
+<p>BRD aku biasanya isinya:</p>
+<ol>
+<li><strong>Latar belakang dan tujuan</strong>: masalah apa yang mau diselesaikan.</li>
+<li><strong>Pengguna</strong>: peserta, crew scanner, admin panitia.</li>
+<li><strong>Kebutuhan fungsional</strong>, contoh:
+<ul>
+<li>Peserta dapat <strong>e-ticket QR</strong> lewat email/WA.</li>
+<li>Crew bisa <strong>scan QR</strong> dari HP.</li>
+<li>Ada opsi <strong>self check-in</strong> (peserta scan QR di lokasi).</li>
+<li>Admin lihat <strong>dashboard kehadiran real time</strong>.</li>
+<li>Bisa <strong>export</strong> rekap ke Excel.</li>
+</ul>
+</li>
+<li><strong>Kebutuhan non-fungsional</strong>: proses scan di bawah 2 detik, bisa dipakai di HP biasa, data aman.</li>
+<li><strong>Di luar cakupan</strong>: misalnya pembayaran tiket nggak termasuk fase 1.</li>
+</ol>
+<p>Bagian &quot;di luar cakupan&quot; ini penting banget biar project nggak melebar ke mana-mana. Setelah BRD disetujui, baru bikin penawaran harga.</p>
+<h3>3. Gambar alur pengguna</h3>
+<p>Sebelum desain layar, gambar dulu alurnya pakai kotak dan panah:</p>
+<ul>
+<li><strong>Peserta:</strong> daftar → terima e-ticket QR → datang → di-scan crew (atau self check-in) → dapat konfirmasi.</li>
+<li><strong>Crew:</strong> login → pilih titik/sesi absen → scan → lihat hasil (hijau = valid, merah = sudah check-in / tidak terdaftar).</li>
+<li><strong>Admin:</strong> import peserta → kirim e-ticket → pantau dashboard → export rekap.</li>
+</ul>
+<p>Alur ini yang nanti jadi patokan jumlah layar di prototipe.</p>
+<h3>4. Desain data dan keamanan QR</h3>
+<p>Tabel intinya cuma beberapa:</p>
+<table>
+<thead>
+<tr>
+<th>Tabel</th>
+<th>Isi penting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>event</code></td>
+<td>nama, tanggal, lokasi</td>
+</tr>
+<tr>
+<td><code>sesi</code></td>
+<td>titik absen (misal: Keberangkatan, Hari 1, Pulang)</td>
+</tr>
+<tr>
+<td><code>peserta</code></td>
+<td>nama, kontak, kategori, kode tiket</td>
+</tr>
+<tr>
+<td><code>checkin</code></td>
+<td>peserta, sesi, waktu, crew yang scan</td>
+</tr>
+</tbody>
+</table>
+<p>Soal keamanan QR, <strong>jangan</strong> isi QR dengan ID berurutan kayak <code>0001</code>, <code>0002</code>, karena gampang ditebak. Pakai <strong>kode acak panjang</strong> (token unik) per peserta, dan validasi selalu dilakukan di server. Tambah aturan: satu peserta cuma bisa check-in sekali per sesi, scan kedua langsung muncul peringatan &quot;sudah check-in jam sekian&quot;.</p>
+<h3>5. Bikin prototipe yang bisa dicoba</h3>
+<p>Ini bagian paling seru. Prototipe bukan cuma gambar statis, tapi <strong>bisa diklik</strong>:</p>
+<ul>
+<li>Halaman <strong>e-ticket</strong> peserta dengan QR besar.</li>
+<li>Layar <strong>scanner crew</strong> dengan feedback warna dan suara.</li>
+<li><strong>Dashboard admin</strong>: jumlah terdaftar vs hadir, per sesi, update otomatis.</li>
+</ul>
+<p>Kirim link prototipe ke klien dan minta mereka coba di HP masing-masing. Feedback yang datang dari &quot;nyobain sendiri&quot; itu jauh lebih jujur dibanding dari baca dokumen.</p>
+<h3>6. Revisi, kunci, baru build</h3>
+<p>Kumpulkan feedback, revisi prototipe, lalu <strong>kunci</strong> cakupannya. Setelah itu baru masuk tahap arsitektur dan build aplikasi. Karena alur dan datanya udah jelas dari awal, proses ngoding jadi jauh lebih lancar dan minim bongkar pasang.</p>
+<h2>Hasil akhir</h2>
+<ul>
+<li><strong>BRD yang disetujui klien</strong>, jadi semua pihak sepakat soal apa yang dibangun dan apa yang tidak.</li>
+<li><strong>Prototipe yang bisa dicoba di HP</strong>: e-ticket, scanner crew, self check-in, dan dashboard real time.</li>
+<li><strong>Desain data dan aturan keamanan QR</strong> yang siap dipakai developer.</li>
+<li><strong>Estimasi waktu dan biaya yang lebih akurat</strong>, karena didasarkan pada alur yang jelas.</li>
+</ul>
+<p>Pelajaran yang aku dapet: semakin lama kamu di tahap BRD dan prototipe, semakin sedikit drama di tahap ngoding. Ngobrol dulu, gambar dulu, baru gaskeun.</p>
+
+    </article>
+    <aside class="t-sign" aria-label="Penulis">
+      <div class="t-sign-top">
+        <span class="t-ava" aria-hidden="true">IF<span class="led"></span></span>
+        <div class="t-who">
+          <span class="eyebrow">Ditulis oleh</span>
+          <b>Irfan Fauzi</b>
+          <span class="t-role">IT Infrastructure, Web &amp; Aplikasi</span>
+        </div>
+        <a class="t-more" href="/#karya">Lihat karya <span aria-hidden="true">→</span></a>
+      </div>
+      <p class="t-bio">Ngurus jaringan, server, backup, dan cloud storage, plus bikin website dan aplikasi buat kantor, sekolah, dan masjid. Kalau bukan lagi nyolok kabel, ya lagi nulis kode.</p>
+      <figure class="t-joke">
+        <figcaption class="mono"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>~/catatan-kaki.txt</figcaption>
+        <blockquote><span class="pr" aria-hidden="true">$</span> Absen pakai kertas itu satu-satunya sistem di mana satu orang bisa hadir di tiga tempat sekaligus. Cukup titip tanda tangan.<span class="cur" aria-hidden="true"></span></blockquote>
+      </figure>
+    </aside>
+    <aside class="t-cta">
+      <p>Butuh bantuan menerapkan ini di kantor Anda?</p>
+      <a class="btn primary" href="https://wa.me/6282124038826?text=Halo%20Irfan%2C%20saya%20baca%20tutorial%20Merancang%20absensi%20QR%20dari%20BRD%20sampai%20prototipe%20dan%20butuh%20bantuan." target="_blank" rel="noopener">Chat WhatsApp <span class="arr" aria-hidden="true">→</span></a>
+    </aside>
+  </div>
+</main>
+
+
+<footer>
+  <div class="wrap mono"><span>© 2026 Irfan Fauzi</span><span>Dibangun dengan bantuan doa istri di rumah</span></div>
+</footer>
+<script src="/assets/js/main.js?v=mvkno0xe" defer></script>
+</body>
+</html>

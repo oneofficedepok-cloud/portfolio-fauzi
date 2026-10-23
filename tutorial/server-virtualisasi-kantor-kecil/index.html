@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Membangun server virtualisasi untuk kantor kecil · Irfan Fauzi</title>
+<meta name="description" content="Satu mesin fisik, banyak server di dalamnya. Begini cara aku bangun server virtualisasi pakai Proxmox biar kantor kecil nggak perlu beli server satu-satu.">
+<link rel="canonical" href="https://irfanfauzi.web.id/tutorial/server-virtualisasi-kantor-kecil/">
+<meta name="author" content="Irfan Fauzi">
+<meta name="theme-color" content="#eef1ed" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1412" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="id_ID">
+<meta property="og:site_name" content="Irfan Fauzi">
+<meta property="og:title" content="Membangun server virtualisasi untuk kantor kecil · Irfan Fauzi">
+<meta property="og:description" content="Satu mesin fisik, banyak server di dalamnya. Begini cara aku bangun server virtualisasi pakai Proxmox biar kantor kecil nggak perlu beli server satu-satu.">
+<meta property="og:url" content="https://irfanfauzi.web.id/tutorial/server-virtualisasi-kantor-kecil/">
+<meta property="og:image" content="https://irfanfauzi.web.id/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="/assets/css/style.css?v=mvkno0xe">
+</head>
+<body>
+<a class="skip" href="#isi">Langsung ke isi</a>
+<nav class="nav" aria-label="Utama">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="mark" aria-hidden="true">IF</span><span>Irfan Fauzi</span></a>
+    <ul>
+      <li><a href="/#karya">Karya</a></li>
+      <li><a href="/#tutorial">Tutorial</a></li>
+      <li><a href="/#catatan">Catatan Kerja</a></li>
+      <li><a href="/#kontak">Kontak</a></li>
+    </ul>
+    <a class="avail" href="https://wa.me/6282124038826?text=Halo%20Irfan%2C%20saya%20lihat%20portfolio%20Anda%20dan%20ingin%20diskusi%20proyek." target="_blank" rel="noopener" aria-label="Chat WhatsApp: terbuka untuk proyek"><span class="led"></span><span class="txt">Terbuka untuk proyek</span><span class="go" aria-hidden="true">↗</span></a>
+  </div>
+</nav>
+
+<main id="isi" class="detail">
+  <div class="wrap narrow">
+    <nav class="crumb mono" aria-label="Lokasi"><a href="/">Beranda</a><span aria-hidden="true">/</span><a href="/tutorial/">Tutorial</a><span aria-hidden="true">/</span><span>Server</span></nav>
+    <header class="d-head">
+      <span class="eyebrow">Server · 5 menit baca</span>
+      <h1>Membangun server virtualisasi untuk kantor kecil</h1><p class="lede">Satu mesin fisik, banyak server di dalamnya. Begini cara aku bangun server virtualisasi pakai Proxmox biar kantor kecil nggak perlu beli server satu-satu.</p>
+      <p class="meta mono"><time datetime="2026-10-21">21 Oktober 2026</time><span>Irfan Fauzi</span></p>
+    </header>
+    <article class="prose">
+      <p>Jujurly, banyak kantor kecil masih punya pola kayak gini: ada PC buat file server, ada PC lain buat aplikasi akuntansi, ada lagi satu buat database. Semua nyala 24 jam, makan listrik, dan kalau salah satu rusak, semua orang panik. Di tutorial ini aku spill cara aku ngeringkas semua itu jadi <strong>satu server fisik</strong> yang isinya banyak &quot;server virtual&quot; pakai <strong>Proxmox VE</strong>.</p>
+<h2>Masalah yang diselesaikan</h2>
+<ul>
+<li><strong>Server berceceran.</strong> Tiap aplikasi punya PC sendiri, jadi boros listrik, boros tempat, dan ribet dirawat.</li>
+<li><strong>Susah dipulihkan.</strong> Kalau harddisk PC aplikasi mati, install ulang bisa makan seharian. Nggak ada snapshot, nggak ada backup yang rapi.</li>
+<li><strong>Mau nyoba sesuatu, takut rusak.</strong> Mau update aplikasi atau tes sistem baru, tapi nggak ada tempat aman buat eksperimen.</li>
+<li><strong>Budget terbatas.</strong> Lisensi hypervisor berbayar mahal banget buat skala kantor kecil.</li>
+</ul>
+<p>Proxmox jawab semuanya: open source, gratis dipakai, ada web dashboard, bisa snapshot, bisa backup terjadwal, dan bisa jalanin VM (Windows/Linux) maupun container (LXC) yang super ringan.</p>
+<h2>Yang dibutuhkan</h2>
+<ul>
+<li><strong>1 mesin server atau PC yang cukup kuat.</strong> Minimal CPU yang support virtualisasi (Intel VT-x / AMD-V), RAM 32 GB biar lega, dan sebaiknya 2 SSD buat dibikin mirror.</li>
+<li><strong>Flashdisk 8 GB</strong> buat installer.</li>
+<li><strong>ISO Proxmox VE</strong> versi terbaru dari situs resmi proxmox.com.</li>
+<li><strong>IP statis</strong> di jaringan kantor buat servernya, misalnya <code>192.168.10.5</code>.</li>
+<li><strong>UPS.</strong> Ini wajib, bukan opsional. Server virtual yang mati mendadak karena listrik itu red flag banget.</li>
+<li>Laptop buat akses dashboard lewat browser.</li>
+</ul>
+<h2>Langkah-langkah</h2>
+<h3>1. Cek dan siapkan hardware</h3>
+<p>Masuk ke BIOS, pastikan <strong>Intel VT-x / AMD-V</strong> (dan kalau ada, <strong>VT-d / IOMMU</strong>) dalam posisi <em>Enabled</em>. Tanpa ini, VM nggak bakal jalan. Kalau ada 2 SSD, colok dua-duanya, nanti kita jadiin satu pasangan mirror.</p>
+<h3>2. Bikin flashdisk installer</h3>
+<p>Download ISO Proxmox VE, lalu tulis ke flashdisk pakai <strong>balenaEtcher</strong> atau <strong>Rufus</strong> (mode DD). Boot server dari flashdisk itu.</p>
+<h3>3. Install Proxmox</h3>
+<p>Ikutin wizard-nya, tapi perhatiin bagian ini:</p>
+<ul>
+<li><strong>Target disk:</strong> klik <em>Options</em>, pilih filesystem <strong>ZFS (RAID1)</strong> kalau punya 2 disk. Jadi kalau satu SSD mati, data aman di SSD satunya. Auto tenang.</li>
+<li><strong>Network:</strong> isi IP statis, gateway (router kantor), dan DNS. Hostname bikin yang jelas, misalnya <code>pve01.kantor.lan</code>.</li>
+<li><strong>Password root dan email:</strong> simpan password di password manager, jangan di sticky note monitor ya.</li>
+</ul>
+<p>Setelah selesai dan reboot, buka dari laptop:</p>
+<pre><code>https://192.168.10.5:8006
+</code></pre>
+<p>Login pakai user <code>root</code> dan realm <em>Linux PAM</em>. Kalau browser bilang &quot;not secure&quot;, itu normal karena sertifikatnya self-signed.</p>
+<h3>4. Atur repository update</h3>
+<p>Versi gratis Proxmox nggak pakai repo enterprise, jadi kita ganti biar update tetap jalan:</p>
+<ol>
+<li>Buka <strong>node &gt; Updates &gt; Repositories</strong>.</li>
+<li><em>Disable</em> repo yang namanya <strong>enterprise</strong> (baik PVE maupun Ceph).</li>
+<li>Klik <strong>Add</strong>, pilih <strong>No-Subscription</strong>, simpan.</li>
+<li>Balik ke <strong>Updates</strong>, klik <strong>Refresh</strong> lalu <strong>Upgrade</strong>.</li>
+</ol>
+<p>Popup &quot;No valid subscription&quot; waktu login boleh dicuekin, itu cuma pengingat.</p>
+<h3>5. Upload ISO dan template</h3>
+<ul>
+<li>Buat <strong>VM</strong>: buka storage <code>local</code> &gt; <strong>ISO Images</strong> &gt; <strong>Upload</strong>, masukin ISO Windows Server / Ubuntu Server.</li>
+<li>Buat <strong>container (LXC)</strong>: buka <strong>CT Templates</strong> &gt; <strong>Templates</strong>, download misalnya <code>debian-12-standard</code>. Container ini enteng banget, cocok buat aplikasi web, database kecil, atau tools internal.</li>
+</ul>
+<h3>6. Bikin VM pertama</h3>
+<p>Klik <strong>Create VM</strong> di pojok kanan atas, lalu:</p>
+<ul>
+<li><strong>OS:</strong> pilih ISO yang tadi diupload.</li>
+<li><strong>System:</strong> kalau Windows, centang <strong>Qemu Agent</strong> dan pakai SCSI controller <strong>VirtIO SCSI single</strong>.</li>
+<li><strong>Disks:</strong> bus <strong>SCSI</strong>, centang <strong>Discard</strong> kalau storagenya SSD.</li>
+<li><strong>CPU:</strong> type <strong>host</strong> biar performanya maksimal.</li>
+<li><strong>Memory:</strong> kasih secukupnya, misalnya 4–8 GB. Jangan semua RAM dikasih ke satu VM.</li>
+<li><strong>Network:</strong> bridge <code>vmbr0</code>, model <strong>VirtIO</strong>.</li>
+</ul>
+<p>Khusus Windows, siapin juga ISO <strong>virtio-win</strong> buat driver disk dan network-nya. Setelah OS terinstall, pasang <strong>QEMU Guest Agent</strong> di dalam VM supaya Proxmox bisa shutdown VM dengan rapi.</p>
+<h3>7. Atur supaya VM nyala otomatis</h3>
+<p>Di tiap VM, buka <strong>Options &gt; Start at boot</strong> jadikan <em>Yes</em>. Atur juga <strong>Start/Shutdown order</strong> kalau ada urutan, misalnya database harus nyala duluan sebelum aplikasi.</p>
+<h3>8. Pasang backup terjadwal</h3>
+<p>Ini bagian paling penting dan sering di-skip. Buka <strong>Datacenter &gt; Backup &gt; Add</strong>:</p>
+<ul>
+<li><strong>Schedule:</strong> tiap hari jam 22:00 atau di luar jam kerja.</li>
+<li><strong>Mode:</strong> <strong>Snapshot</strong>, jadi VM tetap jalan waktu dibackup.</li>
+<li><strong>Compression:</strong> <strong>ZSTD</strong> (cepat dan hemat).</li>
+<li><strong>Retention:</strong> misalnya simpan 7 harian dan 4 mingguan.</li>
+<li><strong>Storage:</strong> arahkan ke NAS atau disk terpisah, <strong>jangan</strong> ke disk yang sama dengan VM.</li>
+</ul>
+<p>Detail backup ke NAS dan cloud aku bahas di tutorial <em>Backup otomatis harian ke NAS dan cloud</em>.</p>
+<h3>9. Biasain pakai snapshot</h3>
+<p>Sebelum update aplikasi atau Windows, klik <strong>Snapshot &gt; Take Snapshot</strong>. Kalau ada yang error setelah update, tinggal <strong>Rollback</strong>, beres dalam hitungan detik. Tapi ingat: snapshot itu bukan backup, hapus snapshot lama setelah update aman.</p>
+<h2>Hasil akhir</h2>
+<p>Setelah semua jalan, kantor punya:</p>
+<ul>
+<li><strong>Satu server fisik</strong> yang isinya beberapa VM dan container, misalnya file server, aplikasi akuntansi, database, dan server tools internal.</li>
+<li><strong>Dashboard web</strong> buat mantau CPU, RAM, dan disk semua server dari satu layar.</li>
+<li><strong>Backup otomatis tiap malam</strong> plus snapshot sebelum update, jadi kalau ada masalah tinggal restore.</li>
+<li><strong>Hemat listrik dan tempat</strong>, karena PC-PC lama bisa dipensiunkan.</li>
+</ul>
+<p>Tips terakhir dari aku: catat semua IP, nama VM, dan fungsinya di satu dokumen. Server yang rapi itu bukan cuma yang jalan, tapi yang bisa dipahami orang lain kalau kamu lagi cuti.</p>
+
+    </article>
+    <aside class="t-sign" aria-label="Penulis">
+      <div class="t-sign-top">
+        <span class="t-ava" aria-hidden="true">IF<span class="led"></span></span>
+        <div class="t-who">
+          <span class="eyebrow">Ditulis oleh</span>
+          <b>Irfan Fauzi</b>
+          <span class="t-role">IT Infrastructure, Web &amp; Aplikasi</span>
+        </div>
+        <a class="t-more" href="/#karya">Lihat karya <span aria-hidden="true">→</span></a>
+      </div>
+      <p class="t-bio">Ngurus jaringan, server, backup, dan cloud storage, plus bikin website dan aplikasi buat kantor, sekolah, dan masjid. Kalau bukan lagi nyolok kabel, ya lagi nulis kode.</p>
+      <figure class="t-joke">
+        <figcaption class="mono"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>~/catatan-kaki.txt</figcaption>
+        <blockquote><span class="pr" aria-hidden="true">$</span> Satu server fisik isinya lima VM. Jadi kalau ditanya kerjaannya apa, jawab aja: juragan kos, penghuninya server semua.<span class="cur" aria-hidden="true"></span></blockquote>
+      </figure>
+    </aside>
+    <aside class="t-cta">
+      <p>Butuh bantuan menerapkan ini di kantor Anda?</p>
+      <a class="btn primary" href="https://wa.me/6282124038826?text=Halo%20Irfan%2C%20saya%20baca%20tutorial%20Membangun%20server%20virtualisasi%20untuk%20kantor%20kecil%20dan%20butuh%20bantuan." target="_blank" rel="noopener">Chat WhatsApp <span class="arr" aria-hidden="true">→</span></a>
+    </aside>
+  </div>
+</main>
+
+
+<footer>
+  <div class="wrap mono"><span>© 2026 Irfan Fauzi</span><span>Dibangun dengan bantuan doa istri di rumah</span></div>
+</footer>
+<script src="/assets/js/main.js?v=mvkno0xe" defer></script>
+</body>
+</html>
