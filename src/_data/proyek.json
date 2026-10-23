@@ -26,7 +26,6 @@
     "jenis": "APP",
     "status": "live",
     "label": [
-      "Berjalan",
       "Sistem Informasi Manajemen (SIM)"
     ],
     "ringkasan": "Backup database rutin, perbaikan bug, dan pembaruan menu aplikasi ERP kantor.",
