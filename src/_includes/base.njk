@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/style.css?v={{ versi }}">
 {%- if jsonld %}
 <script type="application/ld+json">{{ jsonld | json | safe }}</script>
 {%- endif %}
@@ -50,6 +50,6 @@
 <footer>
   <div class="wrap mono"><span>© {{ tahun }} {{ site.nama }}</span><span>{{ site.footer }}</span></div>
 </footer>
-<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/main.js?v={{ versi }}" defer></script>
 </body>
 </html>
