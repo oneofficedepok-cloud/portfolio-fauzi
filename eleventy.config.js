@@ -5,6 +5,8 @@ export default function (eleventyConfig) {
   // Halaman admin disalin apa adanya (bukan template).
   eleventyConfig.ignores.add("src/admin/**");
   eleventyConfig.addGlobalData("tahun", new Date().getFullYear());
+  // Versi build untuk memaksa browser memuat CSS/JS terbaru setelah deploy.
+  eleventyConfig.addGlobalData("versi", Date.now().toString(36));
 
   const bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
   eleventyConfig.addFilter("tanggalID", (d) => {

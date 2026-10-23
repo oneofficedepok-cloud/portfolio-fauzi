@@ -14,14 +14,20 @@ layout: base.njk
       {{ content | safe }}
     </article>
     <aside class="t-sign" aria-label="Penulis">
-      <span class="t-ava" aria-hidden="true">{{ site.inisial }}</span>
-      <div class="t-who">
-        <span class="eyebrow">Ditulis oleh</span>
-        <b>{{ site.nama }}</b>
-        <span class="t-role mono">{{ penulis.peran }}</span>
-        <p>{{ penulis.bio }}</p>
-        <p class="t-joke mono"><span aria-hidden="true">// </span>{{ candaan or (penulis.candaan | pilihTetap(page.fileSlug)) }}</p>
+      <div class="t-sign-top">
+        <span class="t-ava" aria-hidden="true">{{ site.inisial }}<span class="led"></span></span>
+        <div class="t-who">
+          <span class="eyebrow">Ditulis oleh</span>
+          <b>{{ site.nama }}</b>
+          <span class="t-role">{{ penulis.peran }}</span>
+        </div>
+        <a class="t-more" href="/#karya">Lihat karya <span aria-hidden="true">→</span></a>
       </div>
+      <p class="t-bio">{{ penulis.bio }}</p>
+      <figure class="t-joke">
+        <figcaption class="mono"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>~/catatan-kaki.txt</figcaption>
+        <blockquote><span class="pr" aria-hidden="true">$</span> {{ candaan or (penulis.candaan | pilihTetap(page.fileSlug)) }}<span class="cur" aria-hidden="true"></span></blockquote>
+      </figure>
     </aside>
     <aside class="t-cta">
       <p>Butuh bantuan menerapkan ini di kantor Anda?</p>
