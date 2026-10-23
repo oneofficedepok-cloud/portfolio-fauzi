@@ -22,15 +22,15 @@
   {
     "id": "PRJ-11",
     "slug": "perawatan-erp",
-    "judul": "Perawatan ERP",
+    "judul": "Membangun Aplikasi SIM",
     "jenis": "APP",
     "status": "live",
     "label": [
       "Berjalan",
-      "Aplikasi ERP"
+      "Sistem Informasi Manajemen (SIM)"
     ],
     "ringkasan": "Backup database rutin, perbaikan bug, dan pembaruan menu aplikasi ERP kantor.",
-    "gambar": "erp.webp",
+    "gambar": "perawatan-erp.webp",
     "ilustrasi": true
   },
   {
