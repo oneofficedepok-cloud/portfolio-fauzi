@@ -6,6 +6,7 @@ date: 2026-10-22
 deskripsi: "Behind the scenes bikin aplikasi absensi QR buat event: dari nulis BRD, nentuin alur, desain data, sampai prototipe yang bisa langsung dicoba klien."
 draft: false
 urutan: 5
+candaan: "Absen pakai kertas itu satu-satunya sistem di mana satu orang bisa hadir di tiga tempat sekaligus. Cukup titip tanda tangan."
 ---
 
 Absensi event pakai kertas dan pulpen itu vibes-nya tahun 2010: antrean panjang di meja registrasi, tulisan nggak kebaca, dan panitia baru tahu jumlah peserta yang datang pas acara udah kelar. Di tutorial ini aku spill proses aku merancang **Absensi Digital QR For Event**, mulai dari **BRD**, alur pengguna, desain data, sampai **prototipe** yang bisa langsung dicoba klien sebelum ngoding beneran.

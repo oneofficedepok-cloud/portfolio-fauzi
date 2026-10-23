@@ -6,6 +6,7 @@ date: 2026-10-16
 deskripsi: "Biar jaringan cabang nggak jadi hutan kabel dan IP acak, ini standar yang aku pakai: pola IP, VLAN, penamaan perangkat, VPN ke pusat, sampai dokumentasinya."
 draft: false
 urutan: 4
+candaan: "Semua cabang pakai IP 192.168.1.1. Kompak banget sih, cuma VPN-nya yang nggak bisa diajak kompak."
 ---
 
 Kalau kantor cuma satu, jaringan berantakan masih bisa diakalin. Tapi begitu cabangnya nambah jadi tiga, lima, sepuluh, dan tiap cabang di-setup orang yang beda, hasilnya chaos: IP tabrakan, password router beda-beda (atau malah masih default), dan nggak ada yang tahu kabel mana nyambung ke mana. Di tutorial ini aku spill **standar** yang aku pakai supaya semua cabang punya pola yang **sama persis**.

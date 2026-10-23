@@ -6,6 +6,7 @@ date: 2026-10-21
 deskripsi: "Satu mesin fisik, banyak server di dalamnya. Begini cara aku bangun server virtualisasi pakai Proxmox biar kantor kecil nggak perlu beli server satu-satu."
 draft: false
 urutan: 1
+candaan: "Satu server fisik isinya lima VM. Jadi kalau ditanya kerjaannya apa, jawab aja: juragan kos, penghuninya server semua."
 ---
 
 Jujurly, banyak kantor kecil masih punya pola kayak gini: ada PC buat file server, ada PC lain buat aplikasi akuntansi, ada lagi satu buat database. Semua nyala 24 jam, makan listrik, dan kalau salah satu rusak, semua orang panik. Di tutorial ini aku spill cara aku ngeringkas semua itu jadi **satu server fisik** yang isinya banyak "server virtual" pakai **Proxmox VE**.
