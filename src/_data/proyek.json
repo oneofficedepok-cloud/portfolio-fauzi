@@ -30,7 +30,19 @@
     ],
     "ringkasan": "Backup database rutin, perbaikan bug, dan pembaruan menu aplikasi ERP kantor.",
     "gambar": "perawatan-erp.webp",
-    "ilustrasi": true
+    "ilustrasi": true,
+    "teknologi": [
+      "PHP",
+      "HTML",
+      "CSS",
+      "javascript",
+      "MySql",
+      "Linux",
+      "Nginx"
+    ],
+    "cerita": [
+      "Sebuah aplikasi yang isinya modul Purchasing, MTC, Gudang, Finance, Surat Jalan) secara konseptual adalah sebuah SIM Sistem Informasi Manajemen) karena membantu manajemen mengelola informasi perusahaan. Namun, secara bentuk teknis aplikasi, sistem Anda sudah tergolong sebagai ERP (Enterprise Resource Planning) karena mengintegrasikan berbagai fungsi operasional harian ke dalam satu sistem terpadu."
+    ]
   },
   {
     "id": "PRJ-10",
