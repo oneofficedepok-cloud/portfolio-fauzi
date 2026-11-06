@@ -29,6 +29,22 @@
 {%- if jsonld %}
 <script type="application/ld+json">{{ jsonld | json | safe }}</script>
 {%- endif %}
+{%- if site.ga4 %}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4 }}"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '{{ site.ga4 }}');
+// Catat setiap klik link/tombol sebagai event "klik_link".
+document.addEventListener('click', function (e) {
+  var el = e.target.closest && e.target.closest('a, button');
+  if (!el) return;
+  var teks = (el.innerText || el.getAttribute('aria-label') || el.title || '').replace(/\s+/g, ' ').trim().slice(0, 100);
+  gtag('event', 'klik_link', { link_text: teks, link_url: el.href || '', halaman: location.pathname });
+}, true);
+</script>
+{%- endif %}
 </head>
 <body>
 <a class="skip" href="#isi">Langsung ke isi</a>

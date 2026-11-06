@@ -20,7 +20,7 @@ Semua isi bisa diubah langsung dari GitHub (buka file → ikon pensil → **Comm
 
 | Yang ingin diubah | File |
 | --- | --- |
-| Nama, email, WhatsApp, domain, teks footer | `src/_data/site.json` |
+| Nama, email, WhatsApp, domain, teks footer, ID Google Analytics (`ga4`) | `src/_data/site.json` |
 | Daftar proyek (karya) | `src/_data/proyek.json` |
 | Log pekerjaan | `src/_data/log.json` |
 | Tutorial | `src/tutorial/*.md` |
