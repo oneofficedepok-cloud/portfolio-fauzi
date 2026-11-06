@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin · Irfan Fauzi</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+
+<!-- LOGIN -->
+<main id="login" class="login" hidden>
+  <div class="login-box">
+    <span class="mark">IF</span>
+    <h1>Admin portfolio</h1>
+    <p class="muted">Masukkan GitHub token untuk repo <b>portfolio-fauzi</b>. Token hanya disimpan di browser ini.</p>
+    <form id="login-form">
+      <label>GitHub token<input id="token" type="password" autocomplete="off" required placeholder="github_pat_…"></label>
+      <button class="btn primary" type="submit">Masuk</button>
+      <p id="login-err" class="err" hidden></p>
+    </form>
+    <details>
+      <summary>Cara membuat token</summary>
+      <ol>
+        <li>Buka <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub → Fine-grained token</a>.</li>
+        <li>Repository access: <b>Only select repositories</b> → <b>portfolio-fauzi</b>.</li>
+        <li>Permissions → Repository: <b>Contents: Read and write</b> dan <b>Actions: Read-only</b>.</li>
+        <li>Generate, salin, lalu tempel di sini.</li>
+      </ol>
+    </details>
+  </div>
+</main>
+
+<!-- APP -->
+<div id="app" hidden>
+  <header class="top">
+    <a class="brand" href="/" target="_blank" rel="noopener"><span class="mark">IF</span><span>Admin</span></a>
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-tab="karya" aria-selected="true">Karya</button>
+      <button role="tab" data-tab="log" aria-selected="false">Log pekerjaan</button>
+      <button role="tab" data-tab="tutorial" aria-selected="false">Tutorial</button>
+    </nav>
+    <button class="link" id="logout" type="button">Keluar</button>
+  </header>
+
+  <div id="build" class="build" hidden></div>
+
+  <!-- KARYA -->
+  <section class="panel" data-panel="karya">
+    <div class="panel-head">
+      <div><h2>Karya</h2><p class="muted">Urutan di sini = urutan tampil di website. Kalau satu status punya 5 karya atau lebih, karya paling atas tampil besar sebagai unggulan.</p></div>
+      <button class="btn primary" id="add-proj" type="button">+ Tambah karya</button>
+    </div>
+    <div id="proj-list"></div>
+  </section>
+
+  <!-- LOG -->
+  <section class="panel" data-panel="log" hidden>
+    <div class="panel-head">
+      <div><h2>Log pekerjaan</h2><p class="muted">Beranda menampilkan 10 log terbaru.</p></div>
+      <button class="btn primary" id="add-log" type="button">+ Tambah log</button>
+    </div>
+    <div id="log-list"></div>
+  </section>
+
+  <!-- TUTORIAL -->
+  <section class="panel" data-panel="tutorial" hidden>
+    <div class="panel-head">
+      <div><h2>Catatan yang bisa diikuti</h2><p class="muted">Tutorial berstatus <b>Draft</b> tampil sebagai "Segera" dan halamannya belum terbit.</p></div>
+      <button class="btn primary" id="add-tut" type="button">+ Tulis tutorial</button>
+    </div>
+    <div id="tut-list"></div>
+  </section>
+
+  <div id="savebar" class="savebar" hidden>
+    <span id="savebar-txt">Ada perubahan yang belum disimpan</span>
+    <button class="btn ghost" id="discard" type="button">Batalkan</button>
+    <button class="btn primary" id="save" type="button">Simpan ke website</button>
+  </div>
+</div>
+
+<!-- FORM KARYA -->
+<dialog id="proj-dlg">
+  <form id="proj-form" method="dialog">
+    <h3 id="proj-dlg-title">Karya</h3>
+    <div class="grid2">
+      <label>Judul<input name="judul" required></label>
+      <label>Status
+        <select name="status"><option value="live">Go Live</option><option value="prog">Progress</option><option value="plan">Rancangan</option></select>
+      </label>
+      <label>Jenis<input name="jenis" list="jenis-list" required placeholder="APP / WEB / INFRA"></label>
+      <label>Kode<input name="id" required placeholder="PRJ-13"></label>
+      <label>Label 1<input name="label1" placeholder="mis. Proxmox"></label>
+      <label>Label 2<input name="label2" placeholder="mis. Server"></label>
+    </div>
+    <datalist id="jenis-list"><option value="APP"><option value="WEB"><option value="INFRA"></datalist>
+    <label>Ringkasan (tampil di kartu)<textarea name="ringkasan" rows="3" required></textarea></label>
+    <div class="img-row">
+      <img id="proj-img-prev" alt="" hidden>
+      <label>Gambar (16:10, otomatis diubah ke .webp)<input name="file" type="file" accept="image/*"></label>
+    </div>
+    <div class="checks">
+      <label class="chk"><input type="checkbox" name="ilustrasi"> Gambar ilustrasi (bukan screenshot asli)</label>
+    </div>
+    <details>
+      <summary>Halaman detail (opsional)</summary>
+      <label>Teknologi (pisahkan dengan koma)<input name="teknologi" placeholder="Proxmox VE, Ubuntu"></label>
+      <label>Tautan<input name="tautan" type="url" placeholder="https://"></label>
+      <label>Cerita (satu paragraf per baris kosong)<textarea name="cerita" rows="5"></textarea></label>
+      <label>Yang saya kerjakan (satu poin per baris)<textarea name="poin" rows="4"></textarea></label>
+    </details>
+    <div class="dlg-actions">
+      <button class="btn danger" type="button" id="proj-del">Hapus</button>
+      <span class="sp"></span>
+      <button class="btn ghost" value="cancel" formnovalidate>Batal</button>
+      <button class="btn primary" value="ok">Terapkan</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- FORM LOG -->
+<dialog id="log-dlg">
+  <form id="log-form" method="dialog">
+    <h3>Log pekerjaan</h3>
+    <div class="grid2">
+      <label>Tanggal<input name="tanggal" type="date" required></label>
+      <label>Status
+        <select name="status"><option value="ok">Selesai (hijau)</option><option value="wip">Berjalan (kuning)</option></select>
+      </label>
+    </div>
+    <label>Pekerjaan<input name="pesan" required></label>
+    <label>Terkait karya<select name="proyek" id="log-proj"></select></label>
+    <div class="dlg-actions">
+      <button class="btn danger" type="button" id="log-del">Hapus</button>
+      <span class="sp"></span>
+      <button class="btn ghost" value="cancel" formnovalidate>Batal</button>
+      <button class="btn primary" value="ok">Terapkan</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- FORM TUTORIAL -->
+<dialog id="tut-dlg" class="wide">
+  <form id="tut-form" method="dialog">
+    <h3>Tutorial</h3>
+    <label>Judul<input name="title" required></label>
+    <div class="grid3">
+      <label>Kategori<input name="kategori" list="kat-list" required placeholder="Server"></label>
+      <label>Waktu baca (menit)<input name="menit" type="number" min="1" value="5" required></label>
+      <label>Tanggal<input name="date" type="date" required></label>
+    </div>
+    <datalist id="kat-list"><option value="Server"><option value="Backup"><option value="Email"><option value="Jaringan"><option value="Aplikasi"><option value="Cloud"><option value="Website"></datalist>
+    <label>Deskripsi singkat<input name="deskripsi"></label>
+    <label>Alamat halaman<input name="slug" required pattern="[a-z0-9-]+" placeholder="otomatis dari judul"></label>
+    <label>Isi (Markdown: ## Judul bagian, - poin, 1. langkah, `kode`, ```blok kode```)
+      <textarea name="body" rows="16" class="mono-area"></textarea>
+    </label>
+    <fieldset class="joke-box">
+      <legend>Joke di bawah signature</legend>
+      <label>Pilih dari koleksi
+        <select name="jokePilih" id="joke-pilih"><option value="">Otomatis (dipilihkan sistem)</option></select>
+      </label>
+      <label>Kalimat joke (boleh diedit atau tulis sendiri)
+        <textarea name="candaan" rows="2" maxlength="220" placeholder="Kosongkan agar dipilihkan otomatis"></textarea>
+      </label>
+      <label class="chk" id="joke-simpan-row" hidden><input type="checkbox" name="jokeSimpan"> Simpan juga ke koleksi joke (kelompok <span id="joke-kel">Lainnya</span>)</label>
+    </fieldset>
+    <label class="chk"><input type="checkbox" name="terbit"> Terbitkan (kalau tidak dicentang, tetap Draft)</label>
+    <div class="dlg-actions">
+      <button class="btn danger" type="button" id="tut-del">Hapus</button>
+      <span class="sp"></span>
+      <button class="btn ghost" value="cancel" formnovalidate>Batal</button>
+      <button class="btn primary" value="ok">Simpan ke website</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" class="toast" role="status" hidden></div>
+<script src="/admin/admin.js"></script>
+</body>
+</html>
