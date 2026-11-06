@@ -1,0 +1,69 @@
+---
+layout: base.njk
+---
+{%- set pesanWa = 'Halo Irfan, saya baca cuplikan ebook "' + title + '" dan mau minta tolong dikerjakan.' %}
+<main id="isi" class="detail">
+  <div class="wrap">
+    <nav class="crumb mono" aria-label="Lokasi"><a href="/">Beranda</a><span aria-hidden="true">/</span><a href="/ebook/">Ebook</a><span aria-hidden="true">/</span><span>Cuplikan</span></nav>
+
+    <header class="eb-hero">
+      <figure class="eb-cover"><img src="/img/{{ sampul }}" alt="Sampul ebook {{ title }}" width="900" height="1273"></figure>
+      <div class="eb-info">
+        <span class="eyebrow">{{ label }}</span>
+        <h1>{{ title }}</h1>
+        {%- if deskripsi %}<p class="lede">{{ deskripsi }}</p>{% endif %}
+        <ul class="eb-stats">
+          {%- for s in statistik %}<li><b>{{ s.angka }}</b><span>{{ s.ket }}</span></li>{% endfor %}
+        </ul>
+        <div class="eb-act">
+          <a class="btn primary" href="{{ lynk }}" target="_blank" rel="noopener">Beli ebook di Lynk <span class="arr" aria-hidden="true">↗</span></a>
+          <a class="btn" href="#cuplikan">Baca cuplikan <span class="arr" aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+    </header>
+
+    <div class="narrow eb-body">
+      <span class="eyebrow" id="cuplikan">Cuplikan isi ebook</span>
+      <article class="prose eb-prose">
+        {{ content | safe }}
+      </article>
+
+      <div class="eb-cut" role="note">
+        <span class="eb-lock" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+        <p><b>Cuplikan berhenti di sini.</b> {{ potongan }}</p>
+      </div>
+
+      <section class="eb-toc" aria-labelledby="toc-h">
+        <h2 id="toc-h">Isi lengkapnya</h2>
+        <ol>
+          {%- for b in daftarIsi %}
+          <li class="{{ 'open' if b.cuplikan else 'locked' }}">
+            <span class="mono">BAB {{ b.bab }}</span>
+            <b>{{ b.judul }}</b>
+            <span class="ket">{{ b.ket }}</span>
+            <span class="st mono">{{ 'Ada cuplikan' if b.cuplikan else 'Di ebook' }}</span>
+          </li>
+          {%- endfor %}
+        </ol>
+      </section>
+
+      <aside class="eb-help">
+        <span class="eyebrow">Jasa pembersihan</span>
+        <h2>{{ bantuan.judul }}</h2>
+        <p>{{ bantuan.teks }}</p>
+        <ul>
+          {%- for x in bantuan.poin %}<li>{{ x }}</li>{% endfor %}
+        </ul>
+        <a class="btn" href="https://wa.me/{{ site.wa }}?text={{ pesanWa | urlencode }}" target="_blank" rel="noopener">Chat WhatsApp <span class="arr" aria-hidden="true">→</span></a>
+      </aside>
+
+      <aside class="eb-buy">
+        <div>
+          <span class="eyebrow">Panduan lengkap</span>
+          <p>{{ ajakan }}</p>
+        </div>
+        <a class="btn primary" href="{{ lynk }}" target="_blank" rel="noopener">Beli ebook di Lynk <span class="arr" aria-hidden="true">↗</span></a>
+      </aside>
+    </div>
+  </div>
+</main>

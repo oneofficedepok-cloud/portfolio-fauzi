@@ -32,6 +32,7 @@ export default function (eleventyConfig) {
   const semuaTutorial = (api) => api.getFilteredByGlob("src/tutorial/*.md");
   eleventyConfig.addCollection("tutorial", (api) => semuaTutorial(api).filter((t) => !t.data.draft).sort((a, b) => b.date - a.date));
   eleventyConfig.addCollection("tutorialSegera", (api) => semuaTutorial(api).filter((t) => t.data.draft).sort((a, b) => (a.data.urutan || 99) - (b.data.urutan || 99)));
+  eleventyConfig.addCollection("ebook", (api) => api.getFilteredByGlob("src/ebook/*.md").filter((e) => !e.data.draft).sort((a, b) => b.date - a.date));
 
   return {
     dir: { input: "src", output: "_site" },

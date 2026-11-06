@@ -24,6 +24,7 @@ Semua isi bisa diubah langsung dari GitHub (buka file → ikon pensil → **Comm
 | Daftar proyek (karya) | `src/_data/proyek.json` |
 | Log pekerjaan | `src/_data/log.json` |
 | Tutorial | `src/tutorial/*.md` |
+| Ebook (halaman cuplikan) | `src/ebook/*.md`, gambar di `src/img/ebook/` |
 | Gambar proyek | `src/img/` (format `.webp`, rasio 16:10, lebar ±1040 px) |
 
 ### Menambah proyek
@@ -54,6 +55,10 @@ Tambahkan satu blok di `src/_data/proyek.json`. Urutan di file = urutan tampil (
 - Kalau satu status punya 5 karya atau lebih, karya paling atas tampil besar sebagai unggulan, 6 berikutnya tampil sebagai kartu biasa, dan sisanya muncul setelah tombol "Lihat semua karya" diklik. Jadi taruh karya terbaik paling atas.
 - `teknologi`, `tautan`, `cerita`, `poin` boleh dihapus kalau belum ada. `cerita` dan `poin` mengisi halaman detail `/karya/<slug>/`.
 - Angka di bagian atas (go live, progress, rancangan) dan tab dihitung otomatis.
+
+### Menambah ebook
+
+Satu file `.md` di `src/ebook/` = satu halaman cuplikan di `/ebook/<nama-file>/`, otomatis muncul di menu **Ebook**. Salin `bersihkan-website-dari-judol.md` sebagai contoh. Front matter mengatur sampul, tombol Lynk (`lynk`), angka ringkas (`statistik`), daftar isi (`daftarIsi`, `cuplikan: true` = bab yang ada cuplikannya), kotak jasa (`bantuan`), dan teks ajakan beli (`potongan`, `ajakan`). Isi di bawah front matter adalah cuplikannya; paragraf terakhir otomatis memudar. `draft: true` menyembunyikan halaman.
 
 ### Menambah log pekerjaan
 
