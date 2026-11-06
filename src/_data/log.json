@@ -1,5 +1,7 @@
 [
-  {"tanggal":"2026-10-28","pesan":"Trial dan QA Aplikasi Absesnsi Digital QR For Event","proyek":"PRJ-05","status":"wip"},
+  {"tanggal":"2026-11-06","pesan":"Bangun aplikasi Managemen Sekolah","proyek":"PRJ-01","status":"wip"},
+  {"tanggal":"2026-11-04","pesan":"Publish Aplikasi Kuiar di web imarah digital","proyek":"PRJ-05","status":"ok"},
+  {"tanggal":"2026-10-28","pesan":"Trial dan QA Aplikasi Absesnsi Digital QR For Event","proyek":"PRJ-05","status":"ok"},
   {"tanggal":"2026-10-22","pesan":"Build Aplikasi Absensi Digital QR For Event","proyek":"PRJ-05","status":"ok"},
   {"tanggal":"2026-10-19","pesan":"BRD dan paket penawaran Absensi Digital QR For Event selesai","proyek":"PRJ-05","status":"ok"},
   {"tanggal":"2026-10-19","pesan":"Menyusun penawaran IT Support bulanan untuk kantor","status":"ok"},
