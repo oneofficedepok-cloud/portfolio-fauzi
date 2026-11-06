@@ -1,0 +1,28 @@
+---
+layout: base.njk
+title: Ebook
+deskripsi: Ebook panduan IT dari Irfan Fauzi, ditulis dengan bahasa santai dan langkah yang sudah diuji di lapangan.
+permalink: /ebook/
+---
+<main id="isi" class="detail">
+  <div class="wrap">
+    <nav class="crumb mono" aria-label="Lokasi"><a href="/">Beranda</a><span aria-hidden="true">/</span><span>Ebook</span></nav>
+    <div class="blk-head">
+      <div><span class="eyebrow">Ebook</span><h1 class="h-page">Panduan lengkap, siap dipraktikkan</h1></div>
+      <p>Versi utuh dari langkah-langkah yang saya pakai di lapangan. Lihat cuplikannya dulu, beli kalau cocok.</p>
+    </div>
+    <ul class="ebooks">
+      {%- for e in collections.ebook %}
+      <li>
+        <a href="{{ e.url }}">
+          <img src="/img/{{ e.data.sampul }}" alt="Sampul ebook {{ e.data.title }}" width="900" height="1273" loading="lazy">
+          <span class="eyebrow">{{ e.data.label }}</span>
+          <h2 class="h3">{{ e.data.title }}</h2>
+          <p>{{ e.data.deskripsi }}</p>
+          <span class="go mono">Lihat cuplikan <span aria-hidden="true">→</span></span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</main>
