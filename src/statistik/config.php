@@ -17,13 +17,15 @@ return [
     'cache' => $LUAR_WEB . '/ga4-cache',
     'cache_menit' => 10,
 
-    // Daftar web. "properti" = ID Properti GA4 (angka, di Admin → Property details). Kosong = belum diatur.
+    // Daftar web. "properti" = ID Properti GA4 (angka, di Admin → Property details).
+    // "stream" = Stream ID (Admin → Data streams). Diisi kalau beberapa web berbagi satu properti,
+    // supaya datanya dipisahkan per web. Kosongkan kalau web punya properti sendiri.
     // Urutan di sini = urutan tab di dashboard.
     'situs' => [
-        ['id' => 'portfolio', 'nama' => 'Portfolio', 'domain' => 'irfanfauzi.web.id', 'properti' => '562896650'],
-        ['id' => 'trireka', 'nama' => 'Trireka', 'domain' => 'trireka.web.id', 'properti' => ''],
-        ['id' => 'imarah', 'nama' => 'Imarah', 'domain' => 'imarah.my.id', 'properti' => ''],
-        ['id' => 'akademik', 'nama' => 'Akademik', 'domain' => 'akademik.imarah.my.id', 'properti' => ''],
-        ['id' => 'masjidqu', 'nama' => 'MasjidQu', 'domain' => 'masjidqu.imarah.my.id', 'properti' => ''],
+        ['id' => 'portfolio', 'nama' => 'Portfolio', 'domain' => 'irfanfauzi.web.id', 'properti' => '562896650', 'stream' => '16284969866'],
+        ['id' => 'trireka', 'nama' => 'Trireka', 'domain' => 'trireka.web.id', 'properti' => '562896650', 'stream' => '16284943275'],
+        ['id' => 'imarah', 'nama' => 'Imarah', 'domain' => 'imarah.my.id', 'properti' => '562896650', 'stream' => '16285054919'],
+        ['id' => 'akademik', 'nama' => 'Akademik', 'domain' => 'akademik.imarah.my.id', 'properti' => '562896650', 'stream' => '16284997350'],
+        ['id' => 'masjidqu', 'nama' => 'MasjidQu', 'domain' => 'masjid.imarah.my.id', 'properti' => '562896650', 'stream' => '16285025097'],
     ],
 ];
