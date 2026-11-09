@@ -14,6 +14,20 @@ Buka **https://irfanfauzi.web.id/admin/** untuk mengelola karya (tambah, ubah, g
 - Setiap **Simpan ke website** membuat commit ke `main`. Setelah status build hijau, klik **Deploy** di cPanel → Git Deploy Manager.
 - Halaman admin tidak diindeks Google (`noindex` dan `robots.txt`).
 
+## Dashboard statistik
+
+Buka **https://irfanfauzi.web.id/statistik/** untuk melihat trafik semua web (pengunjung, tayangan, lama kunjungan, klik link, sumber trafik, halaman teratas, perangkat, kota, dan realtime). Datanya dari Google Analytics 4.
+
+- Login memakai GitHub token yang sama dengan `/admin/`. Kalau sudah login di admin, statistik langsung terbuka.
+- `src/statistik/api.php` mengambil data GA4 di server (PHP), memakai kunci service account Google. Hasilnya disimpan sementara 10 menit.
+- Daftar web dan **ID Properti GA4** diatur di `src/statistik/config.php`.
+- Pemasangan sekali saja:
+  1. Google Cloud Console → buat project → aktifkan **Google Analytics Data API**.
+  2. Buat **Service account** → tab Keys → Add key → JSON. File JSON akan terunduh.
+  3. Upload file itu lewat cPanel File Manager ke folder home (**di luar** `public_html`) dengan nama `ga4-kunci.json`.
+  4. Google Analytics → Admin → **Account access management** (akun Web Fauzi) → tambah email service account sebagai **Viewer**.
+- Uji di komputer: `npm run build && cd _site && STATISTIK_DEMO=1 php -S 127.0.0.1:8080` lalu buka `/statistik/` (data contoh, token apa saja).
+
 ## Cara memperbarui isi (manual)
 
 Semua isi bisa diubah langsung dari GitHub (buka file → ikon pensil → **Commit changes**). Situs akan diperbarui sekitar 1 menit kemudian.

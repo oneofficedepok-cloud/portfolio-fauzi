@@ -1,0 +1,12 @@
+# Dashboard statistik: selalu versi terbaru, tidak diindeks, config.php tidak bisa dibuka langsung.
+DirectoryIndex index.html
+<IfModule mod_expires.c>
+  ExpiresActive Off
+</IfModule>
+<IfModule mod_headers.c>
+  Header set Cache-Control "no-cache"
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
+<Files "config.php">
+  Require all denied
+</Files>
