@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Statistik · Irfan Fauzi</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="/admin/admin.css">
+<link rel="stylesheet" href="/statistik/statistik.css">
+</head>
+<body>
+
+<!-- LOGIN (token sama dengan /admin/) -->
+<main id="login" class="login" hidden>
+  <div class="login-box">
+    <span class="mark">IF</span>
+    <h1>Statistik web</h1>
+    <p class="muted">Masuk dengan GitHub token yang sama dengan halaman admin. Kalau sudah login di <a href="/admin/">admin</a>, halaman ini langsung terbuka.</p>
+    <form id="login-form">
+      <label>GitHub token<input id="token" type="password" autocomplete="off" required placeholder="github_pat_…"></label>
+      <button class="btn primary" type="submit">Masuk</button>
+      <p id="login-err" class="err" hidden></p>
+    </form>
+  </div>
+</main>
+
+<!-- APP -->
+<div id="app" hidden>
+  <header class="top">
+    <a class="brand" href="/admin/"><span class="mark">IF</span><span>Statistik</span></a>
+    <nav class="tabs" id="situs-tabs" role="tablist" aria-label="Pilih web"></nav>
+    <a class="link" href="/admin/">Admin</a>
+    <button class="link" id="logout" type="button">Keluar</button>
+  </header>
+
+  <main class="st-wrap">
+    <div class="st-head">
+      <div>
+        <h1 id="judul">Semua web</h1>
+        <p class="muted" id="subjudul"></p>
+      </div>
+      <label class="rentang">Periode
+        <select id="periode">
+          <option value="7">7 hari terakhir</option>
+          <option value="28" selected>28 hari terakhir</option>
+          <option value="90">90 hari terakhir</option>
+          <option value="bulan-ini">Bulan ini</option>
+          <option value="bulan-lalu">Bulan lalu</option>
+          <option value="365">12 bulan terakhir</option>
+        </select>
+      </label>
+    </div>
+
+    <p id="galat" class="st-galat" hidden></p>
+
+    <!-- SEMUA WEB -->
+    <section id="v-semua" hidden>
+      <div class="kartu-grid" id="semua-grid"></div>
+      <div class="kartu">
+        <h3>Tayangan per web</h3>
+        <p class="muted kecil" id="semua-catatan"></p>
+        <div id="semua-bar"></div>
+      </div>
+    </section>
+
+    <!-- SATU WEB -->
+    <section id="v-situs" hidden>
+      <div class="atas">
+        <div class="kartu utama">
+          <div class="kpi" role="tablist" id="kpi"></div>
+          <div class="grafik" id="grafik"></div>
+        </div>
+        <aside class="kartu realtime">
+          <h3>Realtime</h3>
+          <p class="muted kecil">Diperbarui setiap menit</p>
+          <div class="rt-angka" id="rt-angka">–</div>
+          <p class="muted kecil">Pengunjung aktif · 30 menit terakhir</p>
+          <h4>Halaman yang sedang dilihat</h4>
+          <ol class="daftar" id="rt-halaman"></ol>
+        </aside>
+      </div>
+
+      <div class="kartu-grid dua">
+        <div class="kartu"><h3>Dari mana pengunjung datang</h3><p class="muted kecil">Kunjungan per jenis sumber</p><div id="kanal"></div></div>
+        <div class="kartu"><h3>Sumber teratas</h3><p class="muted kecil">Google, Instagram, WhatsApp, dan lainnya</p><div id="sumber"></div></div>
+        <div class="kartu lebar"><h3>Halaman teratas</h3><p class="muted kecil">Tayangan dan rata-rata lama dibaca per pengunjung</p><div id="halaman"></div></div>
+        <div class="kartu lebar"><h3>Link yang paling sering diklik</h3><p class="muted kecil">Dari event klik_link</p><div id="link"></div></div>
+        <div class="kartu"><h3>Perangkat</h3><div id="perangkat"></div></div>
+        <div class="kartu"><h3>Kota</h3><div id="kota"></div></div>
+      </div>
+    </section>
+
+    <p class="muted kecil kaki" id="kaki"></p>
+  </main>
+</div>
+
+<div id="tip" class="tip" hidden></div>
+<script src="/statistik/statistik.js"></script>
+</body>
+</html>
