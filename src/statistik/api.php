@@ -118,8 +118,21 @@ function tokenGoogle(): string
     return $res['access_token'];
 }
 
+// Kalau beberapa web berbagi satu properti GA4, data dipisahkan per data stream (streamId).
+$STREAM = '';
+
+function saringStream(array $req): array
+{
+    global $STREAM;
+    if ($STREAM === '') return $req;
+    $f = ['filter' => ['fieldName' => 'streamId', 'stringFilter' => ['value' => $STREAM]]];
+    $req['dimensionFilter'] = isset($req['dimensionFilter']) ? ['andGroup' => ['expressions' => [$req['dimensionFilter'], $f]]] : $f;
+    return $req;
+}
+
 function ga(string $properti, string $aksi, array $body): array
 {
+    $body = isset($body['requests']) ? ['requests' => array_map('saringStream', $body['requests'])] : saringStream($body);
     [$kode, $res] = http('POST', "https://analyticsdata.googleapis.com/v1beta/properties/$properti:$aksi", [
         'Authorization: Bearer ' . tokenGoogle(),
         'Content-Type: application/json',
@@ -284,6 +297,7 @@ if (in_array($aksi, ['laporan', 'semua'], true) && (!preg_match($tgl, $mulai) ||
 $cariSitus = function (string $id) use ($daftar, $DEMO) {
     foreach ($daftar as $s) if ($s['id'] === $id) {
         if ($s['properti'] === '' && !$DEMO) gagal(400, 'ID Properti GA4 untuk ' . $s['nama'] . ' belum diisi di statistik/config.php.');
+        $GLOBALS['STREAM'] = (string) ($s['stream'] ?? '');
         return $s;
     }
     gagal(404, 'Web tidak ditemukan.');
@@ -293,7 +307,7 @@ try {
     if ($aksi === 'laporan') {
         $s = $cariSitus($_GET['situs'] ?? '');
         if ($DEMO) keluar(200, demo('laporan', $s, $mulai, $akhir));
-        $kunci = "laporan:{$s['properti']}:$mulai:$akhir";
+        $kunci = "laporan:{$s['properti']}:$STREAM:$mulai:$akhir";
         $data = cacheAmbil($kunci, $CFG['cache_menit'] * 60);
         if ($data === null) { $data = laporanSitus($s['properti'], $mulai, $akhir); $data['diambil'] = date('c'); cacheSimpan($kunci, $data); }
         keluar(200, $data);
@@ -301,7 +315,7 @@ try {
     if ($aksi === 'realtime') {
         $s = $cariSitus($_GET['situs'] ?? '');
         if ($DEMO) keluar(200, demo('realtime', $s, '', ''));
-        $kunci = "realtime:{$s['properti']}";
+        $kunci = "realtime:{$s['properti']}:$STREAM";
         $data = cacheAmbil($kunci, 60);
         if ($data === null) { $data = realtime($s['properti']); cacheSimpan($kunci, $data); }
         keluar(200, $data);
@@ -310,10 +324,11 @@ try {
         $hasil = [];
         foreach ($daftar as $s) {
             if ($s['properti'] === '' && !$DEMO) { $hasil[] = ['id' => $s['id'], 'siap' => false]; continue; }
+            $STREAM = (string) ($s['stream'] ?? '');
             try {
                 if ($DEMO) { $per = demo('semua', $s, $mulai, $akhir); }
                 else {
-                    $kunci = "semua:{$s['properti']}:$mulai:$akhir";
+                    $kunci = "semua:{$s['properti']}:$STREAM:$mulai:$akhir";
                     $per = cacheAmbil($kunci, $CFG['cache_menit'] * 60);
                     if ($per === null) {
                         $b = ga($s['properti'], 'batchRunReports', ['requests' => [
