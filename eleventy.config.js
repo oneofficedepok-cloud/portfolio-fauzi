@@ -1,9 +1,10 @@
 // Konfigurasi Eleventy: data di src/_data, tutorial Markdown di src/tutorial, hasil build di _site
 // (dikirim ke branch "hosting" lalu di-pull oleh cPanel).
 export default function (eleventyConfig) {
-  eleventyConfig.addPassthroughCopy({ "src/img": "img", "src/assets": "assets", "src/favicon.svg": "favicon.svg", "src/og.png": "og.png", "src/.cpanel.yml": ".cpanel.yml", "src/.htaccess": ".htaccess", "src/admin": "admin" });
+  eleventyConfig.addPassthroughCopy({ "src/img": "img", "src/assets": "assets", "src/favicon.svg": "favicon.svg", "src/og.png": "og.png", "src/.cpanel.yml": ".cpanel.yml", "src/.htaccess": ".htaccess", "src/admin": "admin", "src/statistik": "statistik" });
   // Halaman admin disalin apa adanya (bukan template).
   eleventyConfig.ignores.add("src/admin/**");
+  eleventyConfig.ignores.add("src/statistik/**");
   eleventyConfig.addGlobalData("tahun", new Date().getFullYear());
   // Versi build untuk memaksa browser memuat CSS/JS terbaru setelah deploy.
   eleventyConfig.addGlobalData("versi", Date.now().toString(36));
