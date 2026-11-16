@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /statistik/
+
+Sitemap: https://irfanfauzi.web.id/sitemap.xml
