@@ -59,7 +59,7 @@
 
   function api(aksi, q) {
     var qs = new URLSearchParams(Object.assign({ aksi: aksi }, q || {}));
-    return fetch('/statistik/api.php?' + qs, { headers: { 'X-Token': token } }).then(function (r) {
+    return fetch('/statistik/api.php?' + qs, { headers: { 'X-Token': token, 'X-Query': qs.toString() } }).then(function (r) {
       return r.json().catch(function () { return { galat: 'Server tidak mengembalikan data (HTTP ' + r.status + '). Pastikan hosting mendukung PHP.' }; })
         .then(function (j) { if (!r.ok) { var e = new Error(j.galat || 'HTTP ' + r.status); e.status = r.status; throw e; } return j; });
     });
