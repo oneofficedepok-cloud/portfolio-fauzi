@@ -282,7 +282,11 @@ function demo(string $aksi, array $situs, string $mulai, string $akhir)
 
 // ---------- rute ----------
 cekLogin();
-$aksi = $_GET['aksi'] ?? '';
+// Beberapa hosting mengosongkan $_GET (variables_order) atau membuang query string.
+// Cadangannya: baca ulang QUERY_STRING, lalu header X-Query yang dikirim statistik.js.
+if (empty($_GET['aksi'])) parse_str((string) ($_SERVER['QUERY_STRING'] ?? ''), $_GET);
+if (empty($_GET['aksi'])) parse_str((string) ($_SERVER['HTTP_X_QUERY'] ?? ''), $_GET);
+$aksi = (string) ($_GET['aksi'] ?? '');
 $daftar = $CFG['situs'];
 
 if ($aksi === 'situs') {
@@ -352,4 +356,4 @@ try {
     gagal(502, 'Google Analytics: ' . $e->getMessage());
 }
 
-gagal(400, 'Aksi tidak dikenal.');
+gagal(400, $aksi === '' ? 'Permintaan sampai ke server tanpa parameter aksi. Kemungkinan hosting membuang query string.' : "Aksi tidak dikenal: $aksi.");
