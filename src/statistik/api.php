@@ -281,11 +281,24 @@ function demo(string $aksi, array $situs, string $mulai, string $akhir)
 }
 
 // ---------- rute ----------
+// Cek cepat tanpa login: menampilkan apa yang benar-benar diterima server (tidak berisi rahasia).
+if (($_GET['cek'] ?? '') === '1' || strpos((string) ($_SERVER['QUERY_STRING'] ?? ''), 'cek=1') !== false) {
+    keluar(200, ['get' => $_GET, 'query_string' => $_SERVER['QUERY_STRING'] ?? null, 'request_uri' => $_SERVER['REQUEST_URI'] ?? null, 'x_query' => $_SERVER['HTTP_X_QUERY'] ?? null, 'php' => PHP_VERSION]);
+}
 cekLogin();
-// Beberapa hosting mengosongkan $_GET (variables_order) atau membuang query string.
-// Cadangannya: baca ulang QUERY_STRING, lalu header X-Query yang dikirim statistik.js.
-if (empty($_GET['aksi'])) parse_str((string) ($_SERVER['QUERY_STRING'] ?? ''), $_GET);
-if (empty($_GET['aksi'])) parse_str((string) ($_SERVER['HTTP_X_QUERY'] ?? ''), $_GET);
+// Beberapa hosting mengosongkan atau mengubah $_GET, atau membuang query string. Ambil parameter dari
+// sumber pertama yang berisi aksi yang dikenal: $_GET, QUERY_STRING, lalu header X-Query dari statistik.js.
+const AKSI = ['situs', 'laporan', 'realtime', 'semua'];
+$sumber = [$_GET];
+parse_str((string) ($_SERVER['QUERY_STRING'] ?? ''), $q); $sumber[] = $q;
+parse_str((string) ($_SERVER['HTTP_X_QUERY'] ?? ''), $h); $sumber[] = $h;
+$aksiMentah = [];
+foreach ($sumber as $p) {
+    $a = is_string($p['aksi'] ?? null) ? $p['aksi'] : '';
+    $aksiMentah[] = $a;
+    $bersih = preg_replace('/[^a-z]/', '', strtolower($a));
+    if (in_array($bersih, AKSI, true)) { $_GET = array_map(fn($v) => is_string($v) ? trim($v) : $v, $p); $_GET['aksi'] = $bersih; break; }
+}
 $aksi = (string) ($_GET['aksi'] ?? '');
 $daftar = $CFG['situs'];
 
@@ -356,4 +369,4 @@ try {
     gagal(502, 'Google Analytics: ' . $e->getMessage());
 }
 
-gagal(400, $aksi === '' ? 'Permintaan sampai ke server tanpa parameter aksi. Kemungkinan hosting membuang query string.' : "Aksi tidak dikenal: $aksi.");
+gagal(400, 'Aksi tidak dikenal. Diterima server: ' . json_encode($aksiMentah) . '. Buka /statistik/api.php?cek=1&aksi=situs untuk detail.');
