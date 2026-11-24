@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pindah ke VPS Tanpa Panik · Irfan Fauzi</title>
+<meta name="description" content="Panduan pindahan website dari cPanel ke VPS sampai online, pakai HTTPS, aman berlapis, dan punya backup otomatis. Ditulis untuk pemula, pakai satu contoh website sekolah dari awal sampai akhir.">
+<link rel="canonical" href="https://irfanfauzi.web.id/ebook/pindah-ke-vps-tanpa-panik/">
+<meta name="author" content="Irfan Fauzi">
+<meta name="theme-color" content="#eef1ed" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1412" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="product">
+<meta property="og:locale" content="id_ID">
+<meta property="og:site_name" content="Irfan Fauzi">
+<meta property="og:title" content="Pindah ke VPS Tanpa Panik · Irfan Fauzi">
+<meta property="og:description" content="Panduan pindahan website dari cPanel ke VPS sampai online, pakai HTTPS, aman berlapis, dan punya backup otomatis. Ditulis untuk pemula, pakai satu contoh website sekolah dari awal sampai akhir.">
+<meta property="og:url" content="https://irfanfauzi.web.id/ebook/pindah-ke-vps-tanpa-panik/">
+<meta property="og:image" content="https://irfanfauzi.web.id/img/ebook/vps-promo.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="/assets/css/style.css?v=mwuj026q">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EEZCGXN0H5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-EEZCGXN0H5');
+// Catat setiap klik link/tombol sebagai event "klik_link".
+document.addEventListener('click', function (e) {
+  var el = e.target.closest && e.target.closest('a, button');
+  if (!el) return;
+  var teks = (el.innerText || el.getAttribute('aria-label') || el.title || '').replace(/\s+/g, ' ').trim().slice(0, 100);
+  gtag('event', 'klik_link', { link_text: teks, link_url: el.href || '', halaman: location.pathname });
+}, true);
+</script>
+</head>
+<body>
+<a class="skip" href="#isi">Langsung ke isi</a>
+<nav class="nav" aria-label="Utama">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="mark" aria-hidden="true">IF</span><span>Irfan Fauzi</span></a>
+    <ul>
+      <li><a href="/#karya">Karya</a></li>
+      <li><a href="/#tutorial">Tutorial</a></li>
+      <li class="nav-eb"><a href="/ebook/">Ebook</a></li>
+      <li><a href="/#catatan">Catatan Kerja</a></li>
+      <li><a href="/#kontak">Kontak</a></li>
+    </ul>
+    <a class="avail" href="https://wa.me/6282124038826?text=Halo%20Irfan%2C%20saya%20lihat%20portfolio%20Anda%20dan%20ingin%20diskusi%20proyek." target="_blank" rel="noopener" aria-label="Chat WhatsApp: terbuka untuk proyek"><span class="led"></span><span class="txt">Terbuka untuk proyek</span><span class="go" aria-hidden="true">↗</span></a>
+  </div>
+</nav>
+
+
+<main id="isi" class="detail">
+  <div class="wrap">
+    <nav class="crumb mono" aria-label="Lokasi"><a href="/">Beranda</a><span aria-hidden="true">/</span><a href="/ebook/">Ebook</a><span aria-hidden="true">/</span><span>Cuplikan</span></nav>
+
+    <header class="eb-hero">
+      <figure class="eb-cover"><img src="/img/ebook/vps-sampul.webp" alt="Sampul ebook Pindah ke VPS Tanpa Panik" width="900" height="1273"></figure>
+      <div class="eb-info">
+        <span class="eyebrow">Ebook · Dari cPanel ke VPS</span>
+        <h1>Pindah ke VPS Tanpa Panik</h1><p class="lede">Panduan pindahan website dari cPanel ke VPS sampai online, pakai HTTPS, aman berlapis, dan punya backup otomatis. Ditulis untuk pemula, pakai satu contoh website sekolah dari awal sampai akhir.</p>
+        <ul class="eb-stats"><li><b>18 bab</b><span>dari beli server sampai rencana darurat</span></li><li><b>202 halaman</b><span>dibagi jadi 5 bagian</span></li><li><b>196 gambar</b><span>screenshot terminal asli</span></li><li><b>Pemula</b><span>nggak perlu jago Linux</span></li>
+        </ul>
+        <div class="eb-act">
+          <a class="btn primary" href="https://lynk.id/ayyubiid/0xj0vyk6rg0e/checkout" target="_blank" rel="noopener">Beli ebook di Lynk <span class="arr" aria-hidden="true">↗</span></a>
+          <a class="btn" href="#cuplikan">Baca cuplikan <span class="arr" aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+    </header>
+
+    <div class="narrow eb-body">
+      <span class="eyebrow" id="cuplikan">Cuplikan isi ebook</span>
+      <article class="prose eb-prose">
+        <h2>&quot;Pindah ke VPS aja, Pak.&quot;</h2>
+<p>Pak Hendra, operator di SMK Contoh, punya masalah yang datang tiap bulan Juni. Pengumuman PPDB keluar, ratusan orang tua buka website bareng, dan yang muncul cuma tulisan <code>508 Resource Limit Is Reached</code>. Vendor yang dulu bikin websitenya cuma bilang satu kalimat: pindah ke VPS aja.</p>
+<p>Saran itu nggak salah. Tapi juga belum tentu benar. Cara paling gampang memahaminya, bayangin tempat tinggal:</p>
+<figure class="eb-fig">
+  <img src="/img/ebook/vps-hosting.webp" alt="Tiga jenis hosting: shared hosting seperti kos-kosan, VPS seperti kontrakan, dedicated server seperti rumah sendiri" width="1200" height="472" loading="lazy">
+  <figcaption>Gambar 1 · Shared hosting itu kos-kosan, VPS itu kontrakan, dedicated itu rumah sendiri.</figcaption>
+</figure>
+<p>Di kos, ada ibu kos yang ngurus pompa air. Di kontrakan, kamu bebas cat dinding warna apa aja, tapi <strong>genteng bocor sekarang urusanmu sendiri</strong>. Kunci hilang, atap bocor, maling masuk, semuanya kamu yang urus.</p>
+<p>Makanya Bab 1 justru dibuka dengan bagian yang jarang ditulis orang yang jualan VPS: kapan kamu <strong>belum</strong> butuh VPS. Ada empat tanda kamu sebaiknya tetap di hosting biasa, dan salah satunya bikin banyak orang batal pindah setelah sadar masalahnya ternyata bukan di hostingnya, tapi di...</p>
+<h2>Pengaman yang nyala, tapi buta</h2>
+<p>Bagian 4 adalah bagian terbesar di ebook ini, karena server yang online tanpa pengamanan cuma soal waktu sampai dibobol. Salah satu pengamannya Fail2ban, satpam yang mengusir tukang tebak password SSH.</p>
+<p>Pasangnya gampang. Statusnya <code>active</code>. Kelihatannya beres. Saya juga mengira begitu, sampai saya sengaja login pakai user ngawur tiga kali, lalu ngecek lagi:</p>
+<figure class="eb-fig">
+  <img src="/img/ebook/vps-fail2ban.webp" alt="Terminal: catatan SSH mencatat 3 login gagal, tapi Fail2ban mencatat 0" width="1200" height="400" loading="lazy">
+  <figcaption>Gambar 82 · Catatan SSH bilang 3 login gagal. Fail2ban bilang 0.</figcaption>
+</figure>
+<p>Fail2ban-nya menyala, tapi <strong>menatap pintu yang salah</strong>. Di Ubuntu 24.04 ada satu nama layanan yang berubah, dan pengaturan bawaan Fail2ban belum ikut berubah. Kebanyakan tutorial di internet nggak pernah ngetes sampai sini, jadi banyak server yang merasa dijaga padahal satpamnya merem.</p>
+<p>Perbaikannya cuma satu baris di <code>jail.local</code>. Barisnya, dan cara membuktikan Fail2ban benar-benar memblokir IP penyerang, ada di Bab 11. Ini juga yang jadi prinsip seluruh ebook: pengaman harus <strong>diuji</strong>, bukan cuma...</p>
+<h2>&quot;Website sekolah kecil nggak bakal diincar&quot;</h2>
+<p>Itu kalimat paling berbahaya yang sering saya dengar. Ini angka asli dari website demo ebook ini, yang nggak pernah dipromosikan ke siapa pun, dalam 30 hari:</p>
+<figure class="eb-fig">
+  <img src="/img/ebook/vps-angka.webp" alt="Tabel: 6.400 permintaan mencari file rahasia, 2.640 percobaan login, 300 ke xmlrpc.php dalam 30 hari" width="1200" height="450" loading="lazy">
+  <figcaption>Bab 13 · Kira-kira 1 dari 5 "pengunjung" ternyata bot yang nyari password database.</figcaption>
+</figure>
+<p>Bot-bot ini nemuin website kamu bukan lewat Google, tapi lewat daftar sertifikat SSL yang baru terbit. Begitu online, website langsung diketuk.</p>
+<p>Kabar baiknya, semua penangkalnya di Bab 13 bisa dikerjakan pakai <strong>paket gratis Cloudflare</strong>, tanpa ngetik satu perintah pun di server. Yang bikin repot cuma satu: Cloudflare baru merombak dashboard-nya, jadi menu yang disebut tutorial lama udah nggak ada. Di ebook ada peta menu lama ke menu baru, plus aturan yang...</p>
+<h2>Punya backup belum tentu bisa pulih</h2>
+<p>Banyak orang baru sadar backup-nya rusak justru di hari mereka butuh. Makanya Bab 16 nggak berhenti di &quot;backup sudah jalan&quot;. Ada satu langkah yang membedakan <em>punya backup</em> dengan <em>bisa pulih</em>: pulihkan cadangan ke tempat terpisah, lalu bandingkan dengan aslinya.</p>
+<figure class="eb-fig">
+  <img src="/img/ebook/vps-pulih.webp" alt="Terminal: database hasil pulih berisi 26 tulisan dan 1 pengguna sama dengan aslinya, folder wp-content SAMA PERSIS" width="1200" height="426" loading="lazy">
+  <figcaption>Gambar 168–169 · Isi database dan file hasil pulih sama persis dengan aslinya.</figcaption>
+</figure>
+<p>Website asli sama sekali nggak disentuh selama uji ini. Dan password database juga nggak perlu diketik atau ditampilkan di layar, karena ada satu trik kecil buat ngambil nama database langsung dari...</p>
+<h2>Keesokan paginya, semua jalan sendiri</h2>
+<p>Ini ujian sebenarnya. Saya biarin server nyala semalaman tanpa nyentuh apa pun, lalu paginya buka log:</p>
+<figure class="eb-fig">
+  <img src="/img/ebook/vps-pagi.webp" alt="Terminal: backup jam 02.30 terkirim ke Google Drive dan update keamanan terpasang otomatis jam 06.11" width="1200" height="520" loading="lazy">
+  <figcaption>Gambar 184–186 · Backup jam 02.30 terkirim ke Drive, update keamanan terpasang sendiri jam 06.11.</figcaption>
+</figure>
+<p>Backup jalan jam setengah tiga pagi dan nyalin dirinya ke Google Drive. Jam enam, laporan cek server dan cek website siap dibaca sambil ngopi. Di sela-selanya, server masang update keamanannya sendiri.</p>
+<p>Tapi laporan pagi itu juga nyelipin satu peringatan kecil yang gampang dilewatin: <code>server perlu restart</code>. Kapan aman restart server yang lagi dipakai, dan apa yang harus dicek setelahnya, dibahas di Bab 17 dan...</p>
+
+      </article>
+
+      <div class="eb-cut" role="note">
+        <span class="eb-lock" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+        <p><b>Cuplikan berhenti di sini.</b> Cara benerin Fail2ban yang buta, aturan Cloudflare yang mengusir bot sebelum sampai ke server, skrip backup yang jalan sendiri dan nyalin ke Google Drive, sampai pindahan WordPress dari cPanel tanpa website mati, semuanya ada di ebook. Tiap bab ditutup checklist siap cetak dan bagian &quot;Kalau Mentok&quot; buat error yang paling sering muncul.</p>
+      </div>
+
+      <section class="eb-toc" aria-labelledby="toc-h">
+        <h2 id="toc-h">Isi lengkapnya</h2>
+        <ol>
+          <li class="open">
+            <span class="mono">BAB 1</span>
+            <b>VPS Itu Apa, dan Kapan Kamu Belum Butuh</b>
+            <span class="ket">Bagian 1 · Sebelum beli server</span>
+            <span class="st mono">Ada cuplikan</span>
+          </li>
+          <li class="locked">
+            <span class="mono">BAB 2</span>
+            <b>Memilih dan Membeli VPS</b>
+            <span class="ket">Paket, lokasi, biaya sebenarnya</span>
+            <span class="st mono">Di ebook</span>
+          </li>
+          <li class="locked">
+            <span class="mono">BAB 3</span>
+            <b>Linux Secukupnya</b>
+            <span class="ket">Perintah yang benar-benar kepakai</span>
+            <span class="st mono">Di ebook</span>
+          </li>
+          <li class="locked">
+            <span class="mono">BAB 4</span>
+            <b>Masuk ke Server</b>
+            <span class="ket">Bagian 2 · Server pertama online</span>
+            <span class="st mono">Di ebook</span>
+          </li>
+          <li class="locked">
+            <span class="mono">BAB 5</span>
+            <b>Sepuluh Menit Pertama di Server Baru</b>
+            <span class="ket">User baru, update, zona waktu</span>
+            <span class="st mono">Di ebook</span>
+          </li>
+          <li class="locked">
+            <span class="mono">BAB 6</span>
+            <b>Domain dan DNS lewat Cloudflare</b>
+            <span class="ket">Arahkan domain ke server</span>
+            <span class="st mono">Di ebook</span>
+          </li>
+          <li class="locked">
+            <span class="mono">BAB 7</span>
+            <b>Nginx, Pelayan Website Kamu</b>
+            <span class="ket">Server block pertama</span>
+            <span class="st mono">Di ebook</span>
+          </li>
+          <li class="locked">
+            <span class="mono">BAB 8</span>
+            <b>PHP dan MariaDB, Dapur dan Gudangnya</b>
+            <span class="ket">PHP-FPM &amp; database</span>
+            <span class="st mono">Di ebook</span>
+          </li>
+          <li class="locked">
+            <span class="mono">BAB 9</span>
+            <b>HTTPS yang Aman Sampai ke Server</b>
+            <span class="ket">Sertifikat &amp; mode Full (strict)</span>
+            <span class="st mono">Di ebook</span>
+          </li>
+          <li class="locked">
+            <span class="mono">BAB 10</span>
+            <b>Pindahan: WordPress dari cPanel ke VPS</b>
+            <span class="ket">Bagian 3 · Pindahan</span>
+            <span class="st mono">Di ebook</span>
+          </li>
+          <li class="open">
+            <span class="mono">BAB 11</span>
+            <b>Mengunci Pintu Server</b>
+            <span class="ket">Bagian 4 · UFW, Fail2ban, SSH key</span>
+            <span class="st mono">Ada cuplikan</span>
+          </li>
+          <li class="locked">
+            <span class="mono">BAB 12</span>
+            <b>Nginx sebagai Satpam</b>
+            <span class="ket">Blokir file rahasia &amp; batasi login</span>
+            <span class="st mono">Di ebook</span>
+          </li>
+          <li class="open">
+            <span class="mono">BAB 13</span>
+            <b>Cloudflare sebagai Tameng Depan</b>
+            <span class="ket">Aturan keamanan paket gratis</span>
+            <span class="st mono">Ada cuplikan</span>
+          </li>
+          <li class="locked">
+            <span class="mono">BAB 14</span>
+            <b>Mengeraskan WordPress</b>
+            <span class="ket">Izin file, wp-config, plugin</span>
+            <span class="st mono">Di ebook</span>
+          </li>
+          <li class="locked">
+            <span class="mono">BAB 15</span>
+            <b>Memburu Webshell dan Judol</b>
+            <span class="ket">Pindai &amp; bersihkan</span>
+            <span class="st mono">Di ebook</span>
+          </li>
+          <li class="open">
+            <span class="mono">BAB 16</span>
+            <b>Backup yang Benar-Benar Bisa Dipulihkan</b>
+            <span class="ket">Bagian 5 · Otomatis + Google Drive</span>
+            <span class="st mono">Ada cuplikan</span>
+          </li>
+          <li class="open">
+            <span class="mono">BAB 17</span>
+            <b>Update dan Pemantauan Harian</b>
+            <span class="ket">Laporan pagi yang jalan sendiri</span>
+            <span class="st mono">Ada cuplikan</span>
+          </li>
+          <li class="locked">
+            <span class="mono">BAB 18</span>
+            <b>Perawatan Rutin dan Rencana Darurat</b>
+            <span class="ket">Jadwal mingguan &amp; kalau server tumbang</span>
+            <span class="st mono">Di ebook</span>
+          </li>
+        </ol>
+      </section>
+
+      <aside class="eb-help">
+        <span class="eyebrow">Jasa pembersihan</span>
+        <h2>Nggak sempat ngoprek server? Biar saya yang pindahin.</h2>
+        <p>Belajar VPS dengan benar butuh satu sampai dua akhir pekan. Kalau website sekolah, desa, kampus, atau usaha kamu perlu pindah sekarang, saya siap bantu mengerjakannya sampai online dan aman, sesuai langkah-langkah di ebook ini.</p>
+        <ul><li>Bantu pilih paket VPS yang pas sama kebutuhan dan budget</li><li>Siapkan server: Nginx, PHP, MariaDB, dan HTTPS</li><li>Pindahin WordPress dari cPanel tanpa website mati lama</li><li>Pasang pengaman berlapis: firewall, Fail2ban, dan Cloudflare</li><li>Atur backup otomatis ke Google Drive plus laporan harian</li>
+        </ul>
+        <a class="btn" href="https://wa.me/6282124038826?text=Halo%20Irfan%2C%20saya%20baca%20cuplikan%20ebook%20%22Pindah%20ke%20VPS%20Tanpa%20Panik%22%20dan%20mau%20minta%20tolong%20dikerjakan." target="_blank" rel="noopener">Chat WhatsApp <span class="arr" aria-hidden="true">→</span></a>
+      </aside>
+
+      <aside class="eb-buy">
+        <div>
+          <span class="eyebrow">Panduan lengkap</span>
+          <p>Mau pindah ke VPS tanpa deg-degan? Dapatkan panduan lengkapnya: 18 bab, 196 screenshot asli dari Ubuntu 24.04, perintah siap salin, dan checklist di tiap bab.</p>
+        </div>
+        <a class="btn primary" href="https://lynk.id/ayyubiid/0xj0vyk6rg0e/checkout" target="_blank" rel="noopener">Beli ebook di Lynk <span class="arr" aria-hidden="true">↗</span></a>
+      </aside>
+    </div>
+  </div>
+</main>
+
+
+<footer>
+  <div class="wrap mono"><span>© 2026 Irfan Fauzi</span><span>Dibangun dengan bantuan doa istri di rumah</span></div>
+</footer>
+<script src="/assets/js/main.js?v=mwuj026q" defer></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+# Halaman admin selalu memuat versi terbaru (tanpa cache browser).
+<IfModule mod_expires.c>
+  ExpiresActive Off
+</IfModule>
+<IfModule mod_headers.c>
+  Header set Cache-Control "no-cache"
+</IfModule>
