@@ -5,7 +5,7 @@ deskripsi: "Panduan pindahan website dari cPanel ke VPS sampai online, pakai HTT
 date: 2026-11-24
 sampul: "ebook/vps-sampul.webp"
 gambar: "ebook/vps-promo.webp"
-lynk: "https://lynk.id/ayyubiid"
+lynk: "https://lynk.id/ayyubiid/0xj0vyk6rg0e/checkout"
 statistik:
   - { angka: "18 bab", ket: "dari beli server sampai rencana darurat" }
   - { angka: "202 halaman", ket: "dibagi jadi 5 bagian" }

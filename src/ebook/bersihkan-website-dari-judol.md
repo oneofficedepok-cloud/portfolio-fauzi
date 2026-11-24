@@ -5,7 +5,7 @@ deskripsi: "Panduan langkah demi langkah untuk admin website sekolah, desa, kamp
 date: 2026-11-06
 sampul: "ebook/judol-sampul.webp"
 gambar: "ebook/judol-sampul.webp"
-lynk: "https://lynk.id/ayyubiid/6dkvyknw7x9j"
+lynk: "https://lynk.id/ayyubiid/6dkvyknw7x9j/checkout"
 statistik:
   - { angka: "10 bab", ket: "dari diagnosa sampai pengamanan" }
   - { angka: "42 halaman", ket: "lengkap dengan gambar" }
