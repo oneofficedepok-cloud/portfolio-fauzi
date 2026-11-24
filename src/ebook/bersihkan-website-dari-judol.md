@@ -38,7 +38,7 @@ bantuan:
 
 ## Website kamu kelihatan normal. Google bilang lain.
 
-Bayangin kamu ketik nama website sekolah di Google, eh yang nongol malah *"Slot Gacor Maxwin Hari Ini"*. Pas dibuka langsung, websitenya normal-normal aja. Admin bilang aman, operator bilang aman. Terus yang salah siapa?
+Bayangin kamu ketik nama website sekolah di Google, eh yang nongol malah iklan situs judi online. Pas dibuka langsung, websitenya normal-normal aja. Admin bilang aman, operator bilang aman. Terus yang salah siapa?
 
 Biang keroknya trik yang namanya **cloaking**, alias nyamar. Website yang udah disusupi nampilin isi yang beda tergantung siapa yang dateng:
 
@@ -51,12 +51,12 @@ Makanya banyak yang mikir masalahnya beres setelah hapus satu halaman aneh. Semi
 
 ## Cek 1 menit: website kamu kena nggak?
 
-Cara paling gampang: buka Google, ketik `site:domainkamu.sch.id slot`. Kalau muncul hasil berisi kata-kata judi, ya udah, hampir pasti website kamu disusupin.
+Cara paling gampang: buka Google, ketik `site:domainkamu.sch.id` diikuti kata judi yang lagi ngetren. Kalau muncul hasil berisi kata-kata judi, ya udah, hampir pasti website kamu disusupin.
 
 Tapi hasil bersih belum tentu aman, karena Google nggak selalu nampilin semua halaman. Di ebook ada cara **nyamar jadi Googlebot** pakai satu perintah di Terminal cPanel. Hasilnya bisa bikin kaget:
 
 <figure class="eb-fig">
-  <img src="/img/ebook/judol-googlebot.webp" alt="Hasil Terminal: versi Googlebot berisi kata gacor, maxwin, slot, versi pengunjung biasa bersih" width="1200" height="428" loading="lazy">
+  <img src="/img/ebook/judol-googlebot.webp" alt="Hasil Terminal: versi Googlebot berisi kata-kata judi, versi pengunjung biasa bersih" width="1200" height="428" loading="lazy">
   <figcaption>Gambar 2.2 · Versi Googlebot ada kata judi, versi pengunjung biasa bersih. Ini tanda cloaking.</figcaption>
 </figure>
 
@@ -67,7 +67,7 @@ Dan hati-hati, hasil tes ini juga bisa menipu. Penyerang yang lebih canggih ngec
 File jahat biasanya dibikin barengan sama awal serangan. Coba urutin File Manager pakai kolom **Last Modified**, terus perhatiin polanya:
 
 <figure class="eb-fig">
-  <img src="/img/ebook/judol-filemanager.webp" alt="File Manager cPanel diurutkan Last Modified, baris merah adalah file mencurigakan seperti wp-confiq.php dan sitemap-slot.xml" width="1200" height="561" loading="lazy">
+  <img src="/img/ebook/judol-filemanager.webp" alt="File Manager cPanel diurutkan Last Modified, baris merah adalah file mencurigakan seperti wp-confiq.php dan sitemap palsu" width="1200" height="561" loading="lazy">
   <figcaption>Gambar 4.2 · Baris merah = file yang patut dicurigai. Ilustrasi.</figcaption>
 </figure>
 
